@@ -3,228 +3,165 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Trivora • E-commerce — Tecnologia, Mobilidade & Estilo</title>
-  <meta name="description" content="Trivora — E-commerce minimalista preto & branco. Carros, Motorizadas, Telefones, Eletrônicos, Moda e Serviços." />
-  <meta name="author" content="Trivora" />
+  <title>Trivora — E-commerce completo</title>
+  <meta name="description" content="Trivora — loja minimalista preto & branco com login, aprovação por email, carrinho, checkout e categorias." />
   <style>
-    /* ====================================================================
-       TRIVORA CSS (completo - preto & branco minimalista)
-       ==================================================================== */
+    /* ==========================
+       TRIVORA - Estilo completo
+       Preto & Branco minimalista
+       ========================== */
     :root{
-      --bg: #ffffff;
-      --fg: #0b0b0b;
-      --muted: #6d6d6d;
-      --card: #ffffff;
-      --accent: #000000;
-      --soft: #f6f6f6;
-      --radius: 14px;
-      --glass: rgba(255,255,255,0.04);
-      --max-width: 1200px;
-      --banner-height: 340px;
-      --transition: 220ms ease;
+      --bg:#fff; --fg:#0b0b0b; --muted:#6e6e6e; --card:#fff;
+      --accent:#000; --soft:#f7f7f7; --radius:14px; --maxw:1200px;
+      --glass: rgba(0,0,0,0.04);
+      --transition: 220ms cubic-bezier(.2,.9,.3,1);
     }
-
-    /* Reset / base */
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color:var(--fg);
-      background:var(--bg);
-      margin:0;padding:0;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-    }
-    a{text-decoration:none;color:inherit}
-    img{display:block;max-width:100%}
-    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
 
-    /* ============ Header ============ */
-    .header{
-      position:sticky;top:0;z-index:1200;
-      background:linear-gradient(180deg,#000 0%, rgba(0,0,0,0.94) 70%);
-      color:#fff;border-bottom:1px solid rgba(255,255,255,0.04);
-      backdrop-filter: blur(6px);
-    }
-    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
-    .brand{font-weight:900;font-size:20px;letter-spacing:2px}
-    .brand small{display:block;font-weight:400;font-size:10px;opacity:.8}
-    .nav{display:flex;gap:8px;align-items:center}
-    .nav a{padding:8px 12px;border-radius:10px;opacity:.96;transition:all var(--transition)}
-    .nav a:hover,.nav a.active{background:rgba(255,255,255,0.08)}
-    .search{display:flex;align-items:center;background:#0f0f0f;padding:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-    .search input{border:0;background:transparent;color:#fff;padding:8px 12px;outline:none;min-width:140px}
-    .search button{border:0;background:transparent;color:#fff;padding:8px 12px;cursor:pointer}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+    /* header */
+    header{position:sticky;top:0;z-index:1200;background:#000;color:#fff;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(4px)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+    .brand{font-weight:900;letter-spacing:2px;font-size:1.5rem}
+    .nav{display:flex;gap:10px;align-items:center}
+    .nav a{padding:8px 10px;border-radius:8px}
+    .nav a.active,.nav a:hover{background:rgba(255,255,255,0.06)}
+    .search{display:flex;align-items:center;background:#101010;padding:6px;border-radius:10px}
+    .search input{border:0;background:transparent;color:#fff;outline:none;padding:8px 10px;min-width:140px}
+    .search button{border:0;background:transparent;color:#fff;padding:8px 10px;cursor:pointer}
     .minicart{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:12px;background:#fff;color:#000;font-weight:700}
-    .minicart .count{background:#000;color:#fff;padding:2px 8px;border-radius:999px;font-size:12px}
 
-    /* ============ Top Banner / Slider ============ */
-    .banner{margin:18px 0;border-radius:var(--radius);overflow:hidden;position:relative;background:#111;color:#fff}
-    .banner .slides{position:relative;min-height:var(--banner-height)}
-    .banner .slide{position:absolute;inset:0;display:none;padding:28px;align-items:center;justify-content:center}
-    .banner .slide.active{display:flex;animation:fadeUp .6s ease}
-    .banner .slide .box{max-width:900px;text-align:center}
-    .banner h1{font-size:34px;margin:0 0 6px}
-    .banner p{margin:0;color:#d1d1d1}
-    .banner .cta{display:inline-block;margin-top:14px;background:#fff;color:#000;padding:12px 18px;border-radius:10px;font-weight:700}
-    .slider-dots{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px}
+    /* banner / slider */
+    .banner{margin:18px 0;border-radius:var(--radius);overflow:hidden;background:#111;color:#fff}
+    .slides{min-height:320px;position:relative}
+    .slide{position:absolute;inset:0;display:none;padding:32px;align-items:center;justify-content:center}
+    .slide.active{display:flex;animation:fadeUp .5s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .slide h1{font-size:2.1rem;margin:0 0 8px}
+    .slide p{color:#d1d1d1;margin:0}
+
+    .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px}
     .dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.2);cursor:pointer}
     .dot.active{background:#fff}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ============ Category showcase (home) ============ */
-    .categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:28px}
-    .category-card{background:var(--card);border:1px solid #eee;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform var(--transition),box-shadow var(--transition);box-shadow:0 6px 24px rgba(0,0,0,0.04)}
-    .category-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.08)}
-    .category-media{height:160px;background:var(--soft);overflow:hidden}
-    .category-media img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
-    .category-card:hover .category-media img{transform:scale(1.05)}
-    .category-body{padding:12px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .category-body h3{margin:0;font-size:1.05rem}
-    .category-body p{margin:0;color:var(--muted);font-size:.92rem}
-    .category-body .links{margin-top:8px;display:flex;gap:8px;align-items:center}
-    .ghost{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid #eee;color:var(--muted);font-weight:600}
+    /* categories showcase */
+    .categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:24px 0}
+    .cat{border-radius:12px;border:1px solid #eee;overflow:hidden;background:var(--card);display:flex;flex-direction:column;transition:transform var(--transition),box-shadow var(--transition)}
+    .cat:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.06)}
+    .cat .media{height:160px;overflow:hidden}
+    .cat .media img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+    .cat:hover .media img{transform:scale(1.05)}
+    .cat .body{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .cat .body h3{margin:0}
+    .cat .body .meta{color:var(--muted);font-size:.95rem}
+    .cat .body .group{margin-top:auto;display:flex;gap:8px}
 
-    /* ============ Cards (category pages, product grid) ============ */
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-    .card{background:var(--card);border:1px solid #eee;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform var(--transition),box-shadow var(--transition)}
-    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.06)}
-    .card .thumb{height:180px;background:var(--soft);overflow:hidden}
-    .card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
-    .card:hover .thumb img{transform:scale(1.06)}
-    .card .meta{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .card h4{margin:0;font-size:1rem}
-    .card p.desc{margin:0;color:var(--muted);font-size:.93rem}
-    .card .price{font-weight:800;color:var(--fg)}
-    .card .actions{padding:12px;display:flex;gap:8px}
-    .btn{display:inline-block;padding:10px 12px;border-radius:10px;background:#000;color:#fff;border:0;cursor:pointer;font-weight:700}
+    /* product grid & cards */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{border-radius:12px;border:1px solid #eee;background:#fff;overflow:hidden;display:flex;flex-direction:column;transition:transform var(--transition);position:relative}
+    .card:hover{transform:translateY(-6px)}
+    .thumb{height:180px;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+    .card:hover .thumb img{transform:scale(1.05)}
+    .info{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .price{font-weight:800}
+    .actions{display:flex;gap:8px;padding:12px}
+    .btn{flex:1;padding:10px;border-radius:10px;border:0;background:#000;color:#fff;cursor:pointer;font-weight:700}
+    .btn.alt{background:#f0f0f0;color:#000;border:1px solid #ddd}
 
-    /* ============ Cart table / checkout / account ============ */
+    /* cart table / forms */
     .table{width:100%;border-collapse:collapse}
     .table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left}
     .form{display:grid;gap:12px}
-    .form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .form input,.form select,.form textarea{padding:10px;border-radius:10px;border:1px solid #ddd}
+    .form input,.form select,.form textarea{padding:10px;border-radius:8px;border:1px solid #ddd}
     .small{font-size:.9rem;color:var(--muted)}
 
-    /* ============ Footer & sticky ============ */
-    .footer{margin-top:40px;background:#000;color:#fff;padding:18px 0;text-align:center}
-    .sticky-checkout{position:fixed;right:16px;bottom:16px;z-index:1400;background:#fff;border-radius:12px;padding:10px 14px;border:1px solid #eee;box-shadow:0 12px 40px rgba(0,0,0,0.08);display:flex;align-items:center;gap:12px}
+    /* footer bottom bar (common) */
+    .footer{margin-top:30px;background:#000;color:#fff;padding:18px 0;text-align:center}
+    .footerbar{position:fixed;left:0;right:0;bottom:0;background:#0a0a0a;color:#fff;padding:8px 12px;border-top:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;gap:18px;z-index:1400}
+    .footerbar a{color:#fff;padding:8px;border-radius:8px}
 
-    /* ============ Modal welcome ============ */
+    /* modals */
     .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:2000}
-    .modal{background:#fff;padding:26px;border-radius:16px;max-width:520px;text-align:center;animation:popIn .6s ease}
-    @keyframes popIn{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-    .modal h2{margin:0 0 8px}
-    .modal p{margin:0;color:var(--muted)}
-    .modal .actions{margin-top:14px;display:flex;justify-content:center;gap:12px}
+    .modal{background:#fff;border-radius:12px;max-width:720px;width:100%;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,0.12)}
+    .modal h3{margin:0 0 12px}
 
-    /* ============ Utility ============ */
-    .hidden{display:none}
-    .center{text-align:center}
-    .muted{color:var(--muted)}
-    .kicker{display:flex;gap:8px;flex-wrap:wrap}
-    .pill{padding:8px 12px;border-radius:999px;border:1px solid #eee;background:#fff;cursor:pointer}
-    /* responsive small tweaks */
+    /* notifications small */
+    .toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.12);z-index:2600}
+
+    /* responsive */
     @media (max-width:900px){
-      .banner h1{font-size:20px}
-      .brand{font-size:16px}
       .search input{min-width:80px}
+      .header-inner{padding:10px}
+      .slide h1{font-size:1.4rem}
+      .footerbar{padding:10px;gap:10px}
     }
   </style>
 </head>
 <body>
-  <!-- ================= Header ================= -->
-  <header class="header" role="banner">
+  <!-- Header -->
+  <header>
     <div class="container header-inner">
-      <div>
-        <a class="brand" href="#home" data-link>TRIVORA<small>marketplace</small></a>
+      <div style="display:flex;align-items:center;gap:16px">
+        <a class="brand" href="#home" data-link>TRIVORA</a>
+        <nav class="nav" aria-label="menu superior">
+          <a href="#home" class="nav-link" data-link>Home</a>
+          <a href="#produtos" class="nav-link" data-link>Produtos</a>
+        </nav>
       </div>
 
       <div style="display:flex;align-items:center;gap:12px">
-        <nav class="nav" role="navigation" aria-label="Main menu">
-          <!-- Top menu intentionally minimal as requested -->
-          <a href="#home" class="nav-link" data-link>Home</a>
-          <a href="#produtos" class="nav-link" data-link>Produtos</a>
-          <a href="#conta" class="nav-link" data-link>Minha Conta</a>
-        </nav>
-
-        <div class="search" role="search" aria-label="Buscar">
-          <input id="search-input" type="search" placeholder="Buscar produtos..." aria-label="Buscar produtos">
-          <button id="search-btn" aria-label="Buscar">🔍</button>
+        <div class="search" role="search">
+          <input id="search" placeholder="Buscar produtos..." aria-label="Buscar produtos">
+          <button id="btn-search">🔍</button>
         </div>
-
-        <a class="minicart" href="#carrinho" data-link aria-label="Carrinho">
-          🛒 <span class="count" id="cart-count">0</span>
-        </a>
+        <a class="minicart" href="#carrinho" data-link aria-label="Carrinho">🛒 <span id="cart-count">0</span></a>
+        <button id="btn-open-login" class="btn alt" style="padding:8px 10px">Entrar / Registar</button>
       </div>
     </div>
   </header>
 
-  <!-- ================= Main (single page app) ================= -->
+  <!-- Main content -->
   <main class="container" id="app">
     <!-- Banner / Slider -->
-    <section id="home" class="section" aria-labelledby="home-title">
-      <div class="banner" aria-hidden="false">
-        <div class="slides" role="region" aria-label="Promoções">
-          <div class="slide active" data-slide="0" role="article">
-            <div class="box">
+    <section id="home" class="section">
+      <div class="banner" role="region" aria-label="promoções">
+        <div class="slides">
+          <div class="slide active" data-i="0">
+            <div style="text-align:center">
               <h1>Trivora — Mobilidade & Tecnologia</h1>
-              <p class="muted">Seleção premium de Carros e Motorizadas, além de tecnologia, moda e serviços.</p>
-              <div style="margin-top:12px">
-                <a class="cta" href="#carros" data-link>Ver Carros</a>
-              </div>
+              <p class="small">Destaques em Carros e Motorizadas. Minimalista, elegante, direto.</p>
             </div>
           </div>
-          <div class="slide" data-slide="1">
-            <div class="box">
-              <h1>Destaques da Semana</h1>
-              <p class="muted">OFERTAS selecionadas em eletrônicos e moda. Confira!</p>
-              <div style="margin-top:12px">
-                <a class="cta" href="#produtos" data-link>Ver Ofertas</a>
-              </div>
-            </div>
-          </div>
-          <div class="slide" data-slide="2">
-            <div class="box">
-              <h1>Espaço de Marketing</h1>
-              <p class="muted">Promova sua marca com vitrines e campanhas personalizadas.</p>
-              <div style="margin-top:12px">
-                <a class="cta" href="#marketing" data-link>Saiba mais</a>
-              </div>
+          <div class="slide" data-i="1">
+            <div style="text-align:center">
+              <h1>Promoções semanais</h1>
+              <p class="small">Ofertas selecionadas por tempo limitado.</p>
             </div>
           </div>
         </div>
-        <div class="slider-dots" id="slider-dots" aria-hidden="true"></div>
+        <div class="dots" id="dots"></div>
       </div>
 
-      <!-- Welcome visual / branding message -->
-      <div style="margin:18px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-        <div>
-          <h2 style="margin:0">Categorias — Vitrine Trivora</h2>
-          <p class="muted" style="margin:6px 0 0">Clique em uma categoria para ver a vitrine completa. Na homepage mostramos 1 produto representativo por categoria.</p>
-        </div>
-        <div class="kicker" style="margin-left:auto">
-          <span class="pill">Preto & Branco</span>
-          <span class="pill">Minimal</span>
-          <span class="pill">Rápido</span>
-        </div>
-      </div>
-
-      <!-- Categories showcase (each card shows 1 representative product & link "Ver todos") -->
-      <section class="categories" aria-label="Categorias principais">
-        <!-- Cards injected by JS -->
+      <!-- categories showcase -->
+      <section aria-label="categorias" style="margin-top:20px">
+        <h2 style="margin:0 0 8px">Categorias</h2>
+        <p class="small" style="margin:0 0 12px">Clique numa categoria para ver todos os produtos dela. Cada bloco mostra um produto representativo.</p>
+        <div class="categories" id="categories"></div>
       </section>
     </section>
 
-    <!-- Products page (all products) -->
-    <section id="produtos" class="section hidden" aria-labelledby="produtos-title">
+    <!-- Produtos (all) -->
+    <section id="produtos" class="section hidden">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <h1 id="produtos-title">Todos os Produtos</h1>
+        <h1>Produtos</h1>
         <div>
           <label class="small">Filtrar: </label>
-          <select id="filter-cat">
+          <select id="filter">
             <option value="all">Todas</option>
             <option value="Carros">Carros</option>
             <option value="Motorizadas">Motorizadas</option>
@@ -232,799 +169,752 @@
             <option value="Eletronicos">Eletrônicos</option>
             <option value="Masculino">Masculino</option>
             <option value="Feminino">Feminino</option>
+            <option value="Infantil">Infantil</option>
             <option value="Beleza">Beleza</option>
             <option value="Servicos">Serviços</option>
             <option value="Marketing">Marketing</option>
           </select>
         </div>
       </div>
-      <div id="all-products" class="cards" aria-live="polite"></div>
+      <div id="all-products" class="cards"></div>
     </section>
 
-    <!-- Separate category pages (start hidden) -->
-    <section id="carros" class="section hidden"><h1>Carros</h1><div id="cat-carros" class="cards"></div></section>
-    <section id="motos" class="section hidden"><h1>Motorizadas</h1><div id="cat-motos" class="cards"></div></section>
-    <section id="telefones" class="section hidden"><h1>Telefones</h1><div id="cat-telefones" class="cards"></div></section>
-    <section id="eletronicos" class="section hidden"><h1>Eletrônicos</h1><div id="cat-eletronicos" class="cards"></div></section>
-    <section id="masculino" class="section hidden"><h1>Moda Masculina</h1><div id="cat-masculino" class="cards"></div></section>
-    <section id="feminino" class="section hidden"><h1>Moda Feminina & Beleza</h1><div id="cat-feminino" class="cards"></div></section>
-    <section id="servicos" class="section hidden"><h1>Serviços Online</h1><div id="cat-servicos" class="cards"></div></section>
-    <section id="marketing" class="section hidden"><h1>Espaço de Marketing</h1><div id="cat-marketing" class="cards"></div></section>
+    <!-- Category pages (hidden by default) -->
+    <section id="carros" class="section hidden"><h1>Carros</h1><div class="cards" id="cat-carros"></div></section>
+    <section id="motos" class="section hidden"><h1>Motorizadas</h1><div class="cards" id="cat-motos"></div></section>
+    <section id="telefones" class="section hidden"><h1>Telefones</h1><div class="cards" id="cat-telefones"></div></section>
+    <section id="eletronicos" class="section hidden"><h1>Eletrônicos</h1><div class="cards" id="cat-eletronicos"></div></section>
+    <section id="masculino" class="section hidden"><h1>Moda Masculina</h1><div class="cards" id="cat-masculino"></div></section>
+    <section id="feminino" class="section hidden"><h1>Moda Feminina & Beleza</h1><div class="cards" id="cat-feminino"></div></section>
+    <section id="infantil" class="section hidden"><h1>Moda Infantil</h1><div class="cards" id="cat-infantil"></div></section>
+    <section id="servicos" class="section hidden"><h1>Serviços Online</h1><div class="cards" id="cat-servicos"></div></section>
+    <section id="marketing" class="section hidden"><h1>Espaço de Marketing</h1><div class="cards" id="cat-marketing"></div></section>
 
     <!-- Cart -->
-    <section id="carrinho" class="section hidden" aria-labelledby="carrinho-title">
-      <h1 id="carrinho-title">Seu Carrinho</h1>
+    <section id="carrinho" class="section hidden">
+      <h1>Seu Carrinho</h1>
       <table class="table" id="cart-table">
         <thead><tr><th>Produto</th><th>Preço</th><th>Qtd</th><th>Subtotal</th><th></th></tr></thead>
         <tbody></tbody>
-        <tfoot><tr><td colspan="3">Total</td><td id="cart-total-kz">Kz 0</td><td></td></tr></tfoot>
       </table>
-      <div style="margin-top:12px;display:flex;gap:12px;">
-        <button class="btn" id="btn-checkout">Finalizar Compra</button>
-        <button class="btn" id="btn-clear-cart" style="background:#eee;color:#000">Limpar Carrinho</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div>Total: <strong id="cart-total">Kz 0</strong></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn" id="btn-go-checkout">Finalizar compra</button>
+          <button class="btn alt" id="btn-clear-cart">Limpar</button>
+        </div>
       </div>
     </section>
 
     <!-- Checkout -->
     <section id="checkout" class="section hidden">
-      <h1>Finalizar Compra</h1>
-      <div style="display:grid;grid-template-columns:1fr 360px;gap:18px">
-        <form id="checkout-form" class="form" style="max-width:720px">
-          <div class="row">
-            <input name="name" placeholder="Nome completo" required />
-            <input name="email" type="email" placeholder="Email" required />
-          </div>
+      <h1>Checkout</h1>
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:18px">
+        <form id="checkout-form" class="form">
+          <input name="name" placeholder="Nome completo" required />
+          <input name="email" type="email" placeholder="Email" required />
           <input name="address" placeholder="Endereço completo" required />
-          <div class="row">
-            <input name="phone" placeholder="Telefone" required />
-            <select name="payment" required>
-              <option value="">Selecione método</option>
-              <option>Multicaixa</option>
-              <option>Unitel Money</option>
-              <option>PayPal</option>
-              <option>Stripe</option>
-            </select>
-          </div>
+          <input name="phone" placeholder="Telefone" required />
+          <select name="payment" required>
+            <option value="">Selecionar método</option>
+            <option>Multicaixa</option>
+            <option>Unitel Money</option>
+            <option>PayPal</option>
+            <option>Stripe</option>
+          </select>
           <textarea name="notes" placeholder="Observações (opcional)"></textarea>
-          <button class="btn" type="submit">Confirmar Pedido (simulado)</button>
+          <button class="btn" type="submit">Confirmar pedido (simulado)</button>
         </form>
 
         <aside style="border:1px solid #eee;border-radius:12px;padding:12px">
-          <h3>Resumo do pedido</h3>
+          <h3>Resumo</h3>
           <table class="table" id="summary-table"><thead><tr><th>Produto</th><th>Qtd</th><th>Total</th></tr></thead><tbody></tbody><tfoot><tr><td colspan="2">Total</td><td id="summary-total">Kz 0</td></tr></tfoot></table>
         </aside>
       </div>
     </section>
 
-    <!-- Account / Register / Login simplified -->
+    <!-- Account -->
     <section id="conta" class="section hidden">
       <h1>Minha Conta</h1>
       <div id="account-area"></div>
     </section>
+
   </main>
 
+  <!-- footer -->
   <footer class="footer">
-    © <span id="year"></span> Trivora — Minimal • Elegante • Rápido
+    © <span id="year"></span> Trivora — Mobilidade, Tecnologia & Estilo
   </footer>
 
-  <!-- Sticky checkout -->
-  <div class="sticky-checkout" aria-hidden="false">
-    <div>Total: <strong id="sticky-total">Kz 0</strong></div>
-    <a class="btn" href="#checkout" data-link>Checkout</a>
+  <!-- bottom footerbar (common) -->
+  <div class="footerbar" role="navigation" aria-label="barra inferior">
+    <a href="#home" data-link>Home</a>
+    <a href="#produtos" data-link>Produtos</a>
+    <a href="#carrinho" data-link>Carrinho</a>
+    <a href="#conta" data-link>Conta</a>
   </div>
 
-  <!-- Welcome modal (once) -->
-  <div id="welcome-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-label="Boas-vindas">
-    <div class="modal">
-      <h2>Bem-vindo à Trivora</h2>
-      <p class="muted">Bem-vindo à Trivora, onde tecnologia, mobilidade e estilo se encontram ✨</p>
-      <div class="actions">
-        <button id="welcome-start" class="btn">Começar a navegar</button>
-        <button id="welcome-skip" class="ghost">Fechar</button>
+  <!-- Login/Register Modal -->
+  <div id="modal-auth" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal" role="document">
+      <h3 id="auth-title">Entrar / Registrar</h3>
+      <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <h4>Entrar</h4>
+          <form id="form-login" class="form">
+            <input name="email" type="email" placeholder="Email" required />
+            <input name="password" type="password" placeholder="Senha" required />
+            <div style="display:flex;gap:8px">
+              <button class="btn" type="submit">Entrar</button>
+              <button class="btn alt" type="button" id="btn-close-auth">Fechar</button>
+            </div>
+          </form>
+        </div>
+        <div style="flex:1;min-width:260px;border-left:1px solid #eee;padding-left:12px">
+          <h4>Registrar</h4>
+          <form id="form-register" class="form">
+            <input name="name" placeholder="Nome completo" required />
+            <input name="email" type="email" placeholder="Email" required />
+            <input name="phone" placeholder="Telefone" />
+            <input name="password" type="password" placeholder="Senha" required />
+            <div style="display:flex;gap:8px">
+              <button class="btn" type="submit">Registar</button>
+            </div>
+            <p class="small muted" style="margin-top:6px">Após registo a conta fica em <strong>pendente</strong>. Um email será enviado à Trivora para aprovação manual.</p>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ===================================================================
-       JAVASCRIPT: lógica completa do e-commerce (carrinho, checkout,
-       login simples, produtos, rotas internas, banners, filtros, animações)
-       =================================================================== -->
+  <!-- Simple toast placeholder -->
+  <div id="toast-placeholder" style="position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:2800"></div>
+
+  <!-- ============================
+       JAVASCRIPT (completo)
+       - substitui as placeholders do Firebase e EmailJS por tuas chaves
+       - se não preencheres, o sistema usa fallback localStorage (para testes)
+       ============================ -->
   <script>
-    /* ===========================
-       Util helpers & storage
-       =========================== */
-    const $ = (sel, ctx = document) => ctx.querySelector(sel);
-    const $$ = (sel, ctx = document) => Array.from((ctx||document).querySelectorAll(sel));
-    const store = {
-      get(key, fallback = null) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch(e){ return fallback; } },
-      set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch(e){} },
-      remove(key) { try { localStorage.removeItem(key); } catch(e){} }
-    };
+  /**************************************************************************
+   *  CONFIGURAÇÕES IMPORTANTES
+   *
+   *  1) Para ter aprovação real por email e persistência remota, cria um
+   *     projeto no Firebase e substitui abaixo os valores de firebaseConfig.
+   *  2) Para enviar email automático ao registar, podes usar EmailJS (sem
+   *     servidor) — substitui SERVICE_ID, TEMPLATE_ID, USER_ID.
+   *
+   *  Se não preencheres, o sistema funciona localmente (localStorage) para
+   *  desenvolvimento e testes.
+   **************************************************************************/
 
-    /* ===========================
-       Unsplash helper for images
-       =========================== */
-    const U = q => `https://source.unsplash.com/900x900/?${encodeURIComponent(q)}`;
+  // --- FIREBASE: coloque suas credenciais aqui (opcional) ---
+  const FIREBASE_ENABLED = false; // trocar para true se configurar
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    // ... resto da config
+  };
 
-    /* ===========================
-       PRODUCTS dataset (expanded)
-       - up to 5+ items per category, many entries to be 'complete'
-       =========================== */
-    window.TRIVORA_PRODUCTS = [
-      /* Telephones */
-      {id:'tel-iphone-15', category:'Telefones', name:'iPhone 15 Pro', price:850000, img:U('iphone,phone,apple'), desc:'Câmera Pro e desempenho máximo.'},
-      {id:'tel-samsung-s24', category:'Telefones', name:'Samsung Galaxy S24', price:620000, img:U('samsung,phone,android'), desc:'Tela AMOLED e bateria potente.'},
-      {id:'tel-xiaomi-14', category:'Telefones', name:'Xiaomi 14', price:340000, img:U('xiaomi,phone,smartphone'), desc:'Ótimo custo-benefício.'},
-      {id:'tel-pixel-8', category:'Telefones', name:'Google Pixel 8', price:410000, img:U('google pixel,phone,camera'), desc:'Câmera com processamento inteligente.'},
-      {id:'tel-oneplus-12', category:'Telefones', name:'OnePlus 12', price:380000, img:U('oneplus,phone,technology'), desc:'Velocidade e carregamento ultrarrápido.'},
+  // --- EMAILJS: envie email para equipa nas registos (opcional) ---
+  const EMAILJS_ENABLED = false; // mudar para true se configurar
+  const EMAILJS_SERVICE = "YOUR_EMAILJS_SERVICE";
+  const EMAILJS_TEMPLATE = "YOUR_EMAILJS_TEMPLATE";
+  const EMAILJS_USER = "YOUR_EMAILJS_USER";
 
-      /* Eletronicos */
-      {id:'ele-tv-55', category:'Eletronicos', name:'Smart TV 55" 4K', price:300000, img:U('smart tv,television,4k'), desc:'4K UHD com smart apps.'},
-      {id:'ele-laptop-14', category:'Eletronicos', name:'Laptop Ultrabook 14"', price:540000, img:U('laptop,ultrabook,notebook'), desc:'Leve, potente e bateria duradoura.'},
-      {id:'ele-headset-anc', category:'Eletronicos', name:'Headset Wireless ANC', price:42000, img:U('headphones,wireless,anc'), desc:'Cancelamento de ruído e som premium.'},
-      {id:'ele-watch', category:'Eletronicos', name:'Smartwatch 46mm', price:85000, img:U('smartwatch,wearable,tech'), desc:'Monitor de saúde e notificações.'},
-      {id:'ele-camera', category:'Eletronicos', name:'Câmera Mirrorless', price:280000, img:U('camera,mirrorless,photography'), desc:'Qualidade profissional em corpo compacto.'},
+  /**************************************************************************
+   *  LIBS (carregamento dinâmico de Firebase / EmailJS se configurados)
+   **************************************************************************/
+  async function loadFirebase() {
+    if(!FIREBASE_ENABLED) return null;
+    // carregamento dinâmico do SDK (v10 modular)
+    await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
+    await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js');
+    // note: inlined imports above may or may not be cached by browser; 
+    // we'll access global firebase after import in this environment
+    return window.firebase;
+  }
 
-      /* Carros */
-      {id:'car-tesla-3', category:'Carros', name:'Tesla Model 3', price:9500000, img:U('tesla,car,electric'), desc:'Elétrico com autonomia e tecnologia.'},
-      {id:'car-mercedes-c200', category:'Carros', name:'Mercedes C200', price:7800000, img:U('mercedes,car,luxury'), desc:'Luxo e conforto.'},
-      {id:'car-toyota-hilux', category:'Carros', name:'Toyota Hilux', price:6000000, img:U('toyota,truck,car'), desc:'Robustez para todo terreno.'},
-      {id:'car-bmw-3', category:'Carros', name:'BMW Série 3', price:8200000, img:U('bmw,car,sport'), desc:'Performance e acabamento premium.'},
-      {id:'car-golf-gti', category:'Carros', name:'Volkswagen Golf GTI', price:4200000, img:U('volkswagen,car,gti'), desc:'Desempenho esportivo.'},
-
-      /* Motorizadas */
-      {id:'moto-yamaha-r1', category:'Motorizadas', name:'Yamaha R1', price:3200000, img:U('yamaha,motorcycle,sport'), desc:'Moto esportiva de alta performance.'},
-      {id:'moto-honda-cbr600', category:'Motorizadas', name:'Honda CBR 600', price:2800000, img:U('honda,cbr,motorcycle'), desc:'Equilíbrio entre potência e controle.'},
-      {id:'moto-suzuki-gsx', category:'Motorizadas', name:'Suzuki GSX', price:2500000, img:U('suzuki,gsx,motorcycle'), desc:'Adrenalina e estilo.'},
-      {id:'moto-harley', category:'Motorizadas', name:'Harley-Davidson', price:6100000, img:U('harley,motorcycle,cruiser'), desc:'Cruiser icônica e robusta.'},
-      {id:'moto-kawasaki-ninja', category:'Motorizadas', name:'Kawasaki Ninja', price:3000000, img:U('kawasaki,ninja,motorbike'), desc:'Desempenho agressivo e design.'},
-
-      /* Masculino */
-      {id:'mas-tenis-air', category:'Masculino', name:'Tênis Running Pro', price:45000, img:U('mens shoes,running sneakers'), desc:'Amortecimento para treinos.'},
-      {id:'mas-camiseta', category:'Masculino', name:'Camiseta Premium', price:8000, img:U('mens t-shirt fashion'), desc:'Corte moderno e tecido respirável.'},
-      {id:'mas-relogio', category:'Masculino', name:'Relógio Clássico', price:90000, img:U('mens watch classic'), desc:'Design sofisticado.'},
-      {id:'mas-jaqueta', category:'Masculino', name:'Jaqueta Bomber', price:46000, img:U('mens jacket bomber'), desc:'Estilo urbano e isolamento leve.'},
-
-      /* Feminino */
-      {id:'fem-vestido', category:'Feminino', name:'Vestido Floral', price:25000, img:U('womens dress floral'), desc:'Leve e perfeito para eventos.'},
-      {id:'fem-sandalia', category:'Feminino', name:'Sandália Salto', price:42000, img:U('womens heels sandals'), desc:'Elegância e conforto.'},
-      {id:'fem-bolsa', category:'Feminino', name:'Bolsa Tiracolo', price:52000, img:U('womens bag handbag'), desc:'Acabamento premium.'},
-      {id:'fem-conjunto', category:'Feminino', name:'Conjunto Casual', price:32000, img:U('womens outfit casual'), desc:'Conforto e personalidade.'},
-
-      /* Beleza (subcategoria feminina) */
-      {id:'bez-kit-maquiagem', category:'Beleza', name:'Kit Maquiagem', price:15000, img:U('makeup,cosmetics,beauty'), desc:'Completo para rotina diária.'},
-      {id:'bez-perfume', category:'Beleza', name:'Perfume Signature', price:28000, img:U('perfume,bottle,fragrance'), desc:'Notas marcantes e duradouras.'},
-      {id:'bez-skincare', category:'Beleza', name:'Skincare Set', price:22000, img:U('skincare,beauty,cosmetics'), desc:'Hidratação completa.'},
-
-      /* Servicos */
-      {id:'srv-logo', category:'Servicos', name:'Design de Logo', price:20000, img:U('logo design branding'), desc:'Identidade visual profissional.'},
-      {id:'srv-landing', category:'Servicos', name:'Landing Page', price:18000, img:U('website landing page web'), desc:'Página otimizada para conversão.'},
-      {id:'srv-social', category:'Servicos', name:'Gestão de Redes Sociais', price:25000, img:U('social media marketing'), desc:'Conteúdo e anúncios.'},
-      {id:'srv-photo', category:'Servicos', name:'Fotografia de Produto', price:12000, img:U('product photography studio'), desc:'Imagens profissionais para loja.'},
-
-      /* Marketing */
-      {id:'mkt-anuncio', category:'Marketing', name:'Anúncio em Destaque', price:10000, img:U('advertising marketing ad'), desc:'Coloque seu produto em destaque.'},
-      {id:'mkt-banner', category:'Marketing', name:'Banner Rotativo', price:7000, img:U('banner ad marketing'), desc:'Posição estratégica na homepage.'},
-      {id:'mkt-vitrine', category:'Marketing', name:'Vitrine Premium', price:15000, img:U('storefront display marketing'), desc:'Espaço destacado para seus produtos.'},
-
-      /* extras to give breadth */
-      {id:'ele-speaker', category:'Eletronicos', name:'Speaker Bluetooth', price:19000, img:U('bluetooth speaker audio'), desc:'Som potente e portátil.'},
-      {id:'tel-fold', category:'Telefones', name:'Telefone Fold X', price:980000, img:U('foldable phone,phone'), desc:'Tela dobrável e inovadora.'},
-      {id:'car-electric-suv', category:'Carros', name:'SUV Elétrico X', price:12500000, img:U('electric suv car'), desc:'Espaço, autonomia e conforto.'},
-      {id:'moto-urban', category:'Motorizadas', name:'Scooter Elétrica', price:950000, img:U('electric scooter urban'), desc:'Mobilidade urbana eficiente.'}
-    ];
-
-    /* ===========================
-       CART logic (localStorage)
-       =========================== */
-    const CART_KEY = 'trivora:cart_v3';
-    const ORDERS_KEY = 'trivora:orders_v3';
-    const USERS_KEY = 'trivora:users_v3';
-    const SESSION_KEY = 'trivora:session_v3';
-
-    const cartAPI = {
-      all(){ return store.get(CART_KEY, []); },
-      save(items){ store.set(CART_KEY, items); UI.updateCartCount(); },
-      add(id, qty = 1){
-        const items = cartAPI.all();
-        const found = items.find(i=>i.id===id);
-        if(found) found.qty += qty; else items.push({id, qty});
-        cartAPI.save(items);
-        UI.flash('Produto adicionado ao carrinho');
-      },
-      remove(id){ cartAPI.save(cartAPI.all().filter(i=>i.id!==id)); },
-      setQty(id, qty){ const items = cartAPI.all(); const it = items.find(i=>i.id===id); if(it){ it.qty = Math.max(1, qty); cartAPI.save(items); } },
-      clear(){ cartAPI.save([]); }
-    };
-
-    /* ===========================
-       ORDERS
-       =========================== */
-    const ordersAPI = {
-      all(){ return store.get(ORDERS_KEY, []); },
-      add(order){ const list = ordersAPI.all(); list.push(order); store.set(ORDERS_KEY, list); }
-    };
-
-    /* ===========================
-       AUTH (very simple local only)
-       - register, login (password stored in localStorage) — for demo only
-       =========================== */
-    const auth = {
-      current(){ return store.get(SESSION_KEY, null); },
-      register({name,email,phone,password}){
-        const users = store.get(USERS_KEY, []);
-        if(users.some(u=>u.email===email)) return {ok:false,msg:'Email já registrado'};
-        users.push({name,email,phone,password});
-        store.set(USERS_KEY, users);
-        store.set(SESSION_KEY, {name,email,phone});
-        return {ok:true};
-      },
-      login(email,password){
-        const users = store.get(USERS_KEY, []);
-        const u = users.find(x=>x.email===email && x.password===password);
-        if(!u) return {ok:false,msg:'Credenciais inválidas'};
-        store.set(SESSION_KEY, {name:u.name,email:u.email,phone:u.phone});
-        return {ok:true};
-      },
-      logout(){ store.remove(SESSION_KEY); }
-    };
-
-    /* ===========================
-       UI helpers & renderers
-       =========================== */
-    const UI = {
-      formatKz(v){ return 'Kz ' + Number(v).toLocaleString('pt-PT'); },
-      updateCartCount(){
-        const cnt = cartAPI.all().reduce((n,i)=>n+i.qty,0);
-        const el = $('#cart-count'); if(el) el.textContent = cnt;
-        const sticky = $('#sticky-total'); if(sticky) sticky.textContent = cartAPI.all().reduce((s,i)=>{ const p = products.get(i.id); return s + (p?.price||0)*i.qty; },0).toFixed(2);
-      },
-      flash(msg, ms=1600){
-        const el = document.createElement('div');
-        el.textContent = msg; el.style.position='fixed'; el.style.left='50%'; el.style.top='18px'; el.style.transform='translateX(-50%)';
-        el.style.background='#fff'; el.style.padding='10px 14px'; el.style.borderRadius='10px'; el.style.boxShadow='0 10px 30px rgba(0,0,0,0.12)'; el.style.zIndex=2600;
-        document.body.appendChild(el);
-        setTimeout(()=>el.remove(), ms);
-      }
-    };
-
-    /* ===========================
-       PRODUCTS helper (map/list)
-       =========================== */
-    const products = (function(){
-      const list = window.TRIVORA_PRODUCTS || [];
-      const map = new Map(list.map(p=>[p.id,p]));
-      return {
-        list,
-        get(id){ return map.get(id); },
-        byCategory(cat){ return list.filter(x=>x.category === cat); }
-      };
-    })();
-
-    /* ===========================
-       Render helpers: product card HTML
-       =========================== */
-    function productCardHTML(p){
-      return `
-        <article class="card" data-id="${p.id}" aria-labelledby="p-${p.id}">
-          <div class="thumb"><img src="${p.img}" alt="${escapeHtml(p.name)}" loading="lazy" /></div>
-          <div class="meta">
-            <h4 id="p-${p.id}">${escapeHtml(p.name)}</h4>
-            <div class="price">${UI.formatKz(p.price)}</div>
-            <div class="small muted">${escapeHtml(p.category)}</div>
-            <p class="desc">${escapeHtml(p.desc)}</p>
-          </div>
-          <div class="actions" style="margin-top:auto;padding-bottom:12px">
-            <button class="btn" data-add="${p.id}">Adicionar</button>
-            <button class="ghost" style="margin-left:8px;padding:8px 10px;border-radius:8px;border:1px solid #eee" data-view="${p.id}">Ver</button>
-          </div>
-        </article>
-      `;
+  async function loadEmailJS(){
+    if(!EMAILJS_ENABLED) return null;
+    // EmailJS CDN
+    if(!window.emailjs){
+      await new Promise((res,rej)=>{
+        const s=document.createElement('script');
+        s.src='https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js';
+        s.onload=res; s.onerror=rej; document.head.appendChild(s);
+      });
+      if(window.emailjs && EMAILJS_USER) window.emailjs.init(EMAILJS_USER);
     }
+    return window.emailjs;
+  }
 
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[c]); }
+  /**************************************************************************
+   *  SIMPLE STORAGE HELPERS (local)
+   **************************************************************************/
+  const store = {
+    get(k, fallback=null){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; } catch(e){ return fallback; } },
+    set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+    remove(k){ try{ localStorage.removeItem(k); }catch(e){} }
+  };
 
-    /* ===========================
-       Render initial category showcase (home)
-       - show 1 representative product per category
-       =========================== */
-    function renderHomeCategories(){
-      const categories = ['Carros','Motorizadas','Telefones','Eletronicos','Masculino','Feminino','Servicos','Marketing'];
-      const container = document.querySelector('.categories');
-      if(!container) return;
-      container.innerHTML = categories.map(cat=>{
-        const reps = products.byCategory(cat);
-        const rep = reps.length ? reps[0] : {name:cat, price:0, img: U(cat.toLowerCase()) , desc: 'Vitrine ' + cat};
-        return `
-          <div class="category-card" data-cat="${cat}">
-            <div class="category-media"><img src="${rep.img}" alt="${escapeHtml(cat)}"></div>
-            <div class="category-body">
-              <h3>${escapeHtml(cat)}</h3>
-              <p class="muted">${escapeHtml(rep.name)} — ${escapeHtml(rep.desc)}</p>
-              <div class="links">
-                <a class="ghost" href="#${slugFor(cat)}" data-link>Ver todos</a>
-                <button class="btn" data-add="${rep.id}" aria-label="Adicionar ${escapeHtml(rep.name)}">Adicionar ao carrinho</button>
-              </div>
+  /**************************************************************************
+   *  DATA: produtos (amplo conjunto)
+   **************************************************************************/
+  const PRODUCTS = [
+    // ... (representativo; expandi de propósito)
+    {id:'car-tesla', category:'Carros', name:'Tesla Model 3', price:9500000, img:'https://source.unsplash.com/800x600/?tesla,car', desc:'Elétrico, autonomia e tecnologia.'},
+    {id:'car-mercedes', category:'Carros', name:'Mercedes C200', price:7800000, img:'https://source.unsplash.com/800x600/?mercedes,car', desc:'Luxo e conforto.'},
+    {id:'moto-yamaha', category:'Motorizadas', name:'Yamaha R1', price:3200000, img:'https://source.unsplash.com/800x600/?yamaha,motorcycle', desc:'Esportiva de alta performance.'},
+    {id:'moto-honda', category:'Motorizadas', name:'Honda CBR600', price:2800000, img:'https://source.unsplash.com/800x600/?honda,motorcycle', desc:'Potência e controle.'},
+    {id:'tel-iphone', category:'Telefones', name:'iPhone 15 Pro', price:850000, img:'https://source.unsplash.com/800x600/?iphone,phone', desc:'Câmera top e performance.'},
+    {id:'tel-samsung', category:'Telefones', name:'Samsung Galaxy S24', price:620000, img:'https://source.unsplash.com/800x600/?samsung,phone', desc:'Tela AMOLED brilhante.'},
+    {id:'ele-tv', category:'Eletronicos', name:'Smart TV 55"', price:300000, img:'https://source.unsplash.com/800x600/?tv,television', desc:'4K HDR e apps integrados.'},
+    {id:'ele-lap', category:'Eletronicos', name:'Notebook Ultrabook', price:540000, img:'https://source.unsplash.com/800x600/?laptop,notebook', desc:'Leve e potente.'},
+    {id:'mas-tenis', category:'Masculino', name:'Tênis Running', price:45000, img:'https://source.unsplash.com/800x600/?mens-shoes', desc:'Conforto para corridas.'},
+    {id:'mas-jaqueta', category:'Masculino', name:'Jaqueta Bomber', price:46000, img:'https://source.unsplash.com/800x600/?mens-jacket', desc:'Estilo urbano.'},
+    {id:'fem-vestido', category:'Feminino', name:'Vestido Floral', price:25000, img:'https://source.unsplash.com/800x600/?dress,women', desc:'Leve e elegante.'},
+    {id:'fem-bolsa', category:'Feminino', name:'Bolsa Tiracolo', price:52000, img:'https://source.unsplash.com/800x600/?womens-bag', desc:'Acabamento premium.'},
+    {id:'bez-kit', category:'Beleza', name:'Kit Maquiagem', price:15000, img:'https://source.unsplash.com/800x600/?makeup,cosmetics', desc:'Completo para o dia a dia.'},
+    {id:'inf-conj', category:'Infantil', name:'Conjunto Infantil', price:15000, img:'https://source.unsplash.com/800x600/?kids,clothes', desc:'Conforto para os pequenos.'},
+    {id:'srv-logo', category:'Servicos', name:'Design de Logo', price:20000, img:'https://source.unsplash.com/800x600/?logo,design', desc:'Identidade visual profissional.'},
+    {id:'mkt-anuncio', category:'Marketing', name:'Anúncio em destaque', price:10000, img:'https://source.unsplash.com/800x600/?marketing,advertising', desc:'Promova sua marca.'}
+  ];
+
+  /**************************************************************************
+   *  BACKEND LAYER (optionally remote via Firebase)
+   *  - If FIREBASE_ENABLED = true, functions below use Firestore.
+   *  - Otherwise fallback to localStorage emulation (users/orders).
+   **************************************************************************/
+  let firestore = null;
+  async function initBackend(){
+    if(FIREBASE_ENABLED){
+      // carregar Firebase dinamicamente (modular SDK)
+      // Nota: para funcionar, terás de incluir credenciais e permitir CORS / rules adequadas
+      try{
+        await loadFirebase();
+        // using global firebase namespace loaded by import; create app and firestore
+        if(window.firebase && window.firebase.initializeApp){
+          window.firebase.initializeApp(firebaseConfig);
+          firestore = window.firebase.firestore();
+          console.log('Firebase iniciado');
+        } else {
+          console.warn('SDK Firebase não encontrado - fallback para local');
+        }
+      }catch(err){
+        console.warn('Falha ao iniciar Firebase (fallback local):',err);
+      }
+    }
+    // carregar EmailJS se estiver configurado
+    if(EMAILJS_ENABLED){
+      try{ await loadEmailJS(); }catch(e){ console.warn('EmailJS load falhou', e); }
+    }
+  }
+
+  /* ==== Users / registration logic (remote if possible) ==== */
+  // Data model:
+  // users: { id, name, email, phone, password (hashed? currently plain for demo), status: 'pending'|'active'|'rejected', createdAt }
+  async function createUser(user){
+    // user: {name,email,phone,password}
+    if(firestore){
+      // Firestore write
+      const doc = await firestore.collection('users').add({...user, status:'pending', createdAt: new Date().toISOString()});
+      return {ok:true, id: doc.id, remote:true};
+    } else {
+      // local fallback
+      const users = store.get('trivora_users', []);
+      if(users.some(u=>u.email === user.email)) return {ok:false, msg:'Email já registado'};
+      user.id = 'u_' + Date.now();
+      user.status = 'pending';
+      user.createdAt = new Date().toISOString();
+      users.push(user);
+      store.set('trivora_users', users);
+      return {ok:true, id: user.id, remote:false};
+    }
+  }
+
+  async function getUserByEmail(email){
+    if(firestore){
+      const q = await firestore.collection('users').where('email','==',email).get();
+      if(!q.empty) return {ok:true, data: q.docs[0].data(), id:q.docs[0].id};
+      return {ok:false};
+    } else {
+      const users = store.get('trivora_users', []);
+      const u = users.find(x=>x.email === email);
+      return u ? {ok:true, data:u, id:u.id} : {ok:false};
+    }
+  }
+
+  async function updateUserStatus(id, status){
+    if(firestore){
+      await firestore.collection('users').doc(id).update({status});
+      return {ok:true};
+    } else {
+      const users = store.get('trivora_users', []);
+      const u = users.find(x=>x.id===id);
+      if(u){ u.status = status; store.set('trivora_users', users); return {ok:true}; }
+      return {ok:false};
+    }
+  }
+
+  /**************************************************************************
+   *  EMAIL SENDING (notify company when new registration)
+   *  - If EmailJS enabled, will send using emailjs.
+   *  - Otherwise fallback: copy data to `pending_emails` in localStorage (for admin reading).
+   **************************************************************************/
+  async function notifyCompanyNewRegistration(user){
+    if(EMAILJS_ENABLED && window.emailjs){
+      try{
+        await window.emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+          user_name: user.name,
+          user_email: user.email,
+          user_phone: user.phone || '',
+          message: `Novo registo Trivora - email: ${user.email}`
+        });
+        return {ok:true, sent:true};
+      }catch(e){
+        console.warn('EmailJS error',e);
+        // fallback to storing
+      }
+    }
+    // fallback local: keep list of pending notifications
+    const list = store.get('trivora_pending_emails', []);
+    list.push({id: 'mail_' + Date.now(), user, createdAt: new Date().toISOString()});
+    store.set('trivora_pending_emails', list);
+    return {ok:true, sent:false};
+  }
+
+  /**************************************************************************
+   *  AUTH: register / login using backend or local
+   **************************************************************************/
+  async function registerUser(payload){
+    // payload: {name,email,phone,password}
+    const exist = await getUserByEmail(payload.email);
+    if(exist.ok) return {ok:false, msg:'Email já usado'};
+    const res = await createUser(payload);
+    if(!res.ok) return res;
+    // notify company
+    await notifyCompanyNewRegistration(payload);
+    return {ok:true, id:res.id};
+  }
+
+  async function loginUser(email,password){
+    const res = await getUserByEmail(email);
+    if(!res.ok) return {ok:false, msg:'Utilizador não encontrado'};
+    const u = res.data;
+    if(u.password !== password) return {ok:false, msg:'Senha inválida'};
+    if(u.status !== 'active') return {ok:false, msg:`Conta ${u.status}. Aguarde aprovação.`};
+    // create session token (simple)
+    const session = {id:res.id, name:u.name, email:u.email};
+    store.set('trivora_session', session);
+    return {ok:true, session};
+  }
+
+  function logout(){
+    store.remove('trivora_session');
+  }
+
+  function currentSession(){ return store.get('trivora_session', null); }
+
+  /**************************************************************************
+   *  CART (client-side localStorage)
+   **************************************************************************/
+  const CART_KEY = 'trivora_cart_v1';
+  function cartAll(){ return store.get(CART_KEY, []); }
+  function cartSave(items){ store.set(CART_KEY, items); UI.updateCart(); }
+  function cartAdd(id, qty=1){
+    const items = cartAll();
+    const it = items.find(x=>x.id===id);
+    if(it) it.qty += qty; else items.push({id, qty});
+    cartSave(items);
+    UI.toast('Adicionado ao carrinho');
+  }
+  function cartRemove(id){
+    cartSave(cartAll().filter(x=>x.id !== id));
+  }
+  function cartSetQty(id, qty){
+    const items = cartAll(); const it = items.find(x=>x.id===id);
+    if(it){ it.qty = Math.max(1, qty); cartSave(items); }
+  }
+  function cartClear(){ cartSave([]); }
+
+  /**************************************************************************
+   *  ORDERS (local only demo)
+   **************************************************************************/
+  function createOrder(data){
+    const orders = store.get('trivora_orders', []);
+    const o = {id:'ORD-'+Date.now(), ...data, createdAt: new Date().toISOString()};
+    orders.push(o); store.set('trivora_orders', orders);
+    return o;
+  }
+
+  /**************************************************************************
+   *  UI Rendering & bindings
+   **************************************************************************/
+  const UI = {
+    toast(msg, ms=1600){
+      const p = document.getElementById('toast-placeholder'); if(!p) return;
+      const el = document.createElement('div'); el.className='toast'; el.textContent=msg;
+      p.appendChild(el); setTimeout(()=> el.remove(), ms);
+    },
+    updateCart(){
+      const cnt = cartAll().reduce((n,i)=>n+i.qty,0) || 0;
+      document.getElementById('cart-count').textContent = cnt;
+      // update cart total if visible
+      const total = cartAll().reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); },0);
+      const elTotal = document.getElementById('cart-total'); if(elTotal) elTotal.textContent = formatKz(total);
+    },
+    renderCategories(){
+      const cats = ['Carros','Motorizadas','Telefones','Eletronicos','Masculino','Feminino','Infantil','Servicos','Marketing'];
+      const container = document.getElementById('categories');
+      container.innerHTML = cats.map(cat=>{
+        const rep = PRODUCTS.find(p=>p.category === cat) || {name:cat, img:'https://source.unsplash.com/900x500/?'+encodeURIComponent(cat)};
+        return `<article class="cat" data-cat="${cat}">
+          <div class="media"><img src="${rep.img}" alt="${cat}"></div>
+          <div class="body">
+            <h3>${cat}</h3>
+            <div class="meta">${rep.name} — <span class="small muted">${rep.desc}</span></div>
+            <div class="group">
+              <a class="btn alt" href="#${slug(cat)}" data-link>Ver todos</a>
+              <button class="btn" data-add="${rep.id}">Adicionar</button>
             </div>
           </div>
-        `;
+        </article>`;
       }).join('');
       // bind category buttons
-      container.querySelectorAll('[data-add]').forEach(btn=>{
-        btn.addEventListener('click', (e)=>{ const id = e.currentTarget.dataset.add; if(id) cartAPI.add(id,1); renderCartTable(); });
-      });
-    }
-
-    function slugFor(cat){
-      return {
-        'Carros':'carros',
-        'Motorizadas':'motos',
-        'Telefones':'telefones',
-        'Eletronicos':'eletronicos',
-        'Masculino':'masculino',
-        'Feminino':'feminino',
-        'Beleza':'feminino',
-        'Servicos':'servicos',
-        'Marketing':'marketing'
-      }[cat] || cat.toLowerCase();
-    }
-
-    /* ===========================
-       Render category pages (full)
-       =========================== */
-    function renderCategoryPage(category, selector){
-      const list = products.byCategory(category);
-      const root = document.querySelector(selector);
-      if(!root) return;
-      if(list.length === 0){ root.innerHTML = `<div class="muted">Sem produtos nessa categoria.</div>`; return; }
-      root.innerHTML = list.map(p => productCardHTML(p)).join('');
-      bindProductButtons(root);
-    }
-
-    /* ===========================
-       Render all products (filterable)
-       =========================== */
-    function renderAllProducts(filter='all'){
+      container.querySelectorAll('[data-add]').forEach(b=> b.addEventListener('click',(e)=>{ const id=e.currentTarget.dataset.add; cartAdd(id); renderCartTable(); }));
+    },
+    renderProductCard(p){
+      return `<article class="card" data-id="${p.id}">
+        <div class="thumb"><img src="${p.img}" alt="${p.name}"></div>
+        <div class="info">
+          <div><strong>${p.name}</strong></div>
+          <div class="price">${formatKz(p.price)}</div>
+          <div class="small muted">${p.category}</div>
+          <p class="small">${p.desc}</p>
+        </div>
+        <div class="actions">
+          <button class="btn" data-add="${p.id}">Adicionar</button>
+          <button class="btn alt" data-view="${p.id}">Ver</button>
+        </div>
+      </article>`;
+    },
+    renderCategoryPage(cat, selectorId){
+      const node = document.getElementById(selectorId);
+      if(!node) return;
+      const list = PRODUCTS.filter(x=>x.category === cat);
+      node.innerHTML = list.map(p => UI.renderProductCard(p)).join('');
+      bindProductButtons(node);
+    },
+    renderAllProducts(filter='all'){
       const root = document.getElementById('all-products');
-      if(!root) return;
-      let list = products.list;
-      if(filter && filter !== 'all') list = list.filter(p => p.category === filter);
-      root.innerHTML = list.map(p => productCardHTML(p)).join('');
+      let list = PRODUCTS.slice();
+      if(filter && filter !== 'all') list = list.filter(p=>p.category === filter);
+      root.innerHTML = list.map(p=> UI.renderProductCard(p)).join('');
       bindProductButtons(root);
-    }
-
-    /* ===========================
-       Bind Add / View buttons inside a container
-       =========================== */
-    function bindProductButtons(root){
-      root.querySelectorAll('[data-add]').forEach(btn=>{
-        btn.removeEventListener('click', handleAddClick);
-        btn.addEventListener('click', handleAddClick);
-      });
-      root.querySelectorAll('[data-view]').forEach(btn=>{
-        btn.removeEventListener('click', handleViewClick);
-        btn.addEventListener('click', handleViewClick);
-      });
-    }
-    function handleAddClick(e){ cartAPI.add(e.currentTarget.dataset.add, 1); renderCartTable(); UI.updateCartCount(); }
-    function handleViewClick(e){ const id = e.currentTarget.dataset.view; const p = products.get(id); if(p){ alert(`${p.name}\n\n${p.desc}\n\nPreço: ${UI.formatKz(p.price)}`); } }
-
-    /* ===========================
-       Cart rendering & interactions
-       =========================== */
-    function renderCartTable(){
+    },
+    renderCartTable(){
       const tbody = document.querySelector('#cart-table tbody');
       if(!tbody) return;
-      const items = cartAPI.all();
-      if(items.length === 0){ tbody.innerHTML = `<tr><td colspan="5" class="center muted">Seu carrinho está vazio.</td></tr>`; document.getElementById('cart-total-kz').textContent = 'Kz 0'; UI.updateCartCount(); return; }
+      const items = cartAll();
+      if(items.length === 0){
+        tbody.innerHTML = `<tr><td colspan="5" class="small muted">Carrinho vazio</td></tr>`;
+        return;
+      }
       tbody.innerHTML = items.map(it=>{
-        const p = products.get(it.id);
-        const subtotal = (p?.price || 0) * it.qty;
+        const p = PRODUCTS.find(x=>x.id === it.id) || {name:'-','price':0};
         return `<tr>
-          <td style="max-width:300px">${escapeHtml(p.name)}</td>
-          <td>${UI.formatKz(p.price)}</td>
-          <td><input type="number" min="1" value="${it.qty}" data-id="${it.id}" class="qty-input" style="width:72px;padding:6px;border-radius:6px;border:1px solid #ddd"></td>
-          <td>${UI.formatKz(subtotal)}</td>
-          <td><button data-id="${it.id}" class="btn remove" style="background:#eee;color:#000">Remover</button></td>
+          <td>${p.name}</td>
+          <td>${formatKz(p.price)}</td>
+          <td><input type="number" min="1" value="${it.qty}" data-id="${it.id}" class="qty" style="width:76px;padding:6px;border-radius:6px;border:1px solid #ddd"></td>
+          <td>${formatKz((p.price||0) * it.qty)}</td>
+          <td><button class="btn alt" data-remove="${it.id}">Remover</button></td>
         </tr>`;
       }).join('');
-      // bind qty & remove
-      tbody.querySelectorAll('.qty-input').forEach(inp => {
-        inp.removeEventListener('input', qtyChangeHandler);
-        inp.addEventListener('input', qtyChangeHandler);
-      });
-      tbody.querySelectorAll('.remove').forEach(b => {
-        b.removeEventListener('click', removeItemHandler);
-        b.addEventListener('click', removeItemHandler);
-      });
-      const total = items.reduce((s,i)=>{ const p = products.get(i.id); return s + (p?.price||0) * i.qty; }, 0);
-      document.getElementById('cart-total-kz').textContent = UI.formatKz(total);
-      document.getElementById('sticky-total').textContent = total.toFixed(2);
-      UI.updateCartCount();
-    }
-    function qtyChangeHandler(e){
-      const id = e.currentTarget.dataset.id;
-      const val = parseInt(e.currentTarget.value||'1',10);
-      cartAPI.setQty(id, Math.max(1, val));
-      renderCartTable();
-    }
-    function removeItemHandler(e){
-      const id = e.currentTarget.dataset.id;
-      cartAPI.remove(id);
-      renderCartTable();
-    }
+      // bind qty and remove
+      tbody.querySelectorAll('.qty').forEach(i=> i.addEventListener('input', (e)=>{ const id=e.currentTarget.dataset.id; cartSetQty(id, parseInt(e.currentTarget.value||1,10)); UI.renderCartTable(); UI.updateCart(); }));
+      tbody.querySelectorAll('[data-remove]').forEach(b=> b.addEventListener('click', (e)=>{ cartRemove(e.currentTarget.dataset.remove); UI.renderCartTable(); UI.updateCart(); }));
+    },
+    updateAuthUI(){
+      const session = currentSession();
+      const btn = document.getElementById('btn-open-login');
+      if(session){ btn.textContent = session.name.split(' ')[0]; btn.classList.add('alt'); } else { btn.textContent = 'Entrar / Registar'; btn.classList.remove('alt'); }
+    },
+    toast(msg){ UI.toast(msg); }
+  };
 
-    /* ===========================
-       Checkout summary
-       =========================== */
-    function renderCheckoutSummary(){
-      const tb = document.querySelector('#summary-table tbody');
-      if(!tb) return;
-      const items = cartAPI.all();
-      if(items.length === 0){ tb.innerHTML = `<tr><td colspan="3">Nenhum item no carrinho.</td></tr>`; document.getElementById('summary-total').textContent = 'Kz 0'; return; }
-      tb.innerHTML = items.map(it=>{
-        const p = products.get(it.id);
-        return `<tr><td>${escapeHtml(p.name)}</td><td>${it.qty}</td><td>${UI.formatKz((p.price||0) * it.qty)}</td></tr>`;
-      }).join('');
-      const total = items.reduce((s,i)=>{ const p = products.get(i.id); return s + (p?.price||0) * i.qty; }, 0);
-      document.getElementById('summary-total').textContent = UI.formatKz(total);
-    }
+  /* helpers */
+  function formatKz(v){ return 'Kz ' + Number(v).toLocaleString('pt-PT'); }
+  function slug(cat){ return cat.toLowerCase().replace(/\s+/g,''); }
 
-    /* ===========================
-       Checkout form submit (simulated payment)
-       =========================== */
-    document.addEventListener('submit', function(ev){
-      if(ev.target && ev.target.id === 'checkout-form'){
-        ev.preventDefault();
-        const items = cartAPI.all();
-        if(items.length === 0){ UI.flash('Adicione items ao carrinho antes de finalizar'); return; }
-        const form = new FormData(ev.target);
-        const data = Object.fromEntries(form.entries());
-        // create order
-        const order = {
-          id: 'TRV-' + Date.now(),
-          items: items,
-          total: cartAPI.all().reduce((s,i)=>{ const p = products.get(i.id); return s + (p?.price||0) * i.qty; }, 0),
-          customer: data,
-          status: 'Pago (simulado)',
-          createdAt: new Date().toISOString()
-        };
-        ordersAPI.add(order);
-        cartAPI.clear();
-        renderCartTable();
-        UI.flash('Pagamento simulado: pedido confirmado');
-        location.hash = 'conta';
-        setTimeout(()=> renderAccount(), 400);
-      }
-    });
+  /* bind add / view buttons within a container */
+  function bindProductButtons(root){
+    root.querySelectorAll('[data-add]').forEach(b=>{ b.removeEventListener('click', btnAddHandler); b.addEventListener('click', btnAddHandler); });
+    root.querySelectorAll('[data-view]').forEach(b=>{ b.removeEventListener('click', btnViewHandler); b.addEventListener('click', btnViewHandler); });
+  }
+  function btnAddHandler(e){ const id = e.currentTarget.dataset.add; cartAdd(id); UI.renderCartTable(); UI.updateCart(); }
+  function btnViewHandler(e){ const id = e.currentTarget.dataset.view; const p = PRODUCTS.find(x=>x.id===id); if(p) quickView(p); }
 
-    /* ===========================
-       Account rendering (simple)
-       =========================== */
-    function renderAccount(){
-      const area = document.getElementById('account-area');
-      if(!area) return;
-      const session = auth.current();
-      if(!session){
-        // show login/register forms
-        area.innerHTML = `
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
-            <div style="border:1px solid #eee;padding:12px;border-radius:12px">
-              <h3>Entrar</h3>
-              <form id="login-form" class="form">
-                <input name="email" type="email" placeholder="Email" required />
-                <input name="password" type="password" placeholder="Senha" required />
-                <button class="btn" type="submit">Entrar</button>
-              </form>
-            </div>
-            <div style="border:1px solid #eee;padding:12px;border-radius:12px">
-              <h3>Criar conta</h3>
-              <form id="register-form" class="form">
-                <input name="name" placeholder="Nome" required />
-                <input name="email" type="email" placeholder="Email" required />
-                <input name="phone" placeholder="Telefone" />
-                <input name="password" type="password" placeholder="Senha" required />
-                <button class="btn" type="submit">Criar conta</button>
-              </form>
-            </div>
-          </div>
-        `;
-        // bind login/register
-        $('#login-form').addEventListener('submit', (e)=>{
-          e.preventDefault();
-          const fd = new FormData(e.target);
-          const data = Object.fromEntries(fd.entries());
-          const res = auth.login(data.email, data.password);
-          if(!res.ok) return UI.flash(res.msg);
-          UI.flash('Sessão iniciada');
-          renderAccount();
-          updateHeaderSession();
-          location.hash = 'conta';
-        });
-        $('#register-form').addEventListener('submit', (e)=>{
-          e.preventDefault();
-          const fd = new FormData(e.target); const data = Object.fromEntries(fd.entries());
-          const res = auth.register(data);
-          if(!res.ok) return UI.flash(res.msg);
-          UI.flash('Conta criada e conectada');
-          renderAccount();
-          updateHeaderSession();
-          location.hash = 'conta';
-        });
-      } else {
-        // show user data and orders
-        const u = session;
-        const orders = ordersAPI.all().filter(o => (o.customer && o.customer.email) === u.email);
-        area.innerHTML = `
-          <div style="display:flex;gap:12px;align-items:center;justify-content:space-between">
-            <div>
-              <h3>Olá, ${escapeHtml(u.name || u.email)}</h3>
-              <div class="small muted">Email: ${escapeHtml(u.email || '')} • Telefone: ${escapeHtml(u.phone || '')}</div>
-            </div>
-            <div>
-              <button id="btn-logout" class="ghost" style="padding:8px 10px;border-radius:8px">Sair</button>
-            </div>
-          </div>
-          <div style="margin-top:18px">
-            <h4>Seus pedidos</h4>
-            <table class="table"><thead><tr><th>Pedido</th><th>Data</th><th>Itens</th><th>Total</th><th>Status</th></tr></thead>
-              <tbody>${orders.length ? orders.map(o=>`<tr><td>${o.id}</td><td>${new Date(o.createdAt).toLocaleString()}</td><td>${o.items.reduce((n,i)=>n+i.qty,0)}</td><td>${UI.formatKz(o.total)}</td><td>${o.status}</td></tr>`).join('') : '<tr><td colspan="5">Sem pedidos ainda.</td></tr>'}
-              </tbody></table>
-          </div>
-        `;
-        $('#btn-logout').addEventListener('click', ()=>{
-          auth.logout();
-          UI.flash('Sessão encerrada');
-          updateHeaderSession();
-          renderAccount();
-        });
-      }
-    }
-
-    /* ===========================
-       Routing: show/hide sections by hash
-       =========================== */
-    function showSectionByHash(){
-      const hash = (location.hash || '#home').replace('#','');
-      // hide all sections
-      document.querySelectorAll('main .section').forEach(s => s.classList.add('hidden'));
-      // show selection
-      const target = document.getElementById(hash);
-      if(target) target.classList.remove('hidden');
-      else document.getElementById('home').classList.remove('hidden');
-      // update nav active
-      document.querySelectorAll('.nav-link').forEach(a=>{
-        const href = (a.getAttribute('href')||'').replace('#','') || 'home';
-        a.classList.toggle('active', href === hash);
-      });
-      // context renders for specific sections
-      if(hash === 'home'){ renderHomeCategories(); }
-      if(hash === 'produtos'){ renderAllProducts('all'); }
-      if(hash === 'carros'){ renderCategoryPage('Carros','#cat-carros'); }
-      if(hash === 'motos'){ renderCategoryPage('Motorizadas','#cat-motos'); }
-      if(hash === 'telefones'){ renderCategoryPage('Telefones','#cat-telefones'); }
-      if(hash === 'eletronicos'){ renderCategoryPage('Eletronicos','#cat-eletronicos'); }
-      if(hash === 'masculino'){ renderCategoryPage('Masculino','#cat-masculino'); }
-      if(hash === 'feminino'){ renderCategoryPage('Feminino','#cat-feminino'); renderCategoryPage('Beleza','#cat-feminino'); }
-      if(hash === 'servicos'){ renderCategoryPage('Servicos','#cat-servicos'); }
-      if(hash === 'marketing'){ renderCategoryPage('Marketing','#cat-marketing'); }
-      if(hash === 'carrinho'){ renderCartTable(); }
-      if(hash === 'checkout'){ renderCheckoutSummary(); }
-      if(hash === 'conta'){ renderAccount(); }
-    }
-
-    /* ===========================
-       Search & filter bindings
-       =========================== */
-    function doSearch(q){
-      q = (q||'').trim().toLowerCase();
-      if(!q){ location.hash = 'produtos'; renderAllProducts('all'); return; }
-      const list = products.list.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
-      renderListTo('#all-products', list);
-      location.hash = 'produtos';
-    }
-
-    function renderListTo(selector, list){
-      const root = document.querySelector(selector);
-      if(!root) return;
-      root.innerHTML = list.map(p => productCardHTML(p)).join('');
-      bindProductButtons(root);
-    }
-
-    document.getElementById('search-btn').addEventListener('click', ()=> doSearch($('#search-input').value));
-    document.getElementById('search-input').addEventListener('keydown', (e)=> { if(e.key === 'Enter') doSearch(e.target.value); });
-
-    const filterSelect = document.getElementById('filter-cat');
-    if(filterSelect){
-      filterSelect.addEventListener('change', (e)=> {
-        const v = e.target.value;
-        renderAllProducts(v);
-      });
-    }
-
-    /* wrap renderAllProducts using renderListTo */
-    function renderAllProducts(filter='all'){
-      let list = products.list;
-      if(filter && filter !== 'all') list = list.filter(p => p.category === filter);
-      renderListTo('#all-products', list);
-    }
-
-    /* ===========================
-       Slider init
-       =========================== */
-    function initSlider(){
-      const slides = Array.from(document.querySelectorAll('.banner .slide'));
-      const dotsContainer = document.getElementById('slider-dots');
-      if(!slides.length || !dotsContainer) return;
-      dotsContainer.innerHTML = slides.map((s,i)=>`<div class="dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
-      const dots = Array.from(dotsContainer.children);
-      let idx = 0;
-      const show = (i) => {
-        slides.forEach((s,k)=> s.classList.toggle('active', k === i));
-        dots.forEach((d,k)=> d.classList.toggle('active', k === i));
-        idx = i;
-      };
-      dots.forEach(d=> d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
-      setInterval(()=> show((idx+1) % slides.length), 5200);
-    }
-
-    /* ===========================
-       Helpers: bind delegated add/view on dynamic content
-       =========================== */
-    document.addEventListener('click', (e)=>{
-      // internal anchor navigation
-      if(e.target.matches('[data-link]') || e.target.closest('[data-link]')){
-        const el = e.target.matches('[data-link]') ? e.target : e.target.closest('[data-link]');
-        const href = el.getAttribute('href') || '';
-        if(href.startsWith('#')){
-          location.hash = href.replace('#','');
-          e.preventDefault();
-        }
-      }
-      // global add button
-      if(e.target.matches('[data-add]')){
-        const id = e.target.getAttribute('data-add');
-        if(id){ cartAPI.add(id,1); renderCartTable(); }
-      }
-      // clear cart
-      if(e.target && e.target.id === 'btn-clear-cart'){
-        cartAPI.clear(); renderCartTable(); UI.flash('Carrinho esvaziado');
-      }
-      // go to checkout
-      if(e.target && e.target.id === 'btn-checkout'){
-        location.hash = 'checkout';
-      }
-    });
-
-    /* ===========================
-       Bind product add/view inside widgets
-       =========================== */
-    function bindProductButtons(root){
-      root.querySelectorAll('[data-add]').forEach(btn=>{
-        btn.removeEventListener('click', addBtnHandler);
-        btn.addEventListener('click', addBtnHandler);
-      });
-      root.querySelectorAll('[data-view]').forEach(btn=>{
-        btn.removeEventListener('click', viewBtnHandler);
-        btn.addEventListener('click', viewBtnHandler);
-      });
-    }
-    function addBtnHandler(e){ const id = e.currentTarget.dataset.add; cartAPI.add(id,1); renderCartTable(); }
-    function viewBtnHandler(e){ const id = e.currentTarget.dataset.view; const p = products.get(id); if(p) showQuickView(p); }
-
-    /* Quick view (simple modal) */
-    function showQuickView(p){
-      const modal = document.createElement('div');
-      modal.style.position='fixed'; modal.style.inset='0'; modal.style.display='flex'; modal.style.alignItems='center'; modal.style.justifyContent='center';
-      modal.style.background='rgba(0,0,0,0.6)'; modal.style.zIndex=4000;
-      modal.innerHTML = `
-        <div style="background:#fff;padding:18px;border-radius:12px;max-width:760px;width:100%;">
-          <div style="display:flex;gap:16px;align-items:flex-start">
-            <div style="flex:1;"><img src="${p.img}" alt="${escapeHtml(p.name)}" style="width:100%;height:320px;object-fit:cover;border-radius:8px"></div>
-            <div style="width:340px;">
-              <h3>${escapeHtml(p.name)}</h3>
-              <div style="font-weight:800;margin:8px 0">${UI.formatKz(p.price)}</div>
-              <p class="muted">${escapeHtml(p.desc)}</p>
-              <div style="margin-top:12px;display:flex;gap:8px"><button class="btn" id="qv-add">Adicionar</button><button id="qv-close" class="ghost" style="padding:8px 10px;border-radius:8px;border:1px solid #eee">Fechar</button></div>
-            </div>
+  /* quick view modal */
+  function quickView(p){
+    const md = document.createElement('div'); md.className='modal-backdrop'; md.style.zIndex=5000;
+    md.innerHTML = `<div class="modal">
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:240px"><img src="${p.img}" alt="${p.name}" style="width:100%;height:320px;object-fit:cover;border-radius:8px"></div>
+        <div style="flex:1;min-width:240px">
+          <h3>${p.name}</h3>
+          <div style="font-weight:800;margin:8px 0">${formatKz(p.price)}</div>
+          <p class="small muted">${p.category}</p>
+          <p style="margin-top:8px">${p.desc}</p>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn" id="qv-add">Adicionar</button>
+            <button class="btn alt" id="qv-close">Fechar</button>
           </div>
         </div>
-      `;
-      document.body.appendChild(modal);
-      modal.querySelector('#qv-close').addEventListener('click', ()=> modal.remove());
-      modal.querySelector('#qv-add').addEventListener('click', ()=>{
-        cartAPI.add(p.id,1); renderCartTable(); UI.flash('Adicionado ao carrinho'); modal.remove();
-      });
-    }
+      </div>
+    </div>`;
+    document.body.appendChild(md);
+    md.querySelector('#qv-close').addEventListener('click', ()=> md.remove());
+    md.querySelector('#qv-add').addEventListener('click', ()=>{ cartAdd(p.id); UI.renderCartTable(); UI.updateCart(); md.remove(); });
+  }
 
-    /* ===========================
-       Welcome modal behavior
-       =========================== */
-    document.getElementById('welcome-start').addEventListener('click', ()=>{
-      document.getElementById('welcome-modal').classList.add('hidden');
-      store.set('trivora:welcomed_v3', true);
+  /**************************************************************************
+   *  AUTH UI bindings (login/register modal)
+   **************************************************************************/
+  function openAuthModal(){ document.getElementById('modal-auth').classList.remove('hidden'); }
+  function closeAuthModal(){ document.getElementById('modal-auth').classList.add('hidden'); }
+
+  document.getElementById('btn-open-login').addEventListener('click', openAuthModal);
+  document.getElementById('btn-close-auth').addEventListener('click', closeAuthModal);
+
+  document.getElementById('form-register').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const fd = new FormData(e.target); const data = Object.fromEntries(fd.entries());
+    // basic validation
+    if(!data.email || !data.password || !data.name) return UI.toast('Preencha o formulário corretamente');
+    const res = await registerUser(data);
+    if(!res.ok) return UI.toast(res.msg || 'Erro ao registar');
+    UI.toast('Registo recebido. Aguardando aprovação.');
+    e.target.reset();
+    closeAuthModal();
+  });
+
+  document.getElementById('form-login').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const fd = new FormData(e.target); const { email, password } = Object.fromEntries(fd.entries());
+    const res = await loginUser(email, password);
+    if(!res.ok){ UI.toast(res.msg || 'Falha ao entrar'); return; }
+    UI.updateAuthUI(); UI.toast('Sessão iniciada'); closeAuthModal(); location.hash = 'conta'; renderAccount();
+  });
+
+  /**************************************************************************
+   *  Simple account page rendering & approval admin UI
+   *  - For demonstration, if admin opens /conta with local data they can
+   *    approve pending users stored in localStorage.
+   **************************************************************************/
+  function renderAccount(){
+    const area = document.getElementById('account-area');
+    const session = currentSession();
+    if(!session){
+      area.innerHTML = `<div class="small muted">Inicia sessão ou regista-se para ver ou aprovar contas.</div>`;
+      return;
+    }
+    // user area (simple)
+    area.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
+      <div><h3>Olá, ${session.name}</h3><div class="small muted">${session.email}</div></div>
+      <div><button id="btn-logout" class="btn alt">Sair</button></div>
+    </div>
+    <div style="margin-top:18px">
+      <h4>Pedidos (exibição local)</h4>
+      <div id="orders-list" class="small muted"></div>
+    </div>
+    <div style="margin-top:18px">
+      <h4>Usuários pendentes (admin)</h4>
+      <div id="pending-users"></div>
+    </div>`;
+    document.getElementById('btn-logout').addEventListener('click', ()=>{ logout(); UI.updateAuthUI(); renderAccount(); UI.toast('Terminaste sessão'); });
+    // show orders for this email
+    const orders = store.get('trivora_orders', []).filter(o => (o.customer && o.customer.email) === session.email);
+    const ol = document.getElementById('orders-list');
+    ol.innerHTML = orders.length ? orders.map(o=> `<div>${o.id} — ${new Date(o.createdAt).toLocaleString()} — ${formatKz(o.total)}</div>`).join('') : '<div class="small muted">Sem pedidos</div>';
+
+    // pending users (local only)
+    const pending = store.get('trivora_users', []).filter(u=>u.status === 'pending');
+    const pu = document.getElementById('pending-users');
+    if(!pending.length){ pu.innerHTML = '<div class="small muted">Nenhum usuário pendente</div>'; return; }
+    pu.innerHTML = pending.map(u=>`
+      <div style="border:1px solid #eee;padding:8px;border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div><strong>${u.name}</strong> • <span class="small muted">${u.email}</span></div>
+          <div class="small muted">${u.phone || ''}</div>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn" data-approve="${u.id}">Aprovar</button>
+          <button class="btn alt" data-reject="${u.id}">Rejeitar</button>
+        </div>
+      </div>
+    `).join('');
+    // bind approve/reject
+    pu.querySelectorAll('[data-approve]').forEach(b=> b.addEventListener('click', async (e)=>{
+      const id = e.currentTarget.dataset.approve;
+      await updateUserStatus(id, 'active');
+      UI.toast('Usuário aprovado');
+      renderAccount();
+    }));
+    pu.querySelectorAll('[data-reject]').forEach(b=> b.addEventListener('click', async (e)=>{
+      const id = e.currentTarget.dataset.reject;
+      await updateUserStatus(id, 'rejected');
+      UI.toast('Usuário rejeitado');
+      renderAccount();
+    }));
+  }
+
+  /**************************************************************************
+   *  Checkout form handling (simulated payment)
+   **************************************************************************/
+  document.getElementById('checkout-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    const items = cartAll();
+    if(items.length === 0){ UI.toast('Carrinho vazio'); return; }
+    const fd = new FormData(e.target); const customer = Object.fromEntries(fd.entries());
+    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); }, 0);
+    const order = createOrder({ items, total, customer, status: 'Pago (Simulado)' });
+    cartClear(); UI.renderCartTable(); UI.updateCart();
+    UI.toast('Pedido confirmado (simulação): ' + order.id);
+    location.hash = 'conta';
+    renderAccount();
+  });
+
+  /**************************************************************************
+   *  Routing & UI init
+   **************************************************************************/
+  function hideAllSections(){ document.querySelectorAll('main .section').forEach(s=> s.classList.add('hidden')); }
+  function showSectionByHash(){
+    const h = (location.hash || '#home').replace('#','');
+    hideAllSections();
+    const target = document.getElementById(h);
+    if(target) target.classList.remove('hidden');
+    else document.getElementById('home').classList.remove('hidden');
+    // contextual renders
+    if(['carros','motos','telefones','eletronicos','masculino','feminino','infantil','servicos','marketing'].includes(h)){
+      const catMap = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',servicos:'Servicos',marketing:'Marketing'};
+      const selector = 'cat-' + h;
+      UI.renderCategoryPage(catMap[h], selector);
+    }
+    if(h === 'produtos'){ UI.renderAllProducts(); }
+    if(h === 'carrinho'){ UI.renderCartTable(); UI.updateCart(); }
+    if(h === 'checkout'){ renderCheckoutSummary(); }
+    if(h === 'conta'){ renderAccount(); }
+    // update nav active
+    document.querySelectorAll('.nav-link').forEach(a=>{
+      const href = (a.getAttribute('href')||'').replace('#','') || 'home';
+      a.classList.toggle('active', href === h);
     });
-    document.getElementById('welcome-skip').addEventListener('click', ()=>{
-      document.getElementById('welcome-modal').classList.add('hidden');
-      store.set('trivora:welcomed_v3', true);
-    });
+  }
 
-    /* Close welcome if already seen */
-    function maybeShowWelcome(){
-      const seen = store.get('trivora:welcomed_v3', false);
-      if(!seen) document.getElementById('welcome-modal').classList.remove('hidden');
+  function renderCheckoutSummary(){
+    const tb = document.querySelector('#summary-table tbody');
+    const items = cartAll();
+    if(!tb) return;
+    if(items.length === 0){ tb.innerHTML = '<tr><td colspan="3">Carrinho vazio</td></tr>'; document.getElementById('summary-total').textContent = 'Kz 0'; return; }
+    tb.innerHTML = items.map(i=>{
+      const p = PRODUCTS.find(x=>x.id===i.id);
+      return `<tr><td>${p.name}</td><td>${i.qty}</td><td>${formatKz((p.price||0)*i.qty)}</td></tr>`;
+    }).join('');
+    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); }, 0);
+    document.getElementById('summary-total').textContent = formatKz(total);
+  }
+
+  // dot navigation for slider
+  function initSlider(){
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dots = document.getElementById('dots');
+    dots.innerHTML = slides.map((_,i)=> `<div class="dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
+    const dotEls = Array.from(dots.children);
+    let idx = 0;
+    const show = (i)=>{ slides.forEach((s, k)=> s.classList.toggle('active', k===i)); dotEls.forEach((d,k)=> d.classList.toggle('active', k===i)); idx = i; };
+    dotEls.forEach(d=> d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
+    setInterval(()=> show((idx+1) % slides.length), 5200);
+  }
+
+  // quick bind for data-link anchors
+  document.addEventListener('click', (e)=>{
+    const anchor = e.target.closest('[data-link]');
+    if(anchor){
+      const href = anchor.getAttribute('href') || '';
+      if(href.startsWith('#')){ location.hash = href; e.preventDefault(); }
     }
+  });
 
-    /* ===========================
-       Header session update
-       =========================== */
-    function updateHeaderSession(){
-      const sess = auth.current();
-      const nav = document.querySelector('.nav');
-      // minimal header change: show user name if logged
-      if(sess){
-        // add a hello badge if not present
-        let badge = document.getElementById('hdr-badge');
-        if(!badge){
-          badge = document.createElement('span'); badge.id='hdr-badge';
-          badge.style.marginLeft='8px'; badge.style.padding='6px 10px'; badge.style.borderRadius='10px'; badge.style.background='rgba(255,255,255,0.06)';
-          badge.style.fontWeight='700'; badge.style.color='#fff';
-          badge.textContent = (sess.name || sess.email).split(' ')[0];
-          nav.appendChild(badge);
-        } else badge.textContent = (sess.name || sess.email).split(' ')[0];
-      } else {
-        const badge = document.getElementById('hdr-badge'); if(badge) badge.remove();
-      }
+  // search
+  document.getElementById('btn-search').addEventListener('click', ()=> {
+    const q = document.getElementById('search').value.trim().toLowerCase();
+    if(!q){ location.hash = 'produtos'; return; }
+    const list = PRODUCTS.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+    document.getElementById('produtos').classList.remove('hidden');
+    document.getElementById('home').classList.add('hidden');
+    document.getElementById('all-products').innerHTML = list.map(p=> UI.renderProductCard(p)).join('');
+    bindProductButtons(document.getElementById('all-products'));
+    location.hash = 'produtos';
+  });
+
+  // filter select
+  document.getElementById('filter').addEventListener('change', (e)=> UI.renderAllProducts(e.target.value) );
+
+  // cart actions
+  document.getElementById('btn-clear-cart').addEventListener('click', ()=>{ cartClear(); UI.renderCartTable(); UI.updateCart(); UI.toast('Carrinho esvaziado'); });
+  document.getElementById('btn-go-checkout').addEventListener('click', ()=> location.hash = 'checkout');
+
+  // register/login modal show/hide on load
+  document.addEventListener('DOMContentLoaded', async ()=>{
+    // init backend (attempt to load firebase/emailjs if toggled)
+    await initBackend();
+    // initial UI
+    UI.renderCategories();
+    UI.renderAllProducts('all');
+    UI.updateCart();
+    UI.updateAuthUI();
+    initSlider();
+    renderCookieWelcome();
+    // pre-render category containers
+    ['carros','motos','telefones','eletronicos','masculino','feminino','infantil','servicos','marketing'].forEach(k=> UI.renderCategoryPage({Carros:'Carros'}[k] || k, 'cat-'+k));
+    // routing
+    window.addEventListener('hashchange', showSectionByHash);
+    showSectionByHash();
+  });
+
+  /**************************************************************************
+   *  Welcome modal once (localStorage)
+   **************************************************************************/
+  function renderCookieWelcome(){
+    const seen = store.get('trivora_welcomed', false);
+    if(!seen){
+      // show small welcome toast instead modal to avoid blocking dev
+      UI.toast('Bem-vindo à Trivora — Onde tecnologia e estilo se encontram', 2200);
+      store.set('trivora_welcomed', true);
     }
+  }
 
-    /* ===========================
-       Utility: escape & small helpers
-       =========================== */
-    function $id(id){ return document.getElementById(id); }
+  /**************************************************************************
+   *  Helper: simulate admin approval flow demonstration
+   *  - Provide instructions for admin: open console and run functions,
+   *    or use the /conta UI which shows pending users in local fallback.
+   **************************************************************************/
 
-    /* ===========================
-       App init
-       =========================== */
-    function initApp(){
-      // set year
-      document.getElementById('year').textContent = new Date().getFullYear();
-      // render home categories
-      renderHomeCategories();
-      // pre-render category pages (hidden)
-      renderCategoryPage('Carros','#cat-carros');
-      renderCategoryPage('Motorizadas','#cat-motos');
-      renderCategoryPage('Telefones','#cat-telefones');
-      renderCategoryPage('Eletronicos','#cat-eletronicos');
-      renderCategoryPage('Masculino','#cat-masculino');
-      renderCategoryPage('Feminino','#cat-feminino');
-      renderCategoryPage('Beleza','#cat-feminino'); // beleza included in female section
-      renderCategoryPage('Servicos','#cat-servicos');
-      renderCategoryPage('Marketing','#cat-marketing');
-      renderAllProducts('all');
-      renderCartTable();
-      updateHeaderSession();
-      maybeShowWelcome();
-      initSlider();
-      // routing
-      window.addEventListener('hashchange', showSectionByHash);
-      showSectionByHash();
-      // bind filter select (already bound above)
-    }
+  // Expose small helpers to console for admin/developer convenience
+  window.TRIVORA_DEBUG = {
+    PRODUCTS, store, createUser, getUserByEmail, updateUserStatus, cartAll, cartAdd, cartClear
+  };
 
-    /* ===========================
-       Initial DOM events & housekeeping
-       =========================== */
-    document.addEventListener('DOMContentLoaded', initApp);
-
-    /* ===========================
-       Expose some objects for debugging in console
-       =========================== */
-    window.__TRIVORA = {
-      products, cartAPI, ordersAPI, auth, store, UI
-    };
+  /**************************************************************************
+   *  Utility: show quick login/register helper for demo (auto-register test)
+   **************************************************************************/
+  // none further — end of script
   </script>
 </body>
 </html>
+
 
 
 
