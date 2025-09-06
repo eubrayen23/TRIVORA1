@@ -2,798 +2,1030 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trivora • E-commerce</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trivora • E-commerce — Tecnologia, Mobilidade & Estilo</title>
   <meta name="description" content="Trivora — E-commerce minimalista preto & branco. Carros, Motorizadas, Telefones, Eletrônicos, Moda e Serviços." />
+  <meta name="author" content="Trivora" />
   <style>
-    /* ========= THEME: preto & branco minimalista ========= */
+    /* ====================================================================
+       TRIVORA CSS (completo - preto & branco minimalista)
+       ==================================================================== */
     :root{
-      --bg:#fff; --fg:#0a0a0a; --muted:#7a7a7a; --card:#fff; --accent:#000; --radius:14px;
-      --glass: rgba(255,255,255,0.06);
+      --bg: #ffffff;
+      --fg: #0b0b0b;
+      --muted: #6d6d6d;
+      --card: #ffffff;
+      --accent: #000000;
+      --soft: #f6f6f6;
+      --radius: 14px;
+      --glass: rgba(255,255,255,0.04);
+      --max-width: 1200px;
+      --banner-height: 340px;
+      --transition: 220ms ease;
     }
+
+    /* Reset / base */
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;padding:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+    html,body{height:100%}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--fg);
+      background:var(--bg);
+      margin:0;padding:0;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
 
-    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    /* ============ Header ============ */
+    .header{
+      position:sticky;top:0;z-index:1200;
+      background:linear-gradient(180deg,#000 0%, rgba(0,0,0,0.94) 70%);
+      color:#fff;border-bottom:1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(6px);
+    }
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .brand{font-weight:900;font-size:20px;letter-spacing:2px}
+    .brand small{display:block;font-weight:400;font-size:10px;opacity:.8}
+    .nav{display:flex;gap:8px;align-items:center}
+    .nav a{padding:8px 12px;border-radius:10px;opacity:.96;transition:all var(--transition)}
+    .nav a:hover,.nav a.active{background:rgba(255,255,255,0.08)}
+    .search{display:flex;align-items:center;background:#0f0f0f;padding:6px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    .search input{border:0;background:transparent;color:#fff;padding:8px 12px;outline:none;min-width:140px}
+    .search button{border:0;background:transparent;color:#fff;padding:8px 12px;cursor:pointer}
+    .minicart{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:12px;background:#fff;color:#000;font-weight:700}
+    .minicart .count{background:#000;color:#fff;padding:2px 8px;border-radius:999px;font-size:12px}
 
-    /* HEADER */
-    .header{position:sticky;top:0;z-index:1100;background:#000;color:#fff;border-bottom:1px solid #111;backdrop-filter:blur(4px)}
-    .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-    .brand{font-weight:800;font-size:1.4rem;letter-spacing:.4px}
-    .nav ul{display:flex;gap:10px;list-style:none;padding:0;margin:0;flex-wrap:wrap;align-items:center}
-    .nav a{padding:8px 10px;border-radius:10px;transition:all .18s ease}
-    .nav a:hover,.nav a.active{background:rgba(255,255,255,.08)}
-    .minicart{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:12px;background:#0f0f0f;border:1px solid #222}
-    .minicart .count{background:#fff;color:#000;border-radius:999px;padding:2px 8px;font-weight:700;font-size:.85rem}
-
-    /* SEARCH (simple) */
-    .search{display:flex;gap:0}
-    .search input{padding:9px 12px;border:1px solid #222;background:#111;color:#fff;border-radius:10px 0 0 10px;min-width:180px}
-    .search button{padding:9px 12px;border:1px solid #222;background:#1a1a1a;color:#fff;border-radius:0 10px 10px 0;cursor:pointer}
-
-    /* BANNER / SLIDER */
+    /* ============ Top Banner / Slider ============ */
     .banner{margin:18px 0;border-radius:var(--radius);overflow:hidden;position:relative;background:#111;color:#fff}
-    .slide{display:none;min-height:320px;position:relative}
-    .slide.active{display:block;animation:fadeIn .6s ease}
-    .slide .content{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px}
-    .slide h1{font-size:2rem;margin:0 0 8px}
-    .slide p{color:#ccc;margin:0 0 14px}
-    .cta{display:inline-block;background:#fff;color:#000;padding:10px 16px;border-radius:10px;font-weight:700}
-    .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;display:flex;gap:8px}
-    .dot{width:10px;height:10px;border-radius:999px;background:#444;cursor:pointer;opacity:.9}
+    .banner .slides{position:relative;min-height:var(--banner-height)}
+    .banner .slide{position:absolute;inset:0;display:none;padding:28px;align-items:center;justify-content:center}
+    .banner .slide.active{display:flex;animation:fadeUp .6s ease}
+    .banner .slide .box{max-width:900px;text-align:center}
+    .banner h1{font-size:34px;margin:0 0 6px}
+    .banner p{margin:0;color:#d1d1d1}
+    .banner .cta{display:inline-block;margin-top:14px;background:#fff;color:#000;padding:12px 18px;border-radius:10px;font-weight:700}
+    .slider-dots{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px}
+    .dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.2);cursor:pointer}
     .dot.active{background:#fff}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    /* SECTIONS & CARDS */
-    .section{padding:28px 0;border-bottom:1px solid #f0f0f0}
-    .section h1{margin:0 0 14px}
+    /* ============ Category showcase (home) ============ */
+    .categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:28px}
+    .category-card{background:var(--card);border:1px solid #eee;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform var(--transition),box-shadow var(--transition);box-shadow:0 6px 24px rgba(0,0,0,0.04)}
+    .category-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.08)}
+    .category-media{height:160px;background:var(--soft);overflow:hidden}
+    .category-media img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+    .category-card:hover .category-media img{transform:scale(1.05)}
+    .category-body{padding:12px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .category-body h3{margin:0;font-size:1.05rem}
+    .category-body p{margin:0;color:var(--muted);font-size:.92rem}
+    .category-body .links{margin-top:8px;display:flex;gap:8px;align-items:center}
+    .ghost{padding:8px 12px;border-radius:10px;background:transparent;border:1px solid #eee;color:var(--muted);font-weight:600}
+
+    /* ============ Cards (category pages, product grid) ============ */
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-    .card{background:var(--card);border:1px solid #eee;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transform:translateY(0);transition:transform .18s ease,box-shadow .18s ease;opacity:0;animation:cardIn .45s ease forwards}
-    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.08)}
-    .thumb{height:180px;background:#f5f5f5;overflow:hidden;position:relative}
-    .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease,filter .35s ease}
-    .card:hover .thumb img{transform:scale(1.06);filter:brightness(.98)}
-    .card .info{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .price{font-weight:700;color:var(--fg)}
-    .meta{font-size:.85rem;color:var(--muted)}
-    .card .actions{padding:0 12px 12px}
-    .btn{display:inline-block;padding:10px 12px;border-radius:10px;background:#000;color:#fff;border:0;cursor:pointer}
+    .card{background:var(--card);border:1px solid #eee;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform var(--transition),box-shadow var(--transition)}
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.06)}
+    .card .thumb{height:180px;background:var(--soft);overflow:hidden}
+    .card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+    .card:hover .thumb img{transform:scale(1.06)}
+    .card .meta{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .card h4{margin:0;font-size:1rem}
+    .card p.desc{margin:0;color:var(--muted);font-size:.93rem}
+    .card .price{font-weight:800;color:var(--fg)}
+    .card .actions{padding:12px;display:flex;gap:8px}
+    .btn{display:inline-block;padding:10px 12px;border-radius:10px;background:#000;color:#fff;border:0;cursor:pointer;font-weight:700}
 
-    /* Vitrine header: title + ver todos */
-    .vitrine-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-    .vitrine-head a{font-size:.95rem;color:var(--muted)}
-
-    /* TABLE / CART */
+    /* ============ Cart table / checkout / account ============ */
     .table{width:100%;border-collapse:collapse}
     .table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left}
     .form{display:grid;gap:12px}
-    .form input,.form select,.form textarea{padding:10px;border:1px solid #ddd;border-radius:10px}
+    .form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .form input,.form select,.form textarea{padding:10px;border-radius:10px;border:1px solid #ddd}
+    .small{font-size:.9rem;color:var(--muted)}
 
-    /* FOOTER */
-    .footer{background:#000;color:#fff;padding:18px 0;text-align:center;margin-top:30px}
+    /* ============ Footer & sticky ============ */
+    .footer{margin-top:40px;background:#000;color:#fff;padding:18px 0;text-align:center}
+    .sticky-checkout{position:fixed;right:16px;bottom:16px;z-index:1400;background:#fff;border-radius:12px;padding:10px 14px;border:1px solid #eee;box-shadow:0 12px 40px rgba(0,0,0,0.08);display:flex;align-items:center;gap:12px}
 
-    /* STICKY */
-    .sticky-checkout{position:fixed;right:16px;bottom:16px;z-index:1200;background:#fff;border-radius:12px;padding:10px 14px;border:1px solid #ddd;box-shadow:0 12px 40px rgba(0,0,0,.12);display:flex;align-items:center;gap:12px}
-
-    /* MODAL WELCOME */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:2000}
-    .modal{background:#fff;border-radius:16px;padding:26px;max-width:480px;text-align:center;animation:popIn .6s cubic-bezier(.2,.9,.2,1)}
+    /* ============ Modal welcome ============ */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:2000}
+    .modal{background:#fff;padding:26px;border-radius:16px;max-width:520px;text-align:center;animation:popIn .6s ease}
+    @keyframes popIn{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
     .modal h2{margin:0 0 8px}
     .modal p{margin:0;color:var(--muted)}
+    .modal .actions{margin-top:14px;display:flex;justify-content:center;gap:12px}
 
-    /* Animations */
-    @keyframes popIn{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    @keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-    /* Responsive tweaks */
+    /* ============ Utility ============ */
+    .hidden{display:none}
+    .center{text-align:center}
+    .muted{color:var(--muted)}
+    .kicker{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{padding:8px 12px;border-radius:999px;border:1px solid #eee;background:#fff;cursor:pointer}
+    /* responsive small tweaks */
     @media (max-width:900px){
-      .nav ul{gap:6px}
-      .search input{min-width:120px}
+      .banner h1{font-size:20px}
+      .brand{font-size:16px}
+      .search input{min-width:80px}
     }
   </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="header">
-    <div class="container header-wrap">
-      <a class="brand" href="#home" data-link>Trivora</a>
-
-      <nav class="nav" aria-label="Menu principal">
-        <ul>
-          <li><a href="#home" class="nav-link" data-link>Home</a></li>
-          <li><a href="#produtos" class="nav-link" data-link>Produtos</a></li>
-          <li><a href="#telefones" class="nav-link" data-link>Telefones</a></li>
-          <li><a href="#eletronicos" class="nav-link" data-link>Eletrônicos</a></li>
-          <li><a href="#carros" class="nav-link" data-link>Carros</a></li>
-          <li><a href="#motos" class="nav-link" data-link>Motorizadas</a></li>
-          <li><a href="#masculino" class="nav-link" data-link>Masculino</a></li>
-          <li><a href="#feminino" class="nav-link" data-link>Feminino</a></li>
-          <li><a href="#servicos" class="nav-link" data-link>Serviços</a></li>
-          <li><a href="#marketing" class="nav-link" data-link>Marketing</a></li>
-          <li><a href="#conta" class="nav-link" data-link>Minha Conta</a></li>
-        </ul>
-      </nav>
+  <!-- ================= Header ================= -->
+  <header class="header" role="banner">
+    <div class="container header-inner">
+      <div>
+        <a class="brand" href="#home" data-link>TRIVORA<small>marketplace</small></a>
+      </div>
 
       <div style="display:flex;align-items:center;gap:12px">
-        <form id="search-form" class="search" onsubmit="return false;">
-          <input id="search-input" placeholder="Buscar produtos..." aria-label="Buscar"/>
-          <button id="search-btn">Buscar</button>
-        </form>
-        <a class="minicart" href="#carrinho" data-link>🛒 <span class="count" id="cart-count">0</span></a>
+        <nav class="nav" role="navigation" aria-label="Main menu">
+          <!-- Top menu intentionally minimal as requested -->
+          <a href="#home" class="nav-link" data-link>Home</a>
+          <a href="#produtos" class="nav-link" data-link>Produtos</a>
+          <a href="#conta" class="nav-link" data-link>Minha Conta</a>
+        </nav>
+
+        <div class="search" role="search" aria-label="Buscar">
+          <input id="search-input" type="search" placeholder="Buscar produtos..." aria-label="Buscar produtos">
+          <button id="search-btn" aria-label="Buscar">🔍</button>
+        </div>
+
+        <a class="minicart" href="#carrinho" data-link aria-label="Carrinho">
+          🛒 <span class="count" id="cart-count">0</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- MAIN -->
-  <main class="container" id="main">
-    <!-- BANNER -->
-    <section id="home" class="section">
+  <!-- ================= Main (single page app) ================= -->
+  <main class="container" id="app">
+    <!-- Banner / Slider -->
+    <section id="home" class="section" aria-labelledby="home-title">
       <div class="banner" aria-hidden="false">
-        <div class="slide active">
-          <div class="content">
-            <div>
-              <h1>Trivora — Tecnologia, Mobilidade e Estilo</h1>
-              <p>Bem-vindo à Trivora — onde Carros e Motorizadas lideram os destaques.</p>
-              <a class="cta" href="#carros" data-link>Ver Carros</a>
+        <div class="slides" role="region" aria-label="Promoções">
+          <div class="slide active" data-slide="0" role="article">
+            <div class="box">
+              <h1>Trivora — Mobilidade & Tecnologia</h1>
+              <p class="muted">Seleção premium de Carros e Motorizadas, além de tecnologia, moda e serviços.</p>
+              <div style="margin-top:12px">
+                <a class="cta" href="#carros" data-link>Ver Carros</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="slide">
-          <div class="content">
-            <div>
-              <h1>Destaques de Mobilidade</h1>
-              <p>Seleção premium de Carros e Motorizadas em oferta.</p>
-              <a class="cta" href="#motos" data-link>Ver Motorizadas</a>
+          <div class="slide" data-slide="1">
+            <div class="box">
+              <h1>Destaques da Semana</h1>
+              <p class="muted">OFERTAS selecionadas em eletrônicos e moda. Confira!</p>
+              <div style="margin-top:12px">
+                <a class="cta" href="#produtos" data-link>Ver Ofertas</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="slide">
-          <div class="content">
-            <div>
+          <div class="slide" data-slide="2">
+            <div class="box">
               <h1>Espaço de Marketing</h1>
-              <p>Promova sua marca com vitrines e campanhas personalizadas.</p>
-              <a class="cta" href="#marketing" data-link>Saiba mais</a>
+              <p class="muted">Promova sua marca com vitrines e campanhas personalizadas.</p>
+              <div style="margin-top:12px">
+                <a class="cta" href="#marketing" data-link>Saiba mais</a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="dots" id="slider-dots" aria-hidden="true"></div>
+        <div class="slider-dots" id="slider-dots" aria-hidden="true"></div>
       </div>
 
-      <!-- DESTAQUES (Carros & Motorizadas) -->
-      <div style="margin-top:22px">
-        <div class="vitrine-head">
-          <h2>Destaques — Carros & Motorizadas</h2>
-          <a href="#carros" data-link>Ver todos Carros</a>
+      <!-- Welcome visual / branding message -->
+      <div style="margin:18px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <h2 style="margin:0">Categorias — Vitrine Trivora</h2>
+          <p class="muted" style="margin:6px 0 0">Clique em uma categoria para ver a vitrine completa. Na homepage mostramos 1 produto representativo por categoria.</p>
         </div>
-        <div id="featured" class="cards"></div>
+        <div class="kicker" style="margin-left:auto">
+          <span class="pill">Preto & Branco</span>
+          <span class="pill">Minimal</span>
+          <span class="pill">Rápido</span>
+        </div>
       </div>
+
+      <!-- Categories showcase (each card shows 1 representative product & link "Ver todos") -->
+      <section class="categories" aria-label="Categorias principais">
+        <!-- Cards injected by JS -->
+      </section>
     </section>
 
-    <!-- VITRINES RESUMIDAS (cada com 3-4 produtos + Ver todos) -->
-    <section id="vitrines" class="section">
-      <!-- Telephones -->
-      <div class="vitrine" aria-labelledby="v-tel" style="margin-bottom:20px">
-        <div class="vitrine-head">
-          <h3 id="v-tel">Telefones</h3>
-          <a href="#telefones" data-link>Ver todos</a>
+    <!-- Products page (all products) -->
+    <section id="produtos" class="section hidden" aria-labelledby="produtos-title">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h1 id="produtos-title">Todos os Produtos</h1>
+        <div>
+          <label class="small">Filtrar: </label>
+          <select id="filter-cat">
+            <option value="all">Todas</option>
+            <option value="Carros">Carros</option>
+            <option value="Motorizadas">Motorizadas</option>
+            <option value="Telefones">Telefones</option>
+            <option value="Eletronicos">Eletrônicos</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Beleza">Beleza</option>
+            <option value="Servicos">Serviços</option>
+            <option value="Marketing">Marketing</option>
+          </select>
         </div>
-        <div id="mini-telefones" class="cards"></div>
       </div>
-
-      <!-- Eletrônicos -->
-      <div class="vitrine" aria-labelledby="v-ele">
-        <div class="vitrine-head">
-          <h3 id="v-ele">Eletrônicos</h3>
-          <a href="#eletronicos" data-link>Ver todos</a>
-        </div>
-        <div id="mini-eletronicos" class="cards"></div>
-      </div>
-
-      <!-- Masculino -->
-      <div class="vitrine" aria-labelledby="v-masc" style="margin-top:20px">
-        <div class="vitrine-head">
-          <h3 id="v-masc">Universo Masculino</h3>
-          <a href="#masculino" data-link>Ver todos</a>
-        </div>
-        <div id="mini-masculino" class="cards"></div>
-      </div>
-
-      <!-- Feminino (inclui beleza) -->
-      <div class="vitrine" aria-labelledby="v-fem" style="margin-top:20px">
-        <div class="vitrine-head">
-          <h3 id="v-fem">Universo Feminino & Beleza</h3>
-          <a href="#feminino" data-link>Ver todos</a>
-        </div>
-        <div id="mini-feminino" class="cards"></div>
-      </div>
-
-      <!-- Serviços -->
-      <div class="vitrine" aria-labelledby="v-serv" style="margin-top:20px">
-        <div class="vitrine-head">
-          <h3 id="v-serv">Serviços Online</h3>
-          <a href="#servicos" data-link>Ver todos</a>
-        </div>
-        <div id="mini-servicos" class="cards"></div>
-      </div>
-
-      <!-- Marketing -->
-      <div class="vitrine" aria-labelledby="v-mkt" style="margin-top:20px">
-        <div class="vitrine-head">
-          <h3 id="v-mkt">Espaço de Marketing</h3>
-          <a href="#marketing" data-link>Ver todos</a>
-        </div>
-        <div id="mini-marketing" class="cards"></div>
-      </div>
+      <div id="all-products" class="cards" aria-live="polite"></div>
     </section>
 
-    <!-- PÁGINA DE PRODUTOS COMPLETA (lista filtrável) -->
-    <section id="produtos" class="section hidden">
-      <h1>Todos os produtos</h1>
-      <div style="margin-bottom:12px">
-        <label for="filter-cat" style="font-size:.9rem;color:var(--muted)">Filtrar por categoria:</label>
-        <select id="filter-cat" style="margin-left:8px;padding:8px;border-radius:8px;border:1px solid #ddd">
-          <option value="all">Todas</option>
-          <option value="Telefones">Telefones</option>
-          <option value="Eletronicos">Eletrônicos</option>
-          <option value="Carros">Carros</option>
-          <option value="Motorizadas">Motorizadas</option>
-          <option value="Masculino">Masculino</option>
-          <option value="Feminino">Feminino</option>
-          <option value="Beleza">Beleza</option>
-          <option value="Servicos">Serviços</option>
-          <option value="Marketing">Marketing</option>
-        </select>
-      </div>
-      <div id="all-products" class="cards"></div>
-    </section>
-
-    <!-- CATEGORIAS COMPLETAS -->
-    <section id="telefones" class="section hidden"><h1>Telefones</h1><div id="cat-telefones" class="cards"></div></section>
-    <section id="eletronicos" class="section hidden"><h1>Eletrônicos</h1><div id="cat-eletronicos" class="cards"></div></section>
+    <!-- Separate category pages (start hidden) -->
     <section id="carros" class="section hidden"><h1>Carros</h1><div id="cat-carros" class="cards"></div></section>
     <section id="motos" class="section hidden"><h1>Motorizadas</h1><div id="cat-motos" class="cards"></div></section>
+    <section id="telefones" class="section hidden"><h1>Telefones</h1><div id="cat-telefones" class="cards"></div></section>
+    <section id="eletronicos" class="section hidden"><h1>Eletrônicos</h1><div id="cat-eletronicos" class="cards"></div></section>
     <section id="masculino" class="section hidden"><h1>Moda Masculina</h1><div id="cat-masculino" class="cards"></div></section>
     <section id="feminino" class="section hidden"><h1>Moda Feminina & Beleza</h1><div id="cat-feminino" class="cards"></div></section>
     <section id="servicos" class="section hidden"><h1>Serviços Online</h1><div id="cat-servicos" class="cards"></div></section>
     <section id="marketing" class="section hidden"><h1>Espaço de Marketing</h1><div id="cat-marketing" class="cards"></div></section>
 
-    <!-- CARRINHO -->
-    <section id="carrinho" class="section hidden">
-      <h1>Seu Carrinho</h1>
+    <!-- Cart -->
+    <section id="carrinho" class="section hidden" aria-labelledby="carrinho-title">
+      <h1 id="carrinho-title">Seu Carrinho</h1>
       <table class="table" id="cart-table">
         <thead><tr><th>Produto</th><th>Preço</th><th>Qtd</th><th>Subtotal</th><th></th></tr></thead>
         <tbody></tbody>
-        <tfoot><tr><td colspan="3">Total</td><td id="cart-sum">Kz 0</td><td></td></tr></tfoot>
+        <tfoot><tr><td colspan="3">Total</td><td id="cart-total-kz">Kz 0</td><td></td></tr></tfoot>
       </table>
-      <div style="margin-top:12px"><a class="btn" href="#checkout" data-link>Finalizar compra</a></div>
+      <div style="margin-top:12px;display:flex;gap:12px;">
+        <button class="btn" id="btn-checkout">Finalizar Compra</button>
+        <button class="btn" id="btn-clear-cart" style="background:#eee;color:#000">Limpar Carrinho</button>
+      </div>
     </section>
 
-    <!-- CHECKOUT -->
+    <!-- Checkout -->
     <section id="checkout" class="section hidden">
-      <h1>Finalizar compra</h1>
-      <form id="checkout-form" class="form" style="max-width:680px">
-        <input name="name" placeholder="Nome completo" required/>
-        <input type="email" name="email" placeholder="Email" required/>
-        <input name="address" placeholder="Endereço" required/>
-        <input name="phone" placeholder="Telefone" required/>
-        <select name="payment" required>
-          <option value="">Selecione pagamento</option>
-          <option>Multicaixa</option>
-          <option>Unitel Money</option>
-          <option>PayPal</option>
-          <option>Stripe</option>
-        </select>
-        <button class="btn" type="submit">Confirmar pedido (simulado)</button>
-      </form>
+      <h1>Finalizar Compra</h1>
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:18px">
+        <form id="checkout-form" class="form" style="max-width:720px">
+          <div class="row">
+            <input name="name" placeholder="Nome completo" required />
+            <input name="email" type="email" placeholder="Email" required />
+          </div>
+          <input name="address" placeholder="Endereço completo" required />
+          <div class="row">
+            <input name="phone" placeholder="Telefone" required />
+            <select name="payment" required>
+              <option value="">Selecione método</option>
+              <option>Multicaixa</option>
+              <option>Unitel Money</option>
+              <option>PayPal</option>
+              <option>Stripe</option>
+            </select>
+          </div>
+          <textarea name="notes" placeholder="Observações (opcional)"></textarea>
+          <button class="btn" type="submit">Confirmar Pedido (simulado)</button>
+        </form>
+
+        <aside style="border:1px solid #eee;border-radius:12px;padding:12px">
+          <h3>Resumo do pedido</h3>
+          <table class="table" id="summary-table"><thead><tr><th>Produto</th><th>Qtd</th><th>Total</th></tr></thead><tbody></tbody><tfoot><tr><td colspan="2">Total</td><td id="summary-total">Kz 0</td></tr></tfoot></table>
+        </aside>
+      </div>
     </section>
 
-    <!-- CONTA (simplificada) -->
+    <!-- Account / Register / Login simplified -->
     <section id="conta" class="section hidden">
       <h1>Minha Conta</h1>
-      <div id="user-data" class="alert" style="margin-bottom:12px"></div>
-      <h3>Pedidos</h3>
-      <table class="table" id="orders-table"><thead><tr><th>Pedido</th><th>Itens</th><th>Total</th><th>Status</th></tr></thead><tbody></tbody></table>
+      <div id="account-area"></div>
     </section>
   </main>
 
-  <footer class="footer">© 2025 Trivora — Todos os direitos reservados.</footer>
+  <footer class="footer">
+    © <span id="year"></span> Trivora — Minimal • Elegante • Rápido
+  </footer>
 
+  <!-- Sticky checkout -->
   <div class="sticky-checkout" aria-hidden="false">
-    <span>Total: Kz <strong id="cart-total">0</strong></span>
+    <div>Total: <strong id="sticky-total">Kz 0</strong></div>
     <a class="btn" href="#checkout" data-link>Checkout</a>
   </div>
 
-  <!-- WELCOME MODAL (aparece apenas 1x) -->
-  <div id="welcome-modal" class="modal-backdrop" style="display:none">
+  <!-- Welcome modal (once) -->
+  <div id="welcome-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-label="Boas-vindas">
     <div class="modal">
       <h2>Bem-vindo à Trivora</h2>
-      <p>Bem-vindo à Trivora, onde tecnologia, mobilidade e estilo se encontram ✨</p>
-      <div style="margin-top:18px">
-        <button id="close-welcome" class="btn">Começar a navegar</button>
+      <p class="muted">Bem-vindo à Trivora, onde tecnologia, mobilidade e estilo se encontram ✨</p>
+      <div class="actions">
+        <button id="welcome-start" class="btn">Começar a navegar</button>
+        <button id="welcome-skip" class="ghost">Fechar</button>
       </div>
     </div>
   </div>
 
-  <!-- =======================
-       SCRIPTS (produtos + app)
-       ======================= -->
+  <!-- ===================================================================
+       JAVASCRIPT: lógica completa do e-commerce (carrinho, checkout,
+       login simples, produtos, rotas internas, banners, filtros, animações)
+       =================================================================== -->
   <script>
-    /* ---------------------------
-       Helper: Unsplash URL helper
-       --------------------------- */
-    const U = (q) => `https://source.unsplash.com/800x800/?${encodeURIComponent(q)}`;
+    /* ===========================
+       Util helpers & storage
+       =========================== */
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => Array.from((ctx||document).querySelectorAll(sel));
+    const store = {
+      get(key, fallback = null) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch(e){ return fallback; } },
+      set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch(e){} },
+      remove(key) { try { localStorage.removeItem(key); } catch(e){} }
+    };
 
-    /* ============================
-       PRODUCTS: up to 5 per group
-       ============================ */
+    /* ===========================
+       Unsplash helper for images
+       =========================== */
+    const U = q => `https://source.unsplash.com/900x900/?${encodeURIComponent(q)}`;
+
+    /* ===========================
+       PRODUCTS dataset (expanded)
+       - up to 5+ items per category, many entries to be 'complete'
+       =========================== */
     window.TRIVORA_PRODUCTS = [
-      // Telephones (4)
-      {id:'tel1', category:'Telefones', name:'iPhone 15 Pro', price:850000, img: U('iphone,phone,apple'), desc:'Desempenho Pro e câmera topo de gama.'},
-      {id:'tel2', category:'Telefones', name:'Samsung Galaxy S24', price:620000, img: U('samsung,phone,android'), desc:'Tela AMOLED, bateria duradoura.'},
-      {id:'tel3', category:'Telefones', name:'Xiaomi 14', price:340000, img: U('xiaomi,phone,smartphone'), desc:'Ótimo custo-benefício.'},
-      {id:'tel4', category:'Telefones', name:'Google Pixel 8', price:410000, img: U('google pixel,phone,camera'), desc:'Câmera com processamento inteligente.'},
+      /* Telephones */
+      {id:'tel-iphone-15', category:'Telefones', name:'iPhone 15 Pro', price:850000, img:U('iphone,phone,apple'), desc:'Câmera Pro e desempenho máximo.'},
+      {id:'tel-samsung-s24', category:'Telefones', name:'Samsung Galaxy S24', price:620000, img:U('samsung,phone,android'), desc:'Tela AMOLED e bateria potente.'},
+      {id:'tel-xiaomi-14', category:'Telefones', name:'Xiaomi 14', price:340000, img:U('xiaomi,phone,smartphone'), desc:'Ótimo custo-benefício.'},
+      {id:'tel-pixel-8', category:'Telefones', name:'Google Pixel 8', price:410000, img:U('google pixel,phone,camera'), desc:'Câmera com processamento inteligente.'},
+      {id:'tel-oneplus-12', category:'Telefones', name:'OnePlus 12', price:380000, img:U('oneplus,phone,technology'), desc:'Velocidade e carregamento ultrarrápido.'},
 
-      // Eletrônicos (4)
-      {id:'ele1', category:'Eletronicos', name:'Smart TV 55" 4K', price:300000, img: U('smart tv,television,4k'), desc:'4K UHD com smart apps integrados.'},
-      {id:'ele2', category:'Eletronicos', name:'Laptop Ultrabook 14"', price:540000, img: U('laptop,ultrabook,notebook'), desc:'Leve, potente e bateria longa.'},
-      {id:'ele3', category:'Eletronicos', name:'Headset Wireless', price:42000, img: U('headphones,wireless,audio'), desc:'Cancelamento de ruído e som claro.'},
-      {id:'ele4', category:'Eletronicos', name:'Câmera Mirrorless', price:280000, img: U('camera,mirrorless,photography'), desc:'Qualidade profissional em corpo compacto.'},
+      /* Eletronicos */
+      {id:'ele-tv-55', category:'Eletronicos', name:'Smart TV 55" 4K', price:300000, img:U('smart tv,television,4k'), desc:'4K UHD com smart apps.'},
+      {id:'ele-laptop-14', category:'Eletronicos', name:'Laptop Ultrabook 14"', price:540000, img:U('laptop,ultrabook,notebook'), desc:'Leve, potente e bateria duradoura.'},
+      {id:'ele-headset-anc', category:'Eletronicos', name:'Headset Wireless ANC', price:42000, img:U('headphones,wireless,anc'), desc:'Cancelamento de ruído e som premium.'},
+      {id:'ele-watch', category:'Eletronicos', name:'Smartwatch 46mm', price:85000, img:U('smartwatch,wearable,tech'), desc:'Monitor de saúde e notificações.'},
+      {id:'ele-camera', category:'Eletronicos', name:'Câmera Mirrorless', price:280000, img:U('camera,mirrorless,photography'), desc:'Qualidade profissional em corpo compacto.'},
 
-      // Carros (5)
-      {id:'car1', category:'Carros', name:'Tesla Model 3', price:9500000, img: U('tesla,car,electric'), desc:'Elétrico, com autonomia e tecnologia.'},
-      {id:'car2', category:'Carros', name:'Mercedes C200', price:7800000, img: U('mercedes,car,luxury'), desc:'Luxo e conforto para dirigir.'},
-      {id:'car3', category:'Carros', name:'Toyota Hilux', price:6000000, img: U('toyota,truck,car'), desc:'Robustez e capacidade fora de estrada.'},
-      {id:'car4', category:'Carros', name:'BMW Série 3', price:8200000, img: U('bmw,car,sport'), desc:'Performance e acabamento premium.'},
-      {id:'car5', category:'Carros', name:'Volkswagen Golf GTI', price:4200000, img: U('volkswagen,car,gti'), desc:'Desempenho esportivo e confiabilidade.'},
+      /* Carros */
+      {id:'car-tesla-3', category:'Carros', name:'Tesla Model 3', price:9500000, img:U('tesla,car,electric'), desc:'Elétrico com autonomia e tecnologia.'},
+      {id:'car-mercedes-c200', category:'Carros', name:'Mercedes C200', price:7800000, img:U('mercedes,car,luxury'), desc:'Luxo e conforto.'},
+      {id:'car-toyota-hilux', category:'Carros', name:'Toyota Hilux', price:6000000, img:U('toyota,truck,car'), desc:'Robustez para todo terreno.'},
+      {id:'car-bmw-3', category:'Carros', name:'BMW Série 3', price:8200000, img:U('bmw,car,sport'), desc:'Performance e acabamento premium.'},
+      {id:'car-golf-gti', category:'Carros', name:'Volkswagen Golf GTI', price:4200000, img:U('volkswagen,car,gti'), desc:'Desempenho esportivo.'},
 
-      // Motorizadas (5)
-      {id:'moto1', category:'Motorizadas', name:'Yamaha R1', price:3200000, img: U('yamaha,motorcycle,sport'), desc:'Moto esportiva de alta performance.'},
-      {id:'moto2', category:'Motorizadas', name:'Honda CBR 600', price:2800000, img: U('honda,motorcycle,cbr'), desc:'Equilíbrio entre potência e controle.'},
-      {id:'moto3', category:'Motorizadas', name:'Suzuki GSX', price:2500000, img: U('suzuki,motorcycle'), desc:'Adrenalina e estilo.'},
-      {id:'moto4', category:'Motorizadas', name:'Harley-Davidson', price:6100000, img: U('harley,motorcycle,cruiser'), desc:'Cruiser icônica com personalidade.'},
-      {id:'moto5', category:'Motorizadas', name:'Kawasaki Ninja', price:3000000, img: U('kawasaki,ninja,motorbike'), desc:'Desempenho agressivo e design.'},
+      /* Motorizadas */
+      {id:'moto-yamaha-r1', category:'Motorizadas', name:'Yamaha R1', price:3200000, img:U('yamaha,motorcycle,sport'), desc:'Moto esportiva de alta performance.'},
+      {id:'moto-honda-cbr600', category:'Motorizadas', name:'Honda CBR 600', price:2800000, img:U('honda,cbr,motorcycle'), desc:'Equilíbrio entre potência e controle.'},
+      {id:'moto-suzuki-gsx', category:'Motorizadas', name:'Suzuki GSX', price:2500000, img:U('suzuki,gsx,motorcycle'), desc:'Adrenalina e estilo.'},
+      {id:'moto-harley', category:'Motorizadas', name:'Harley-Davidson', price:6100000, img:U('harley,motorcycle,cruiser'), desc:'Cruiser icônica e robusta.'},
+      {id:'moto-kawasaki-ninja', category:'Motorizadas', name:'Kawasaki Ninja', price:3000000, img:U('kawasaki,ninja,motorbike'), desc:'Desempenho agressivo e design.'},
 
-      // Masculino (4)
-      {id:'mas1', category:'Masculino', name:'Tênis Running Pro', price:45000, img: U('mens shoes,running'), desc:'Amortecimento para longas corridas.'},
-      {id:'mas2', category:'Masculino', name:'Camiseta Premium', price:8000, img: U('mens t-shirt,fashion'), desc:'Corte moderno e tecido respirável.'},
-      {id:'mas3', category:'Masculino', name:'Relógio Clássico', price:90000, img: U('mens watch,classy'), desc:'Design sofisticado para o dia a dia.'},
-      {id:'mas4', category:'Masculino', name:'Jaqueta Bomber', price:46000, img: U('mens jacket,bomber'), desc:'Estilo urbano com isolamento leve.'},
+      /* Masculino */
+      {id:'mas-tenis-air', category:'Masculino', name:'Tênis Running Pro', price:45000, img:U('mens shoes,running sneakers'), desc:'Amortecimento para treinos.'},
+      {id:'mas-camiseta', category:'Masculino', name:'Camiseta Premium', price:8000, img:U('mens t-shirt fashion'), desc:'Corte moderno e tecido respirável.'},
+      {id:'mas-relogio', category:'Masculino', name:'Relógio Clássico', price:90000, img:U('mens watch classic'), desc:'Design sofisticado.'},
+      {id:'mas-jaqueta', category:'Masculino', name:'Jaqueta Bomber', price:46000, img:U('mens jacket bomber'), desc:'Estilo urbano e isolamento leve.'},
 
-      // Feminino (4)
-      {id:'fem1', category:'Feminino', name:'Vestido Floral', price:25000, img: U('womens dress,floral'), desc:'Leve e perfeito para eventos.'},
-      {id:'fem2', category:'Feminino', name:'Sandália Salto', price:42000, img: U('womens heels,sandal'), desc:'Elegância com conforto.'},
-      {id:'fem3', category:'Feminino', name:'Bolsa Tiracolo', price:52000, img: U('womens bag,handbag'), desc:'Acabamento premium e espaço interno.'},
-      {id:'fem4', category:'Feminino', name:'Conjunto Casual', price:32000, img: U('womens outfit,casual'), desc:'Conforto e personalidade.'},
+      /* Feminino */
+      {id:'fem-vestido', category:'Feminino', name:'Vestido Floral', price:25000, img:U('womens dress floral'), desc:'Leve e perfeito para eventos.'},
+      {id:'fem-sandalia', category:'Feminino', name:'Sandália Salto', price:42000, img:U('womens heels sandals'), desc:'Elegância e conforto.'},
+      {id:'fem-bolsa', category:'Feminino', name:'Bolsa Tiracolo', price:52000, img:U('womens bag handbag'), desc:'Acabamento premium.'},
+      {id:'fem-conjunto', category:'Feminino', name:'Conjunto Casual', price:32000, img:U('womens outfit casual'), desc:'Conforto e personalidade.'},
 
-      // Beleza (4)
-      {id:'bez1', category:'Beleza', name:'Kit Maquiagem', price:15000, img: U('makeup,beauty,cosmetics'), desc:'Completo para o dia a dia.'},
-      {id:'bez2', category:'Beleza', name:'Perfume Signature', price:28000, img: U('perfume,bottle,fragrance'), desc:'Notas marcantes e duradouras.'},
-      {id:'bez3', category:'Beleza', name:'Skincare Set', price:22000, img: U('skincare,beauty'), desc:'Rotina completa para hidratação.'},
-      {id:'bez4', category:'Beleza', name:'Pincéis Profissionais', price:7500, img: U('makeup brushes'), desc:'Precisão e acabamento.'},
+      /* Beleza (subcategoria feminina) */
+      {id:'bez-kit-maquiagem', category:'Beleza', name:'Kit Maquiagem', price:15000, img:U('makeup,cosmetics,beauty'), desc:'Completo para rotina diária.'},
+      {id:'bez-perfume', category:'Beleza', name:'Perfume Signature', price:28000, img:U('perfume,bottle,fragrance'), desc:'Notas marcantes e duradouras.'},
+      {id:'bez-skincare', category:'Beleza', name:'Skincare Set', price:22000, img:U('skincare,beauty,cosmetics'), desc:'Hidratação completa.'},
 
-      // Serviços (4)
-      {id:'srv1', category:'Servicos', name:'Design de Logo', price:20000, img: U('logo design,branding'), desc:'Identidade visual profissional.'},
-      {id:'srv2', category:'Servicos', name:'Landing Page', price:18000, img: U('website,landing page,web'), desc:'Página otimizada para conversão.'},
-      {id:'srv3', category:'Servicos', name:'Social Media Pack', price:25000, img: U('social media,marketing'), desc:'Conteúdo e anúncios otimizados.'},
-      {id:'srv4', category:'Servicos', name:'Fotografia de Produto', price:12000, img: U('product photography,studio'), desc:'Imagens profissionais para loja.'},
+      /* Servicos */
+      {id:'srv-logo', category:'Servicos', name:'Design de Logo', price:20000, img:U('logo design branding'), desc:'Identidade visual profissional.'},
+      {id:'srv-landing', category:'Servicos', name:'Landing Page', price:18000, img:U('website landing page web'), desc:'Página otimizada para conversão.'},
+      {id:'srv-social', category:'Servicos', name:'Gestão de Redes Sociais', price:25000, img:U('social media marketing'), desc:'Conteúdo e anúncios.'},
+      {id:'srv-photo', category:'Servicos', name:'Fotografia de Produto', price:12000, img:U('product photography studio'), desc:'Imagens profissionais para loja.'},
 
-      // Marketing (4)
-      {id:'mkt1', category:'Marketing', name:'Anúncio em Destaque', price:10000, img: U('advertising,marketing'), desc:'Coloque seu produto em destaque.'},
-      {id:'mkt2', category:'Marketing', name:'Banner Rotativo', price:7000, img: U('banner,ad'), desc:'Banner em posições de alta visibilidade.'},
-      {id:'mkt3', category:'Marketing', name:'Vitrine Premium', price:15000, img: U('storefront,display,marketing'), desc:'Espaço destacado na homepage.'},
-      {id:'mkt4', category:'Marketing', name:'Newsletter Patrocinada', price:9000, img: U('newsletter,email marketing'), desc:'Envio para base segmentada.'}
+      /* Marketing */
+      {id:'mkt-anuncio', category:'Marketing', name:'Anúncio em Destaque', price:10000, img:U('advertising marketing ad'), desc:'Coloque seu produto em destaque.'},
+      {id:'mkt-banner', category:'Marketing', name:'Banner Rotativo', price:7000, img:U('banner ad marketing'), desc:'Posição estratégica na homepage.'},
+      {id:'mkt-vitrine', category:'Marketing', name:'Vitrine Premium', price:15000, img:U('storefront display marketing'), desc:'Espaço destacado para seus produtos.'},
+
+      /* extras to give breadth */
+      {id:'ele-speaker', category:'Eletronicos', name:'Speaker Bluetooth', price:19000, img:U('bluetooth speaker audio'), desc:'Som potente e portátil.'},
+      {id:'tel-fold', category:'Telefones', name:'Telefone Fold X', price:980000, img:U('foldable phone,phone'), desc:'Tela dobrável e inovadora.'},
+      {id:'car-electric-suv', category:'Carros', name:'SUV Elétrico X', price:12500000, img:U('electric suv car'), desc:'Espaço, autonomia e conforto.'},
+      {id:'moto-urban', category:'Motorizadas', name:'Scooter Elétrica', price:950000, img:U('electric scooter urban'), desc:'Mobilidade urbana eficiente.'}
     ];
 
-    /* =====================
-       SIMPLE STORAGE HELPERS
-       ===================== */
-    const store = {
-      get(k, fallback=null){ try{const v=localStorage.getItem(k); return v ? JSON.parse(v) : fallback;}catch(e){return fallback} },
-      set(k,v){ localStorage.setItem(k, JSON.stringify(v)) },
-      remove(k){ localStorage.removeItem(k) }
+    /* ===========================
+       CART logic (localStorage)
+       =========================== */
+    const CART_KEY = 'trivora:cart_v3';
+    const ORDERS_KEY = 'trivora:orders_v3';
+    const USERS_KEY = 'trivora:users_v3';
+    const SESSION_KEY = 'trivora:session_v3';
+
+    const cartAPI = {
+      all(){ return store.get(CART_KEY, []); },
+      save(items){ store.set(CART_KEY, items); UI.updateCartCount(); },
+      add(id, qty = 1){
+        const items = cartAPI.all();
+        const found = items.find(i=>i.id===id);
+        if(found) found.qty += qty; else items.push({id, qty});
+        cartAPI.save(items);
+        UI.flash('Produto adicionado ao carrinho');
+      },
+      remove(id){ cartAPI.save(cartAPI.all().filter(i=>i.id!==id)); },
+      setQty(id, qty){ const items = cartAPI.all(); const it = items.find(i=>i.id===id); if(it){ it.qty = Math.max(1, qty); cartAPI.save(items); } },
+      clear(){ cartAPI.save([]); }
     };
 
-    /* =====================
-       CART / AUTH / ORDERS
-       ===================== */
-    const cart = {
-      key: 'trivora:cart',
-      all(){ return store.get(this.key, []) || [] },
-      save(items){ store.set(this.key, items); ui.updateCartCount() },
-      add(id, qty=1){ const items=this.all(); const it=items.find(i=>i.id===id); if(it) it.qty += qty; else items.push({id, qty}); this.save(items); ui.flash('Adicionado ao carrinho'); },
-      remove(id){ const items=this.all().filter(i=>i.id!==id); this.save(items); },
-      setQty(id, qty){ const items=this.all(); const it=items.find(i=>i.id===id); if(it){ it.qty = Math.max(1, qty); this.save(items) } },
-      clear(){ this.save([]) },
-      total(){ return this.all().reduce((s,i)=>{ const p = products.get(i.id); return s + (p?.price||0)*i.qty }, 0) },
-      count(){ return this.all().reduce((n,i)=>n+i.qty,0) }
+    /* ===========================
+       ORDERS
+       =========================== */
+    const ordersAPI = {
+      all(){ return store.get(ORDERS_KEY, []); },
+      add(order){ const list = ordersAPI.all(); list.push(order); store.set(ORDERS_KEY, list); }
     };
 
+    /* ===========================
+       AUTH (very simple local only)
+       - register, login (password stored in localStorage) — for demo only
+       =========================== */
     const auth = {
-      user(){ return store.get('trivora:user', null) },
-      register({name,email,phone,password}){ const users = store.get('trivora:users', []); if(users.some(u=>u.email===email)) return {ok:false, msg:'Email já registrado'}; users.push({name,email,phone,password}); store.set('trivora:users', users); store.set('trivora:user', {name,email,phone}); return {ok:true} },
-      login(email,password){ const users = store.get('trivora:users', []); const u = users.find(x=>x.email===email && x.password===password); if(!u) return {ok:false, msg:'Credenciais inválidas'}; store.set('trivora:user', {name:u.name,email:u.email,phone:u.phone}); return {ok:true} },
-      logout(){ store.remove('trivora:user') }
+      current(){ return store.get(SESSION_KEY, null); },
+      register({name,email,phone,password}){
+        const users = store.get(USERS_KEY, []);
+        if(users.some(u=>u.email===email)) return {ok:false,msg:'Email já registrado'};
+        users.push({name,email,phone,password});
+        store.set(USERS_KEY, users);
+        store.set(SESSION_KEY, {name,email,phone});
+        return {ok:true};
+      },
+      login(email,password){
+        const users = store.get(USERS_KEY, []);
+        const u = users.find(x=>x.email===email && x.password===password);
+        if(!u) return {ok:false,msg:'Credenciais inválidas'};
+        store.set(SESSION_KEY, {name:u.name,email:u.email,phone:u.phone});
+        return {ok:true};
+      },
+      logout(){ store.remove(SESSION_KEY); }
     };
 
-    const orders = {
-      key: 'trivora:orders',
-      all(){ return store.get(this.key, []) || [] },
-      add(o){ const list = this.all(); list.push(o); store.set(this.key, list) }
+    /* ===========================
+       UI helpers & renderers
+       =========================== */
+    const UI = {
+      formatKz(v){ return 'Kz ' + Number(v).toLocaleString('pt-PT'); },
+      updateCartCount(){
+        const cnt = cartAPI.all().reduce((n,i)=>n+i.qty,0);
+        const el = $('#cart-count'); if(el) el.textContent = cnt;
+        const sticky = $('#sticky-total'); if(sticky) sticky.textContent = cartAPI.all().reduce((s,i)=>{ const p = products.get(i.id); return s + (p?.price||0)*i.qty; },0).toFixed(2);
+      },
+      flash(msg, ms=1600){
+        const el = document.createElement('div');
+        el.textContent = msg; el.style.position='fixed'; el.style.left='50%'; el.style.top='18px'; el.style.transform='translateX(-50%)';
+        el.style.background='#fff'; el.style.padding='10px 14px'; el.style.borderRadius='10px'; el.style.boxShadow='0 10px 30px rgba(0,0,0,0.12)'; el.style.zIndex=2600;
+        document.body.appendChild(el);
+        setTimeout(()=>el.remove(), ms);
+      }
     };
 
-    /* =====================
-       PRODUCTS UTIL
-       ===================== */
+    /* ===========================
+       PRODUCTS helper (map/list)
+       =========================== */
     const products = (function(){
       const list = window.TRIVORA_PRODUCTS || [];
       const map = new Map(list.map(p=>[p.id,p]));
-      const byCategory = (cat) => list.filter(p=>p.category === cat);
-      const get = (id) => map.get(id);
-      return { list, byCategory, get };
+      return {
+        list,
+        get(id){ return map.get(id); },
+        byCategory(cat){ return list.filter(x=>x.category === cat); }
+      };
     })();
 
-    /* =====================
-       UI HELPERS
-       ===================== */
-    const ui = {
-      updateCartCount(){
-        const el = document.getElementById('cart-count'); if(el) el.textContent = cart.count();
-        const totalEl = document.getElementById('cart-total'); if(totalEl) totalEl.textContent = cart.total().toFixed(2);
-      },
-      flash(msg){
-        const a = document.createElement('div');
-        a.style.position='fixed'; a.style.left='50%'; a.style.top='16px'; a.style.transform='translateX(-50%)';
-        a.style.background='#fff'; a.style.border='1px solid #ddd'; a.style.padding='8px 12px'; a.style.borderRadius='10px';
-        a.style.zIndex='2500'; a.style.boxShadow='0 10px 30px rgba(0,0,0,.12)';
-        a.textContent = msg;
-        document.body.appendChild(a);
-        setTimeout(()=>a.remove(),1600);
-      },
-      formatKz(v){ return 'Kz ' + Number(v).toLocaleString('pt-PT'); }
-    };
-
-    /* =====================
-       RENDER FUNCTIONS
-       ===================== */
-    function productCardHTML(p, delayIndex=0){
-      const delay = Math.min(delayIndex * 30, 300);
-      return `<div class="card" style="animation-delay:${delay}ms">
-        <div class="thumb"><img src="${p.img}" alt="${escapeHtml(p.name)}" loading="lazy" /></div>
-        <div class="info">
-          <div><strong>${escapeHtml(p.name)}</strong></div>
-          <div class="price">${ui.formatKz(p.price)}</div>
-          <div class="meta">${escapeHtml(p.category)} — ${escapeHtml(p.desc)}</div>
-        </div>
-        <div class="actions"><button class="btn" data-id="${p.id}">Adicionar ao carrinho</button></div>
-      </div>`;
+    /* ===========================
+       Render helpers: product card HTML
+       =========================== */
+    function productCardHTML(p){
+      return `
+        <article class="card" data-id="${p.id}" aria-labelledby="p-${p.id}">
+          <div class="thumb"><img src="${p.img}" alt="${escapeHtml(p.name)}" loading="lazy" /></div>
+          <div class="meta">
+            <h4 id="p-${p.id}">${escapeHtml(p.name)}</h4>
+            <div class="price">${UI.formatKz(p.price)}</div>
+            <div class="small muted">${escapeHtml(p.category)}</div>
+            <p class="desc">${escapeHtml(p.desc)}</p>
+          </div>
+          <div class="actions" style="margin-top:auto;padding-bottom:12px">
+            <button class="btn" data-add="${p.id}">Adicionar</button>
+            <button class="ghost" style="margin-left:8px;padding:8px 10px;border-radius:8px;border:1px solid #eee" data-view="${p.id}">Ver</button>
+          </div>
+        </article>
+      `;
     }
 
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' })[c]); }
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[c]); }
 
-    // render a list into container (cards)
-    function renderListTo(containerSelector, list){
-      const container = document.querySelector(containerSelector);
+    /* ===========================
+       Render initial category showcase (home)
+       - show 1 representative product per category
+       =========================== */
+    function renderHomeCategories(){
+      const categories = ['Carros','Motorizadas','Telefones','Eletronicos','Masculino','Feminino','Servicos','Marketing'];
+      const container = document.querySelector('.categories');
       if(!container) return;
-      container.innerHTML = list.map((p,i)=>productCardHTML(p, i)).join('');
-      // bind add buttons
-      container.querySelectorAll('.btn[data-id]').forEach(btn=>{
-        btn.removeEventListener('click', handlerAddBtn);
-        btn.addEventListener('click', handlerAddBtn);
+      container.innerHTML = categories.map(cat=>{
+        const reps = products.byCategory(cat);
+        const rep = reps.length ? reps[0] : {name:cat, price:0, img: U(cat.toLowerCase()) , desc: 'Vitrine ' + cat};
+        return `
+          <div class="category-card" data-cat="${cat}">
+            <div class="category-media"><img src="${rep.img}" alt="${escapeHtml(cat)}"></div>
+            <div class="category-body">
+              <h3>${escapeHtml(cat)}</h3>
+              <p class="muted">${escapeHtml(rep.name)} — ${escapeHtml(rep.desc)}</p>
+              <div class="links">
+                <a class="ghost" href="#${slugFor(cat)}" data-link>Ver todos</a>
+                <button class="btn" data-add="${rep.id}" aria-label="Adicionar ${escapeHtml(rep.name)}">Adicionar ao carrinho</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      // bind category buttons
+      container.querySelectorAll('[data-add]').forEach(btn=>{
+        btn.addEventListener('click', (e)=>{ const id = e.currentTarget.dataset.add; if(id) cartAPI.add(id,1); renderCartTable(); });
       });
     }
-    function handlerAddBtn(e){ cart.add(e.currentTarget.dataset.id, 1); renderCartTable(); }
 
-    // Home featured (only Carros & Motorizadas)
-    function renderFeatured(){
-      const list = products.list.filter(p => p.category === 'Carros' || p.category === 'Motorizadas');
-      // choose top 8 or available
-      const picks = list.slice(0,8);
-      renderListTo('#featured', picks);
+    function slugFor(cat){
+      return {
+        'Carros':'carros',
+        'Motorizadas':'motos',
+        'Telefones':'telefones',
+        'Eletronicos':'eletronicos',
+        'Masculino':'masculino',
+        'Feminino':'feminino',
+        'Beleza':'feminino',
+        'Servicos':'servicos',
+        'Marketing':'marketing'
+      }[cat] || cat.toLowerCase();
     }
 
-    // Vitrines (select 3-4 each)
-    function renderVitrine(category, selector, count = 4){
-      const list = products.byCategory(category).slice(0, count);
-      renderListTo(selector, list);
-    }
-
-    // Full category
+    /* ===========================
+       Render category pages (full)
+       =========================== */
     function renderCategoryPage(category, selector){
       const list = products.byCategory(category);
-      renderListTo(selector, list);
+      const root = document.querySelector(selector);
+      if(!root) return;
+      if(list.length === 0){ root.innerHTML = `<div class="muted">Sem produtos nessa categoria.</div>`; return; }
+      root.innerHTML = list.map(p => productCardHTML(p)).join('');
+      bindProductButtons(root);
     }
 
-    // All products (with optional filter)
-    function renderAllProducts(filter = 'all'){
+    /* ===========================
+       Render all products (filterable)
+       =========================== */
+    function renderAllProducts(filter='all'){
+      const root = document.getElementById('all-products');
+      if(!root) return;
       let list = products.list;
-      if(filter && filter !== 'all') list = products.list.filter(p => p.category === filter);
-      renderListTo('#all-products', list);
+      if(filter && filter !== 'all') list = list.filter(p => p.category === filter);
+      root.innerHTML = list.map(p => productCardHTML(p)).join('');
+      bindProductButtons(root);
     }
 
-    // Cart table render & behavior
+    /* ===========================
+       Bind Add / View buttons inside a container
+       =========================== */
+    function bindProductButtons(root){
+      root.querySelectorAll('[data-add]').forEach(btn=>{
+        btn.removeEventListener('click', handleAddClick);
+        btn.addEventListener('click', handleAddClick);
+      });
+      root.querySelectorAll('[data-view]').forEach(btn=>{
+        btn.removeEventListener('click', handleViewClick);
+        btn.addEventListener('click', handleViewClick);
+      });
+    }
+    function handleAddClick(e){ cartAPI.add(e.currentTarget.dataset.add, 1); renderCartTable(); UI.updateCartCount(); }
+    function handleViewClick(e){ const id = e.currentTarget.dataset.view; const p = products.get(id); if(p){ alert(`${p.name}\n\n${p.desc}\n\nPreço: ${UI.formatKz(p.price)}`); } }
+
+    /* ===========================
+       Cart rendering & interactions
+       =========================== */
     function renderCartTable(){
       const tbody = document.querySelector('#cart-table tbody');
-      const items = cart.all();
       if(!tbody) return;
-      if(items.length === 0){
-        tbody.innerHTML = '<tr><td colspan="5" class="center">Seu carrinho está vazio.</td></tr>';
-        document.getElementById('cart-sum').textContent = ui.formatKz(0);
-        ui.updateCartCount();
-        return;
-      }
+      const items = cartAPI.all();
+      if(items.length === 0){ tbody.innerHTML = `<tr><td colspan="5" class="center muted">Seu carrinho está vazio.</td></tr>`; document.getElementById('cart-total-kz').textContent = 'Kz 0'; UI.updateCartCount(); return; }
       tbody.innerHTML = items.map(it=>{
         const p = products.get(it.id);
-        const sub = (p.price * it.qty);
+        const subtotal = (p?.price || 0) * it.qty;
         return `<tr>
-          <td>${escapeHtml(p.name)}</td>
-          <td>${ui.formatKz(p.price)}</td>
-          <td><input type="number" min="1" value="${it.qty}" data-id="${it.id}" style="width:76px;padding:6px;border-radius:6px;border:1px solid #ddd"/></td>
-          <td>${ui.formatKz(sub)}</td>
-          <td><button data-id="${it.id}" class="remove-item" style="padding:6px 10px;border-radius:8px;border:0;background:#000;color:#fff;cursor:pointer">Remover</button></td>
+          <td style="max-width:300px">${escapeHtml(p.name)}</td>
+          <td>${UI.formatKz(p.price)}</td>
+          <td><input type="number" min="1" value="${it.qty}" data-id="${it.id}" class="qty-input" style="width:72px;padding:6px;border-radius:6px;border:1px solid #ddd"></td>
+          <td>${UI.formatKz(subtotal)}</td>
+          <td><button data-id="${it.id}" class="btn remove" style="background:#eee;color:#000">Remover</button></td>
         </tr>`;
       }).join('');
-      // bind qty change & remove
-      tbody.querySelectorAll('input[type=number][data-id]').forEach(inp=>{
+      // bind qty & remove
+      tbody.querySelectorAll('.qty-input').forEach(inp => {
         inp.removeEventListener('input', qtyChangeHandler);
         inp.addEventListener('input', qtyChangeHandler);
       });
-      tbody.querySelectorAll('.remove-item').forEach(b=>{
+      tbody.querySelectorAll('.remove').forEach(b => {
         b.removeEventListener('click', removeItemHandler);
         b.addEventListener('click', removeItemHandler);
       });
-      document.getElementById('cart-sum').textContent = ui.formatKz(cart.total());
-      ui.updateCartCount();
+      const total = items.reduce((s,i)=>{ const p = products.get(i.id); return s + (p?.price||0) * i.qty; }, 0);
+      document.getElementById('cart-total-kz').textContent = UI.formatKz(total);
+      document.getElementById('sticky-total').textContent = total.toFixed(2);
+      UI.updateCartCount();
     }
     function qtyChangeHandler(e){
       const id = e.currentTarget.dataset.id;
-      const val = parseInt(e.currentTarget.value || '1', 10);
-      cart.setQty(id, val);
+      const val = parseInt(e.currentTarget.value||'1',10);
+      cartAPI.setQty(id, Math.max(1, val));
       renderCartTable();
     }
     function removeItemHandler(e){
-      cart.remove(e.currentTarget.dataset.id);
+      const id = e.currentTarget.dataset.id;
+      cartAPI.remove(id);
       renderCartTable();
     }
 
-    /* =====================
-       Checkout submit (simulado)
-       ===================== */
+    /* ===========================
+       Checkout summary
+       =========================== */
+    function renderCheckoutSummary(){
+      const tb = document.querySelector('#summary-table tbody');
+      if(!tb) return;
+      const items = cartAPI.all();
+      if(items.length === 0){ tb.innerHTML = `<tr><td colspan="3">Nenhum item no carrinho.</td></tr>`; document.getElementById('summary-total').textContent = 'Kz 0'; return; }
+      tb.innerHTML = items.map(it=>{
+        const p = products.get(it.id);
+        return `<tr><td>${escapeHtml(p.name)}</td><td>${it.qty}</td><td>${UI.formatKz((p.price||0) * it.qty)}</td></tr>`;
+      }).join('');
+      const total = items.reduce((s,i)=>{ const p = products.get(i.id); return s + (p?.price||0) * i.qty; }, 0);
+      document.getElementById('summary-total').textContent = UI.formatKz(total);
+    }
+
+    /* ===========================
+       Checkout form submit (simulated payment)
+       =========================== */
     document.addEventListener('submit', function(ev){
       if(ev.target && ev.target.id === 'checkout-form'){
         ev.preventDefault();
-        if(cart.count() === 0){ ui.flash('Adicione itens ao carrinho antes de finalizar.'); return; }
-        const data = Object.fromEntries(new FormData(ev.target).entries());
+        const items = cartAPI.all();
+        if(items.length === 0){ UI.flash('Adicione items ao carrinho antes de finalizar'); return; }
+        const form = new FormData(ev.target);
+        const data = Object.fromEntries(form.entries());
+        // create order
         const order = {
-          id: 'ORD-' + Date.now(),
-          items: cart.all(),
-          total: cart.total(),
+          id: 'TRV-' + Date.now(),
+          items: items,
+          total: cartAPI.all().reduce((s,i)=>{ const p = products.get(i.id); return s + (p?.price||0) * i.qty; }, 0),
           customer: data,
-          status: 'Pago (Simulado)',
+          status: 'Pago (simulado)',
           createdAt: new Date().toISOString()
         };
-        orders.add(order);
-        cart.clear();
-        ui.flash('Pedido confirmado (simulação).');
-        // show account page
+        ordersAPI.add(order);
+        cartAPI.clear();
+        renderCartTable();
+        UI.flash('Pagamento simulado: pedido confirmado');
         location.hash = 'conta';
-        setTimeout(()=>renderAccountOrders(), 300);
+        setTimeout(()=> renderAccount(), 400);
       }
     });
 
-    /* =====================
-       Account orders render
-       ===================== */
-    function renderAccountOrders(){
-      const u = auth.user();
-      const tbody = document.querySelector('#orders-table tbody');
-      const list = orders.all();
-      // If logged user, show only theirs; else show all (guest)
-      let filtered = list;
-      if(u && u.email){
-        filtered = list.filter(o => (o.customer && o.customer.email) === u.email);
+    /* ===========================
+       Account rendering (simple)
+       =========================== */
+    function renderAccount(){
+      const area = document.getElementById('account-area');
+      if(!area) return;
+      const session = auth.current();
+      if(!session){
+        // show login/register forms
+        area.innerHTML = `
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+            <div style="border:1px solid #eee;padding:12px;border-radius:12px">
+              <h3>Entrar</h3>
+              <form id="login-form" class="form">
+                <input name="email" type="email" placeholder="Email" required />
+                <input name="password" type="password" placeholder="Senha" required />
+                <button class="btn" type="submit">Entrar</button>
+              </form>
+            </div>
+            <div style="border:1px solid #eee;padding:12px;border-radius:12px">
+              <h3>Criar conta</h3>
+              <form id="register-form" class="form">
+                <input name="name" placeholder="Nome" required />
+                <input name="email" type="email" placeholder="Email" required />
+                <input name="phone" placeholder="Telefone" />
+                <input name="password" type="password" placeholder="Senha" required />
+                <button class="btn" type="submit">Criar conta</button>
+              </form>
+            </div>
+          </div>
+        `;
+        // bind login/register
+        $('#login-form').addEventListener('submit', (e)=>{
+          e.preventDefault();
+          const fd = new FormData(e.target);
+          const data = Object.fromEntries(fd.entries());
+          const res = auth.login(data.email, data.password);
+          if(!res.ok) return UI.flash(res.msg);
+          UI.flash('Sessão iniciada');
+          renderAccount();
+          updateHeaderSession();
+          location.hash = 'conta';
+        });
+        $('#register-form').addEventListener('submit', (e)=>{
+          e.preventDefault();
+          const fd = new FormData(e.target); const data = Object.fromEntries(fd.entries());
+          const res = auth.register(data);
+          if(!res.ok) return UI.flash(res.msg);
+          UI.flash('Conta criada e conectada');
+          renderAccount();
+          updateHeaderSession();
+          location.hash = 'conta';
+        });
+      } else {
+        // show user data and orders
+        const u = session;
+        const orders = ordersAPI.all().filter(o => (o.customer && o.customer.email) === u.email);
+        area.innerHTML = `
+          <div style="display:flex;gap:12px;align-items:center;justify-content:space-between">
+            <div>
+              <h3>Olá, ${escapeHtml(u.name || u.email)}</h3>
+              <div class="small muted">Email: ${escapeHtml(u.email || '')} • Telefone: ${escapeHtml(u.phone || '')}</div>
+            </div>
+            <div>
+              <button id="btn-logout" class="ghost" style="padding:8px 10px;border-radius:8px">Sair</button>
+            </div>
+          </div>
+          <div style="margin-top:18px">
+            <h4>Seus pedidos</h4>
+            <table class="table"><thead><tr><th>Pedido</th><th>Data</th><th>Itens</th><th>Total</th><th>Status</th></tr></thead>
+              <tbody>${orders.length ? orders.map(o=>`<tr><td>${o.id}</td><td>${new Date(o.createdAt).toLocaleString()}</td><td>${o.items.reduce((n,i)=>n+i.qty,0)}</td><td>${UI.formatKz(o.total)}</td><td>${o.status}</td></tr>`).join('') : '<tr><td colspan="5">Sem pedidos ainda.</td></tr>'}
+              </tbody></table>
+          </div>
+        `;
+        $('#btn-logout').addEventListener('click', ()=>{
+          auth.logout();
+          UI.flash('Sessão encerrada');
+          updateHeaderSession();
+          renderAccount();
+        });
       }
-      if(!tbody) return;
-      if(filtered.length === 0){ tbody.innerHTML = '<tr><td colspan="4">Sem pedidos ainda.</td></tr>'; return; }
-      tbody.innerHTML = filtered.map(o=>{
-        return `<tr><td>${o.id}</td><td>${o.items.reduce((n,i)=>n+i.qty,0)}</td><td>${ui.formatKz(o.total)}</td><td>${o.status}</td></tr>`;
-      }).join('');
     }
 
-    /* =====================
-       Hash routing (single page)
-       ===================== */
+    /* ===========================
+       Routing: show/hide sections by hash
+       =========================== */
     function showSectionByHash(){
       const hash = (location.hash || '#home').replace('#','');
       // hide all sections
       document.querySelectorAll('main .section').forEach(s => s.classList.add('hidden'));
-      // show target
-      const targetEl = document.getElementById(hash);
-      if(targetEl) targetEl.classList.remove('hidden');
+      // show selection
+      const target = document.getElementById(hash);
+      if(target) target.classList.remove('hidden');
       else document.getElementById('home').classList.remove('hidden');
-      // nav active
+      // update nav active
       document.querySelectorAll('.nav-link').forEach(a=>{
         const href = (a.getAttribute('href')||'').replace('#','') || 'home';
         a.classList.toggle('active', href === hash);
       });
-      // context renders
-      if(hash === 'home'){ renderFeatured(); /* featured already rendered but refresh */ }
+      // context renders for specific sections
+      if(hash === 'home'){ renderHomeCategories(); }
       if(hash === 'produtos'){ renderAllProducts('all'); }
-      if(hash === 'telefones'){ renderCategoryPage('Telefones','#cat-telefones'); }
-      if(hash === 'eletronicos'){ renderCategoryPage('Eletronicos','#cat-eletronicos'); }
       if(hash === 'carros'){ renderCategoryPage('Carros','#cat-carros'); }
       if(hash === 'motos'){ renderCategoryPage('Motorizadas','#cat-motos'); }
+      if(hash === 'telefones'){ renderCategoryPage('Telefones','#cat-telefones'); }
+      if(hash === 'eletronicos'){ renderCategoryPage('Eletronicos','#cat-eletronicos'); }
       if(hash === 'masculino'){ renderCategoryPage('Masculino','#cat-masculino'); }
       if(hash === 'feminino'){ renderCategoryPage('Feminino','#cat-feminino'); renderCategoryPage('Beleza','#cat-feminino'); }
       if(hash === 'servicos'){ renderCategoryPage('Servicos','#cat-servicos'); }
       if(hash === 'marketing'){ renderCategoryPage('Marketing','#cat-marketing'); }
       if(hash === 'carrinho'){ renderCartTable(); }
       if(hash === 'checkout'){ renderCheckoutSummary(); }
-      if(hash === 'conta'){ renderAccountOrders(); }
+      if(hash === 'conta'){ renderAccount(); }
     }
 
-    function renderCheckoutSummary(){
-      // summary table in checkout area: reuse cart
-      const tb = document.querySelector('#summary tbody');
-      if(!tb) return; // summary optional
-      const items = cart.all();
-      if(items.length===0){ tb.innerHTML = '<tr><td colspan="3">Seu carrinho está vazio.</td></tr>'; return; }
-      tb.innerHTML = items.map(i=>{
-        const p = products.get(i.id);
-        return `<tr><td>${escapeHtml(p.name)}</td><td>${i.qty}</td><td>${ui.formatKz(p.price*i.qty)}</td></tr>`;
-      }).join('');
-      document.getElementById('sum-total').textContent = ui.formatKz(cart.total());
-    }
-
-    /* =====================
-       Search & Filter
-       ===================== */
-    document.getElementById('search-form').addEventListener('submit', (e)=>{ e.preventDefault(); const q = document.getElementById('search-input').value.trim().toLowerCase(); doSearch(q); });
-    document.getElementById('search-btn').addEventListener('click', ()=>{ const q = document.getElementById('search-input').value.trim().toLowerCase(); doSearch(q); });
-
+    /* ===========================
+       Search & filter bindings
+       =========================== */
     function doSearch(q){
-      if(!q){ location.hash='produtos'; renderAllProducts('all'); return; }
+      q = (q||'').trim().toLowerCase();
+      if(!q){ location.hash = 'produtos'; renderAllProducts('all'); return; }
       const list = products.list.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
       renderListTo('#all-products', list);
       location.hash = 'produtos';
-      // ensure products section visible
-      setTimeout(()=>document.getElementById('produtos').classList.remove('hidden'), 80);
     }
 
-    // filter select in produtos page
+    function renderListTo(selector, list){
+      const root = document.querySelector(selector);
+      if(!root) return;
+      root.innerHTML = list.map(p => productCardHTML(p)).join('');
+      bindProductButtons(root);
+    }
+
+    document.getElementById('search-btn').addEventListener('click', ()=> doSearch($('#search-input').value));
+    document.getElementById('search-input').addEventListener('keydown', (e)=> { if(e.key === 'Enter') doSearch(e.target.value); });
+
     const filterSelect = document.getElementById('filter-cat');
     if(filterSelect){
       filterSelect.addEventListener('change', (e)=> {
-        const val = e.target.value;
-        renderAllProducts(val);
+        const v = e.target.value;
+        renderAllProducts(v);
       });
     }
 
-    /* =====================
-       Bindings: Add to cart buttons inside dynamic lists
-       ===================== */
-    function delegatedAddCart(e){
-      if(e.target && e.target.matches('.btn[data-id]')){
-        const id = e.target.dataset.id;
-        cart.add(id, 1);
-        renderCartTable();
-      }
+    /* wrap renderAllProducts using renderListTo */
+    function renderAllProducts(filter='all'){
+      let list = products.list;
+      if(filter && filter !== 'all') list = list.filter(p => p.category === filter);
+      renderListTo('#all-products', list);
     }
 
-    document.addEventListener('click', delegatedAddCart);
-
-    /* =====================
-       Welcome modal (once)
-       ===================== */
-    document.getElementById('close-welcome').addEventListener('click', ()=>{
-      document.getElementById('welcome-modal').style.display = 'none';
-      store.set('trivora:welcomed', true);
-    });
-
-    /* =====================
-       INITIAL RENDER
-       ===================== */
-    function init(){
-      // featured on load
-      renderFeatured();
-      // top-of-home vitrines: we show condensed lists (3 items)
-      renderVitrine('Telefones', '#mini-telefones', 3);
-      renderVitrine('Eletronicos', '#mini-eletronicos', 3);
-      renderVitrine('Masculino', '#mini-masculino', 3);
-      // Feminino shows both fashion + beleza (merge up to 4)
-      const fem = [...products.byCategory('Feminino').slice(0,3), ...products.byCategory('Beleza').slice(0,2)].slice(0,4);
-      renderListTo('#mini-feminino', fem);
-      renderVitrine('Servicos', '#mini-servicos', 3);
-      renderVitrine('Marketing', '#mini-marketing', 3);
-
-      // full category render placeholders (hidden until accessed)
-      renderCategoryPage('Telefones','#cat-telefones');
-      renderCategoryPage('Eletronicos','#cat-eletronicos');
-      renderCategoryPage('Carros','#cat-carros');
-      renderCategoryPage('Motorizadas','#cat-motos');
-      renderCategoryPage('Masculino','#cat-masculino');
-      renderCategoryPage('Feminino','#cat-feminino');
-      renderCategoryPage('Beleza','#cat-feminino'); // Beauty included in female section
-      renderCategoryPage('Servicos','#cat-servicos');
-      renderCategoryPage('Marketing','#cat-marketing');
-
-      // all products
-      renderAllProducts('all');
-
-      // cart
-      renderCartTable();
-
-      // welcome modal: show once per visitor
-      if(!store.get('trivora:welcomed', false)){
-        document.getElementById('welcome-modal').style.display = 'flex';
-      }
-
-      // slider
-      initSlider();
-
-      // routing
-      window.addEventListener('hashchange', showSectionByHash);
-      showSectionByHash();
-
-      // update header user/cart
-      ui.updateCartCount();
-    }
-
-    /* =====================
+    /* ===========================
        Slider init
-       ===================== */
+       =========================== */
     function initSlider(){
       const slides = Array.from(document.querySelectorAll('.banner .slide'));
-      if(slides.length === 0) return;
       const dotsContainer = document.getElementById('slider-dots');
-      dotsContainer.innerHTML = slides.map((s,i)=>`<span class="dot ${i===0?'active':''}" data-i="${i}"></span>`).join('');
+      if(!slides.length || !dotsContainer) return;
+      dotsContainer.innerHTML = slides.map((s,i)=>`<div class="dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
       const dots = Array.from(dotsContainer.children);
       let idx = 0;
       const show = (i) => {
-        slides.forEach((s,k)=>s.classList.toggle('active', k === i));
-        dots.forEach((d,k)=>d.classList.toggle('active', k === i));
+        slides.forEach((s,k)=> s.classList.toggle('active', k === i));
+        dots.forEach((d,k)=> d.classList.toggle('active', k === i));
         idx = i;
       };
-      dots.forEach(d => d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
+      dots.forEach(d=> d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
       setInterval(()=> show((idx+1) % slides.length), 5200);
     }
 
-    /* =====================
-       Utility: render category page (same as earlier)
-       ===================== */
-    function renderCategoryPage(category, selector){
-      const list = products.byCategory(category);
-      renderListTo(selector, list);
+    /* ===========================
+       Helpers: bind delegated add/view on dynamic content
+       =========================== */
+    document.addEventListener('click', (e)=>{
+      // internal anchor navigation
+      if(e.target.matches('[data-link]') || e.target.closest('[data-link]')){
+        const el = e.target.matches('[data-link]') ? e.target : e.target.closest('[data-link]');
+        const href = el.getAttribute('href') || '';
+        if(href.startsWith('#')){
+          location.hash = href.replace('#','');
+          e.preventDefault();
+        }
+      }
+      // global add button
+      if(e.target.matches('[data-add]')){
+        const id = e.target.getAttribute('data-add');
+        if(id){ cartAPI.add(id,1); renderCartTable(); }
+      }
+      // clear cart
+      if(e.target && e.target.id === 'btn-clear-cart'){
+        cartAPI.clear(); renderCartTable(); UI.flash('Carrinho esvaziado');
+      }
+      // go to checkout
+      if(e.target && e.target.id === 'btn-checkout'){
+        location.hash = 'checkout';
+      }
+    });
+
+    /* ===========================
+       Bind product add/view inside widgets
+       =========================== */
+    function bindProductButtons(root){
+      root.querySelectorAll('[data-add]').forEach(btn=>{
+        btn.removeEventListener('click', addBtnHandler);
+        btn.addEventListener('click', addBtnHandler);
+      });
+      root.querySelectorAll('[data-view]').forEach(btn=>{
+        btn.removeEventListener('click', viewBtnHandler);
+        btn.addEventListener('click', viewBtnHandler);
+      });
+    }
+    function addBtnHandler(e){ const id = e.currentTarget.dataset.add; cartAPI.add(id,1); renderCartTable(); }
+    function viewBtnHandler(e){ const id = e.currentTarget.dataset.view; const p = products.get(id); if(p) showQuickView(p); }
+
+    /* Quick view (simple modal) */
+    function showQuickView(p){
+      const modal = document.createElement('div');
+      modal.style.position='fixed'; modal.style.inset='0'; modal.style.display='flex'; modal.style.alignItems='center'; modal.style.justifyContent='center';
+      modal.style.background='rgba(0,0,0,0.6)'; modal.style.zIndex=4000;
+      modal.innerHTML = `
+        <div style="background:#fff;padding:18px;border-radius:12px;max-width:760px;width:100%;">
+          <div style="display:flex;gap:16px;align-items:flex-start">
+            <div style="flex:1;"><img src="${p.img}" alt="${escapeHtml(p.name)}" style="width:100%;height:320px;object-fit:cover;border-radius:8px"></div>
+            <div style="width:340px;">
+              <h3>${escapeHtml(p.name)}</h3>
+              <div style="font-weight:800;margin:8px 0">${UI.formatKz(p.price)}</div>
+              <p class="muted">${escapeHtml(p.desc)}</p>
+              <div style="margin-top:12px;display:flex;gap:8px"><button class="btn" id="qv-add">Adicionar</button><button id="qv-close" class="ghost" style="padding:8px 10px;border-radius:8px;border:1px solid #eee">Fechar</button></div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.querySelector('#qv-close').addEventListener('click', ()=> modal.remove());
+      modal.querySelector('#qv-add').addEventListener('click', ()=>{
+        cartAPI.add(p.id,1); renderCartTable(); UI.flash('Adicionado ao carrinho'); modal.remove();
+      });
     }
 
-    /* =====================
-       Account rendering helpers
-       ===================== */
-    function renderAccountOrders(){
-      const tbody = document.querySelector('#orders-table tbody');
-      const list = orders.all();
-      if(!tbody) return;
-      if(list.length === 0){ tbody.innerHTML = '<tr><td colspan="4">Sem pedidos ainda.</td></tr>'; return; }
-      tbody.innerHTML = list.map(o => `<tr><td>${o.id}</td><td>${o.items.reduce((n,i)=>n+i.qty,0)}</td><td>${ui.formatKz(o.total)}</td><td>${o.status}</td></tr>`).join('');
+    /* ===========================
+       Welcome modal behavior
+       =========================== */
+    document.getElementById('welcome-start').addEventListener('click', ()=>{
+      document.getElementById('welcome-modal').classList.add('hidden');
+      store.set('trivora:welcomed_v3', true);
+    });
+    document.getElementById('welcome-skip').addEventListener('click', ()=>{
+      document.getElementById('welcome-modal').classList.add('hidden');
+      store.set('trivora:welcomed_v3', true);
+    });
+
+    /* Close welcome if already seen */
+    function maybeShowWelcome(){
+      const seen = store.get('trivora:welcomed_v3', false);
+      if(!seen) document.getElementById('welcome-modal').classList.remove('hidden');
     }
 
-    /* =====================
-       Expose some objects for console debugging
-       ===================== */
-    window.products = products;
-    window.cartAPI = cart;
-    window.storeAPI = store;
-    window.ordersAPI = orders;
-    window.authAPI = auth;
+    /* ===========================
+       Header session update
+       =========================== */
+    function updateHeaderSession(){
+      const sess = auth.current();
+      const nav = document.querySelector('.nav');
+      // minimal header change: show user name if logged
+      if(sess){
+        // add a hello badge if not present
+        let badge = document.getElementById('hdr-badge');
+        if(!badge){
+          badge = document.createElement('span'); badge.id='hdr-badge';
+          badge.style.marginLeft='8px'; badge.style.padding='6px 10px'; badge.style.borderRadius='10px'; badge.style.background='rgba(255,255,255,0.06)';
+          badge.style.fontWeight='700'; badge.style.color='#fff';
+          badge.textContent = (sess.name || sess.email).split(' ')[0];
+          nav.appendChild(badge);
+        } else badge.textContent = (sess.name || sess.email).split(' ')[0];
+      } else {
+        const badge = document.getElementById('hdr-badge'); if(badge) badge.remove();
+      }
+    }
 
-    /* =====================
-       Start app
-       ===================== */
-    document.addEventListener('DOMContentLoaded', init);
+    /* ===========================
+       Utility: escape & small helpers
+       =========================== */
+    function $id(id){ return document.getElementById(id); }
+
+    /* ===========================
+       App init
+       =========================== */
+    function initApp(){
+      // set year
+      document.getElementById('year').textContent = new Date().getFullYear();
+      // render home categories
+      renderHomeCategories();
+      // pre-render category pages (hidden)
+      renderCategoryPage('Carros','#cat-carros');
+      renderCategoryPage('Motorizadas','#cat-motos');
+      renderCategoryPage('Telefones','#cat-telefones');
+      renderCategoryPage('Eletronicos','#cat-eletronicos');
+      renderCategoryPage('Masculino','#cat-masculino');
+      renderCategoryPage('Feminino','#cat-feminino');
+      renderCategoryPage('Beleza','#cat-feminino'); // beleza included in female section
+      renderCategoryPage('Servicos','#cat-servicos');
+      renderCategoryPage('Marketing','#cat-marketing');
+      renderAllProducts('all');
+      renderCartTable();
+      updateHeaderSession();
+      maybeShowWelcome();
+      initSlider();
+      // routing
+      window.addEventListener('hashchange', showSectionByHash);
+      showSectionByHash();
+      // bind filter select (already bound above)
+    }
+
+    /* ===========================
+       Initial DOM events & housekeeping
+       =========================== */
+    document.addEventListener('DOMContentLoaded', initApp);
+
+    /* ===========================
+       Expose some objects for debugging in console
+       =========================== */
+    window.__TRIVORA = {
+      products, cartAPI, ordersAPI, auth, store, UI
+    };
   </script>
 </body>
 </html>
+
 
 
 
