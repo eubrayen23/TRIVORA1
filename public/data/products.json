@@ -1,0 +1,452 @@
+[
+  {
+    "id":"P001",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Carros",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P002",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Carros",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P003",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Carros",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P004",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Carros",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P005",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Carros",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P006",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Motorizadas",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P007",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Motorizadas",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P008",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Motorizadas",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P009",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Motorizadas",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P010",
+    "name":"Produto Pendente",
+    "description":"Produto pendente - detalhes em breve",
+    "price":"Pendente",
+    "category":"Motorizadas",
+    "stock":0,
+    "image":"pendente.jpg"
+  },
+  {
+    "id":"P011",
+    "name":"Telefones Produto 1",
+    "description":"Descrição do Telefones Produto 1",
+    "price":"15000 Kz",
+    "category":"Telefones",
+    "stock":10,
+    "image":"link_da_imagem_11.jpg"
+  },
+  {
+    "id":"P012",
+    "name":"Telefones Produto 2",
+    "description":"Descrição do Telefones Produto 2",
+    "price":"20000 Kz",
+    "category":"Telefones",
+    "stock":20,
+    "image":"link_da_imagem_12.jpg"
+  },
+  {
+    "id":"P013",
+    "name":"Telefones Produto 3",
+    "description":"Descrição do Telefones Produto 3",
+    "price":"25000 Kz",
+    "category":"Telefones",
+    "stock":30,
+    "image":"link_da_imagem_13.jpg"
+  },
+  {
+    "id":"P014",
+    "name":"Telefones Produto 4",
+    "description":"Descrição do Telefones Produto 4",
+    "price":"30000 Kz",
+    "category":"Telefones",
+    "stock":40,
+    "image":"link_da_imagem_14.jpg"
+  },
+  {
+    "id":"P015",
+    "name":"Telefones Produto 5",
+    "description":"Descrição do Telefones Produto 5",
+    "price":"35000 Kz",
+    "category":"Telefones",
+    "stock":50,
+    "image":"link_da_imagem_15.jpg"
+  },
+  {
+    "id":"P016",
+    "name":"Eletronicos Produto 1",
+    "description":"Descrição do Eletronicos Produto 1",
+    "price":"15000 Kz",
+    "category":"Eletronicos",
+    "stock":10,
+    "image":"link_da_imagem_16.jpg"
+  },
+  {
+    "id":"P017",
+    "name":"Eletronicos Produto 2",
+    "description":"Descrição do Eletronicos Produto 2",
+    "price":"20000 Kz",
+    "category":"Eletronicos",
+    "stock":20,
+    "image":"link_da_imagem_17.jpg"
+  },
+  {
+    "id":"P018",
+    "name":"Eletronicos Produto 3",
+    "description":"Descrição do Eletronicos Produto 3",
+    "price":"25000 Kz",
+    "category":"Eletronicos",
+    "stock":30,
+    "image":"link_da_imagem_18.jpg"
+  },
+  {
+    "id":"P019",
+    "name":"Eletronicos Produto 4",
+    "description":"Descrição do Eletronicos Produto 4",
+    "price":"30000 Kz",
+    "category":"Eletronicos",
+    "stock":40,
+    "image":"link_da_imagem_19.jpg"
+  },
+  {
+    "id":"P020",
+    "name":"Eletronicos Produto 5",
+    "description":"Descrição do Eletronicos Produto 5",
+    "price":"35000 Kz",
+    "category":"Eletronicos",
+    "stock":50,
+    "image":"link_da_imagem_20.jpg"
+  },
+  {
+    "id":"P021",
+    "name":"Masculino Produto 1",
+    "description":"Descrição do Masculino Produto 1",
+    "price":"15000 Kz",
+    "category":"Masculino",
+    "stock":10,
+    "image":"link_da_imagem_21.jpg"
+  },
+  {
+    "id":"P022",
+    "name":"Masculino Produto 2",
+    "description":"Descrição do Masculino Produto 2",
+    "price":"20000 Kz",
+    "category":"Masculino",
+    "stock":20,
+    "image":"link_da_imagem_22.jpg"
+  },
+  {
+    "id":"P023",
+    "name":"Masculino Produto 3",
+    "description":"Descrição do Masculino Produto 3",
+    "price":"25000 Kz",
+    "category":"Masculino",
+    "stock":30,
+    "image":"link_da_imagem_23.jpg"
+  },
+  {
+    "id":"P024",
+    "name":"Masculino Produto 4",
+    "description":"Descrição do Masculino Produto 4",
+    "price":"30000 Kz",
+    "category":"Masculino",
+    "stock":40,
+    "image":"link_da_imagem_24.jpg"
+  },
+  {
+    "id":"P025",
+    "name":"Masculino Produto 5",
+    "description":"Descrição do Masculino Produto 5",
+    "price":"35000 Kz",
+    "category":"Masculino",
+    "stock":50,
+    "image":"link_da_imagem_25.jpg"
+  },
+  {
+    "id":"P026",
+    "name":"Feminino Produto 1",
+    "description":"Descrição do Feminino Produto 1",
+    "price":"15000 Kz",
+    "category":"Feminino",
+    "stock":10,
+    "image":"link_da_imagem_26.jpg"
+  },
+  {
+    "id":"P027",
+    "name":"Feminino Produto 2",
+    "description":"Descrição do Feminino Produto 2",
+    "price":"20000 Kz",
+    "category":"Feminino",
+    "stock":20,
+    "image":"link_da_imagem_27.jpg"
+  },
+  {
+    "id":"P028",
+    "name":"Feminino Produto 3",
+    "description":"Descrição do Feminino Produto 3",
+    "price":"25000 Kz",
+    "category":"Feminino",
+    "stock":30,
+    "image":"link_da_imagem_28.jpg"
+  },
+  {
+    "id":"P029",
+    "name":"Feminino Produto 4",
+    "description":"Descrição do Feminino Produto 4",
+    "price":"30000 Kz",
+    "category":"Feminino",
+    "stock":40,
+    "image":"link_da_imagem_29.jpg"
+  },
+  {
+    "id":"P030",
+    "name":"Feminino Produto 5",
+    "description":"Descrição do Feminino Produto 5",
+    "price":"35000 Kz",
+    "category":"Feminino",
+    "stock":50,
+    "image":"link_da_imagem_30.jpg"
+  },
+  {
+    "id":"P031",
+    "name":"Infantil Produto 1",
+    "description":"Descrição do Infantil Produto 1",
+    "price":"15000 Kz",
+    "category":"Infantil",
+    "stock":10,
+    "image":"link_da_imagem_31.jpg"
+  },
+  {
+    "id":"P032",
+    "name":"Infantil Produto 2",
+    "description":"Descrição do Infantil Produto 2",
+    "price":"20000 Kz",
+    "category":"Infantil",
+    "stock":20,
+    "image":"link_da_imagem_32.jpg"
+  },
+  {
+    "id":"P033",
+    "name":"Infantil Produto 3",
+    "description":"Descrição do Infantil Produto 3",
+    "price":"25000 Kz",
+    "category":"Infantil",
+    "stock":30,
+    "image":"link_da_imagem_33.jpg"
+  },
+  {
+    "id":"P034",
+    "name":"Infantil Produto 4",
+    "description":"Descrição do Infantil Produto 4",
+    "price":"30000 Kz",
+    "category":"Infantil",
+    "stock":40,
+    "image":"link_da_imagem_34.jpg"
+  },
+  {
+    "id":"P035",
+    "name":"Infantil Produto 5",
+    "description":"Descrição do Infantil Produto 5",
+    "price":"35000 Kz",
+    "category":"Infantil",
+    "stock":50,
+    "image":"link_da_imagem_35.jpg"
+  },
+  {
+    "id":"P036",
+    "name":"Beleza Produto 1",
+    "description":"Descrição do Beleza Produto 1",
+    "price":"15000 Kz",
+    "category":"Beleza",
+    "stock":10,
+    "image":"link_da_imagem_36.jpg"
+  },
+  {
+    "id":"P037",
+    "name":"Beleza Produto 2",
+    "description":"Descrição do Beleza Produto 2",
+    "price":"20000 Kz",
+    "category":"Beleza",
+    "stock":20,
+    "image":"link_da_imagem_37.jpg"
+  },
+  {
+    "id":"P038",
+    "name":"Beleza Produto 3",
+    "description":"Descrição do Beleza Produto 3",
+    "price":"25000 Kz",
+    "category":"Beleza",
+    "stock":30,
+    "image":"link_da_imagem_38.jpg"
+  },
+  {
+    "id":"P039",
+    "name":"Beleza Produto 4",
+    "description":"Descrição do Beleza Produto 4",
+    "price":"30000 Kz",
+    "category":"Beleza",
+    "stock":40,
+    "image":"link_da_imagem_39.jpg"
+  },
+  {
+    "id":"P040",
+    "name":"Beleza Produto 5",
+    "description":"Descrição do Beleza Produto 5",
+    "price":"35000 Kz",
+    "category":"Beleza",
+    "stock":50,
+    "image":"link_da_imagem_40.jpg"
+  },
+  {
+    "id":"P041",
+    "name":"Servicos Produto 1",
+    "description":"Descrição do Servicos Produto 1",
+    "price":"15000 Kz",
+    "category":"Servicos",
+    "stock":10,
+    "image":"link_da_imagem_41.jpg"
+  },
+  {
+    "id":"P042",
+    "name":"Servicos Produto 2",
+    "description":"Descrição do Servicos Produto 2",
+    "price":"20000 Kz",
+    "category":"Servicos",
+    "stock":20,
+    "image":"link_da_imagem_42.jpg"
+  },
+  {
+    "id":"P043",
+    "name":"Servicos Produto 3",
+    "description":"Descrição do Servicos Produto 3",
+    "price":"25000 Kz",
+    "category":"Servicos",
+    "stock":30,
+    "image":"link_da_imagem_43.jpg"
+  },
+  {
+    "id":"P044",
+    "name":"Servicos Produto 4",
+    "description":"Descrição do Servicos Produto 4",
+    "price":"30000 Kz",
+    "category":"Servicos",
+    "stock":40,
+    "image":"link_da_imagem_44.jpg"
+  },
+  {
+    "id":"P045",
+    "name":"Servicos Produto 5",
+    "description":"Descrição do Servicos Produto 5",
+    "price":"35000 Kz",
+    "category":"Servicos",
+    "stock":50,
+    "image":"link_da_imagem_45.jpg"
+  },
+  {
+    "id":"P046",
+    "name":"Marketing Produto 1",
+    "description":"Descrição do Marketing Produto 1",
+    "price":"15000 Kz",
+    "category":"Marketing",
+    "stock":10,
+    "image":"link_da_imagem_46.jpg"
+  },
+  {
+    "id":"P047",
+    "name":"Marketing Produto 2",
+    "description":"Descrição do Marketing Produto 2",
+    "price":"20000 Kz",
+    "category":"Marketing",
+    "stock":20,
+    "image":"link_da_imagem_47.jpg"
+  },
+  {
+    "id":"P048",
+    "name":"Marketing Produto 3",
+    "description":"Descrição do Marketing Produto 3",
+    "price":"25000 Kz",
+    "category":"Marketing",
+    "stock":30,
+    "image":"link_da_imagem_48.jpg"
+  },
+  {
+    "id":"P049",
+    "name":"Marketing Produto 4",
+    "description":"Descrição do Marketing Produto 4",
+    "price":"30000 Kz",
+    "category":"Marketing",
+    "stock":40,
+    "image":"link_da_imagem_49.jpg"
+  },
+  {
+    "id":"P050",
+    "name":"Marketing Produto 5",
+    "description":"Descrição do Marketing Produto 5",
+    "price":"35000 Kz",
+    "category":"Marketing",
+    "stock":50,
+    "image":"link_da_imagem_50.jpg"
+  }
+]
