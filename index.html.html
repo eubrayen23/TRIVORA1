@@ -350,485 +350,186 @@
   <div id="toast-wrap" style="position:fixed;left:50%;transform:translateX(-50%);top:18px;z-index:3000"></div>
 
   <!-- PART 2: JavaScript - cola a Parte 2 aqui -->
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Sobre Nós</h3>
+        <p>Estamos voltados para oferecer os melhores produtos pelos preços mais baixos do mercado, sempre com foco em qualidade, confiança e inovação.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contato</h3>
+        <p>Email: <a href="mailto:trivoraorg@gmail.com">trivoraorg@gmail.com</a></p>
+        <p>Endereço: Luanda, 1º de Maio</p>
+      </div>
+      <div class="footer-section">
+        <h3>Empresa</h3>
+        <p>CEO: Matias Domingos</p>
+        <p>Instagram: <a href="https://instagram.com/Trivora.ao" target="_blank">@Trivora.ao</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2025 Trivora — Todos os direitos reservados.</div>
+  </footer>
+
+  <!-- Modals -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Entrar</h2>
+      <input type="email" id="login-email" placeholder="Email" />
+      <input type="password" id="login-pass" placeholder="Senha" />
+      <button id="do-login">Entrar</button>
+      <button class="btn btn-google">Entrar com Google</button>
+    </div>
+  </div>
+
+  <div id="checkout-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Finalizar Compra</h2>
+      <div id="order-summary"></div>
+      <input type="text" placeholder="Nome" />
+      <input type="email" placeholder="Email" />
+      <input type="text" placeholder="Endereço" />
+      <input type="tel" placeholder="Telefone" />
+      <select>
+        <option>Multicaixa</option>
+        <option>Unitel Money</option>
+        <option>PayPal</option>
+        <option>Stripe</option>
+      </select>
+      <button id="confirm-order">Confirmar Pedido</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
   <script>
-  /************************************************************************
-   * TRIVORA — Single page JS
-   * - Produtos com categoria e reviews
-   * - Destaques (home)
-   * - Categorias visíveis (faixa)
-   * - Carrinho (localStorage)
-   * - Checkout simulado (Multicaixa, Unitel Money, PayPal, Stripe)
-   * - Login opcional (Google toggle) + guest + local fallback
-   * - QuickView modal e animações
-   ************************************************************************/
+    // Carrinho
+    let cart = JSON.parse(localStorage.getItem('trivora_cart')) || [];
+    const cartCount = document.getElementById('cart-count');
 
-  // ---------- CONFIG ----------
-  const FIREBASE_ENABLED = false; // set true + provide config to enable real Google
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    appId: "YOUR_APP_ID"
-  };
+    function updateCartCount() {
+      cartCount.textContent = cart.reduce((t, i) => t + i.qty, 0);
+    }
 
-  // ---------- DATA: products (with featured + rating) ----------
-  const PRODUCTS = [
-    {id:'car-tesla',category:'Carros',name:'Tesla Model 3',price:9500000,img:'https://source.unsplash.com/900x700/?tesla,car',desc:'Elétrico, autonomia e tecnologia.',featured:true,rating:4.9,reviews:1245},
-    {id:'car-bmw',category:'Carros',name:'BMW Série 3',price:8200000,img:'https://source.unsplash.com/900x700/?bmw,car',desc:'Performance e luxo.',featured:false,rating:4.7,reviews:842},
-    {id:'car-audi',category:'Carros',name:'Audi A4',price:7800000,img:'https://source.unsplash.com/900x700/?audi,car',desc:'Conforto e elegância.',featured:false,rating:4.6,reviews:623},
-    {id:'car-suvx',category:'Carros',name:'SUV Advent X',price:7200000,img:'https://source.unsplash.com/900x700/?suv,car',desc:'Espaço e robustez.',featured:true,rating:4.5,reviews:412},
-    {id:'moto-r1',category:'Motorizadas',name:'Yamaha R1',price:3200000,img:'https://source.unsplash.com/900x700/?yamaha,motorcycle',desc:'Esportiva potente.',featured:true,rating:4.8,reviews:978},
-    {id:'moto-cbr',category:'Motorizadas',name:'Honda CBR600',price:2800000,img:'https://source.unsplash.com/900x700/?honda,motorcycle',desc:'Agilidade e controle.',featured:false,rating:4.6,reviews:402},
-    {id:'tel-iphone15',category:'Telefones',name:'iPhone 15 Pro',price:850000,img:'https://source.unsplash.com/900x700/?iphone,phone',desc:'Câmera e performance.',featured:true,rating:4.9,reviews:5521},
-    {id:'tel-galaxy',category:'Telefones',name:'Samsung Galaxy S24',price:620000,img:'https://source.unsplash.com/900x700/?samsung,phone',desc:'Tela AMOLED.',featured:false,rating:4.7,reviews:2411},
-    {id:'ele-tv55',category:'Eletronicos',name:'Smart TV 55"',price:300000,img:'https://source.unsplash.com/900x700/?tv,television',desc:'4K HDR e apps.',featured:true,rating:4.6,reviews:900},
-    {id:'ele-laptop',category:'Eletronicos',name:'Ultrabook Pro',price:540000,img:'https://source.unsplash.com/900x700/?laptop,notebook',desc:'Leve e potente.',featured:false,rating:4.5,reviews:720},
-    {id:'mas-tenis',category:'Masculino',name:'Tênis Running',price:45000,img:'https://source.unsplash.com/900x700/?mens-shoes',desc:'Conforto e estilo.',featured:true,rating:4.4,reviews:311},
-    {id:'fem-vestido',category:'Feminino',name:'Vestido Floral',price:25000,img:'https://source.unsplash.com/900x700/?dress,women',desc:'Leve e elegante.',featured:true,rating:4.3,reviews:210},
-    {id:'bez-kit',category:'Beleza',name:'Kit Maquiagem',price:15000,img:'https://source.unsplash.com/900x700/?makeup,cosmetics',desc:'Completo para o dia a dia.',featured:false,rating:4.2,reviews:155},
-    {id:'inf-conj',category:'Infantil',name:'Conjunto Infantil',price:15000,img:'https://source.unsplash.com/900x700/?kids,clothes',desc:'Conforto para os pequenos.',featured:false,rating:4.6,reviews:98},
-    {id:'srv-logo',category:'Servicos',name:'Design de Logo',price:20000,img:'https://source.unsplash.com/900x700/?logo,design',desc:'Identidade visual profissional.',featured:false,rating:4.8,reviews:43},
-    {id:'mkt-ad',category:'Marketing',name:'Anúncio em Destaque',price:10000,img:'https://source.unsplash.com/900x700/?marketing,advertising',desc:'Promova seu produto na homepage.',featured:true,rating:4.7,reviews:11},
-    // filler
-    {id:'car-eco',category:'Carros',name:'Compact Eco',price:3200000,img:'https://source.unsplash.com/900x700/?compact,car',desc:'Econômico e urbano.',featured:false,rating:4.1,reviews:77},
-    {id:'moto-off',category:'Motorizadas',name:'OffRoad Pro',price:2100000,img:'https://source.unsplash.com/900x700/?offroad,motorcycle',desc:'Aventura sem limites.',featured:false,rating:4.5,reviews:64},
-    {id:'tel-pixel',category:'Telefones',name:'Google Pixel 8',price:480000,img:'https://source.unsplash.com/900x700/?google,phone',desc:'Android puro e câmera.',featured:false,rating:4.4,reviews:340},
-    {id:'ele-head',category:'Eletronicos',name:'Fones Studio',price:45000,img:'https://source.unsplash.com/900x700/?headphones',desc:'Som imersivo.',featured:false,rating:4.3,reviews:243},
-    {id:'mas-jaqueta',category:'Masculino',name:'Jaqueta Bomber',price:46000,img:'https://source.unsplash.com/900x700/?mens-jacket',desc:'Estilo urbano.',featured:false,rating:4.2,reviews:132},
-    {id:'fem-bolsa',category:'Feminino',name:'Bolsa Tiracolo',price:52000,img:'https://source.unsplash.com/900x700/?womens-bag',desc:'Acabamento premium.',featured:false,rating:4.1,reviews:88},
-    {id:'inf-brinq',category:'Infantil',name:'Brinquedo Educativo',price:8000,img:'https://source.unsplash.com/900x700/?toy',desc:'Aprendizado divertido.',featured:false,rating:4.6,reviews:56},
-    {id:'srv-seo',category:'Marketing',name:'Pacote SEO',price:25000,img:'https://source.unsplash.com/900x700/?seo',desc:'Apareça no topo das buscas.',featured:false,rating:4.6,reviews:29},
-  ];
+    function saveCart() {
+      localStorage.setItem('trivora_cart', JSON.stringify(cart));
+      updateCartCount();
+    }
 
-  // ---------- STORAGE ----------
-  const KEY = {
-    CART: 'trivora_cart_v3',
-    ORDERS: 'trivora_orders_v3',
-    SESSION: 'trivora_session_v3'
-  };
-  function getStore(k, fallback=[]){ try{ const v = localStorage.getItem(k); return v?JSON.parse(v):fallback }catch(e){ return fallback } }
-  function setStore(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
-
-  // ---------- CART API ----------
-  function cartAll(){ return getStore(KEY.CART, []); }
-  function cartSave(arr){ setStore(KEY.CART, arr); UI.updateCart(); }
-  function cartAdd(id, qty=1){
-    const items = cartAll();
-    const it = items.find(x=>x.id===id);
-    const p = PRODUCTS.find(x=>x.id===id);
-    if(it) it.qty += qty; else items.push({id, qty, name: p? p.name : 'Produto', price: p? p.price : 0});
-    cartSave(items); UI.toast('Adicionado ao carrinho');
-  }
-  function cartRemove(id){ cartSave(cartAll().filter(x=>x.id !== id)); }
-  function cartSetQty(id, qty){ const items = cartAll(); const it = items.find(x=>x.id===id); if(it){ it.qty = Math.max(1, qty); cartSave(items); } }
-  function cartClear(){ cartSave([]); }
-
-  // ---------- ORDERS ----------
-  function ordersAll(){ return getStore(KEY.ORDERS, []); }
-  function createOrder(order){ const list = ordersAll(); list.unshift(order); setStore(KEY.ORDERS, list); return order; }
-
-  // ---------- AUTH (local/session + optional firebase) ----------
-  function getSession(){ return JSON.parse(localStorage.getItem(KEY.SESSION) || 'null'); }
-  function setSession(sess){ localStorage.setItem(KEY.SESSION, JSON.stringify(sess)); UI.updateAccountUI(); }
-  function clearSession(){ localStorage.removeItem(KEY.SESSION); UI.updateAccountUI(); }
-
-  // firebase optional loading (not active by default)
-  if(FIREBASE_ENABLED){
-    (async ()=>{
-      try{
-        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
-        const { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js');
-        const app = initializeApp(firebaseConfig);
-        window._TRIVORA_FIREBASE = { initializeApp: app, getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, auth: getAuth(app) };
-      }catch(e){ console.warn('Firebase load fail', e); }
-    })();
-  }
-
-  // ---------- UI HELPERS ----------
-  const UI = {
-    toast(msg, ms=1600){
-      const wrap = document.getElementById('toast-wrap');
-      const el = document.createElement('div'); el.className = 'toast'; el.textContent = msg;
-      wrap.appendChild(el); setTimeout(()=> el.remove(), ms);
-    },
-    updateCart(){
-      const count = cartAll().reduce((s,i)=>s+i.qty,0);
-      document.getElementById('cart-count').textContent = count;
-      const totalEl = document.getElementById('cart-total');
-      if(totalEl){
-        const total = cartAll().reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||i.price||0) * i.qty); },0);
-        totalEl.textContent = formatKz(total);
-      }
-    },
-    updateAccountUI(){
-      const sess = getSession();
-      const btn = document.getElementById('btn-auth');
-      if(sess){
-        btn.textContent = sess.name ? `Olá, ${sess.name.split(' ')[0]}` : 'Minha Conta';
-        btn.classList.add('ghost');
+    function addToCart(id, title, price) {
+      let found = cart.find(i => i.id === id);
+      if (found) {
+        found.qty++;
       } else {
-        btn.textContent = 'Entrar / Registar';
-        btn.classList.remove('ghost');
+        cart.push({ id, title, price, qty: 1 });
       }
-      // account area
-      const area = document.getElementById('account-area');
-      if(area){
-        if(sess){
-          const orders = ordersAll().filter(o => (o.user && o.user.email) === sess.email || (o.customer && o.customer.email) === sess.email);
-          area.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><h3>${escapeHtml(sess.name||sess.email)}</h3><div class="muted">${escapeHtml(sess.email||'')}</div></div><div><button id="logout-now" class="btn ghost">Sair</button></div></div>
-            <div style="margin-top:12px"><h4>Pedidos</h4>${orders.length ? orders.map(o=>`<div style="border:1px solid #eee;padding:10px;border-radius:8px;margin-bottom:8px">${o.id} — ${new Date(o.createdAt).toLocaleString()} — ${formatKz(o.total)} — ${o.status}</div>`).join('') : '<div class="muted">Nenhum pedido</div>'}</div>`;
-          document.getElementById('logout-now').addEventListener('click', ()=>{ clearSession(); UI.toast('Sessão encerrada'); location.hash='home'; showRoute(); });
-        } else {
-          area.innerHTML = '<div class="muted">Faça login para ver pedidos.</div>';
-        }
+      saveCart();
+      alert(`${title} foi adicionado ao carrinho!`);
+    }
+
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const card = btn.closest('.product-card');
+        const title = card.querySelector('.product-title').textContent;
+        const price = card.querySelector('.product-price').textContent;
+        addToCart(id, title, price);
+      });
+    });
+    updateCartCount();
+
+    // Login modal
+    const loginModal = document.getElementById('login-modal');
+    const loginBtn = document.getElementById('login-btn');
+    const loginClose = loginModal.querySelector('.close');
+    const doLoginBtn = document.getElementById('do-login');
+    let loggedUser = JSON.parse(localStorage.getItem('trivora_user')) || null;
+
+    loginBtn.onclick = () => (loginModal.style.display = 'flex');
+    loginClose.onclick = () => (loginModal.style.display = 'none');
+    window.onclick = e => {
+      if (e.target === loginModal) loginModal.style.display = 'none';
+    };
+
+    doLoginBtn.onclick = () => {
+      const email = document.getElementById('login-email').value;
+      if (email.trim() === '') {
+        alert('Digite um email válido!');
+        return;
       }
-    }
-  };
+      loggedUser = { email };
+      localStorage.setItem('trivora_user', JSON.stringify(loggedUser));
+      loginModal.style.display = 'none';
+      alert(`Bem-vindo à Trivora, ${email}!`);
+    };
 
-  function formatKz(v){ return 'Kz ' + Number(v).toLocaleString('pt-PT'); }
-  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[c]); }
+    // Checkout modal
+    const checkoutModal = document.getElementById('checkout-modal');
+    const checkoutClose = checkoutModal.querySelector('.close');
+    const confirmOrderBtn = document.getElementById('confirm-order');
+    const orderSummary = document.getElementById('order-summary');
 
-  // ---------- RENDER: categories bar, featured, products ----------
-  function uniqueCategories(){
-    const cats = Array.from(new Set(PRODUCTS.map(p=>p.category)));
-    // Put Marketing & Servicos last for prominence
-    const prioritized = ['Carros','Motorizadas','Telefones','Eletronicos','Masculino','Feminino','Infantil','Beleza','Servicos','Marketing'];
-    return prioritized.filter(x=>cats.includes(x)).concat(cats.filter(x=>!prioritized.includes(x)));
-  }
-
-  function renderCategoryBar(){
-    const bar = document.getElementById('category-bar');
-    const cats = uniqueCategories();
-    bar.innerHTML = cats.map((c,i)=> `<button class="cat-pill" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('');
-    bar.querySelectorAll('.cat-pill').forEach(p=>{
-      p.addEventListener('click', ()=>{ document.querySelectorAll('.cat-pill').forEach(x=>x.classList.remove('active')); p.classList.add('active'); location.hash = slug(p.dataset.cat); });
+    document.getElementById('cart-count').parentElement.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert('Carrinho vazio!');
+        return;
+      }
+      if (!loggedUser) {
+        alert('Faça login para finalizar a compra.');
+        loginModal.style.display = 'flex';
+        return;
+      }
+      // Montar resumo do pedido
+      orderSummary.innerHTML =
+        '<h3>Resumo do Pedido</h3>' +
+        cart.map(i => `<p>${i.qty}x ${i.title} — ${i.price}</p>`).join('') +
+        `<p><strong>Total: </strong>${cart.reduce((s, i) => s + parseFloat(i.price.replace(/\D/g, '')) * i.qty, 0)} Kz</p>`;
+      checkoutModal.style.display = 'flex';
     });
-  }
 
-  function renderFeatured(){
-    const out = document.getElementById('featured');
-    const list = PRODUCTS.filter(p=>p.featured);
-    out.innerHTML = list.map(renderCard).join('');
-    bindCardActions(out);
-  }
-
-  function renderAllProducts(filter='all'){
-    const out = document.getElementById('all-products');
-    let list = PRODUCTS.slice();
-    if(filter && filter !== 'all') list = list.filter(p=>p.category === filter);
-    out.innerHTML = list.map(renderCardWithRating).join('');
-    bindCardActions(out);
-  }
-
-  function renderCard(p){
-    return `<article class="card" data-id="${p.id}">
-      <div class="thumb"><img src="${p.img}" alt="${escapeHtml(p.name)}"></div>
-      <div class="meta">
-        <h4>${escapeHtml(p.name)}</h4>
-        <p class="muted">${escapeHtml(p.desc)}</p>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="price">${formatKz(p.price)}</div>
-          <div class="rating"><span class="stars">${stars(p.rating)}</span><small class="muted">(${p.reviews})</small></div>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="btn" data-add="${p.id}">Adicionar</button>
-        <button class="btn ghost" data-view="${p.id}">Ver</button>
-      </div>
-    </article>`;
-  }
-
-  function renderCardWithRating(p){
-    // slightly larger description in products page
-    return `<article class="card" data-id="${p.id}">
-      <div class="thumb"><img src="${p.img}" alt="${escapeHtml(p.name)}"></div>
-      <div class="meta">
-        <h4>${escapeHtml(p.name)}</h4>
-        <p class="muted">${escapeHtml(p.desc)}</p>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="price">${formatKz(p.price)}</div>
-          <div class="rating"><span class="stars">${stars(p.rating)}</span><small class="muted"> ${p.reviews} reviews</small></div>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="btn" data-add="${p.id}">Adicionar</button>
-        <button class="btn ghost" data-view="${p.id}">Ver</button>
-      </div>
-    </article>`;
-  }
-
-  function stars(score){
-    const full = Math.floor(score);
-    const half = score - full >= 0.5 ? 1 : 0;
-    const empty = 5 - full - half;
-    return '★'.repeat(full) + (half? '½' : '') + '☆'.repeat(empty);
-  }
-
-  function bindCardActions(root){
-    root.querySelectorAll('[data-add]').forEach(btn=>{
-      btn.removeEventListener('click', addHandler);
-      btn.addEventListener('click', addHandler);
+    checkoutClose.onclick = () => (checkoutModal.style.display = 'none');
+    window.addEventListener('click', e => {
+      if (e.target === checkoutModal) checkoutModal.style.display = 'none';
     });
-    root.querySelectorAll('[data-view]').forEach(btn=>{
-      btn.removeEventListener('click', viewHandler);
-      btn.addEventListener('click', viewHandler);
+
+    confirmOrderBtn.onclick = () => {
+      alert('Pedido confirmado! Receberá detalhes no seu email.');
+      cart = [];
+      saveCart();
+      checkoutModal.style.display = 'none';
+    };
+
+    // Busca
+    const searchInput = document.getElementById('search');
+    searchInput.addEventListener('input', () => {
+      const term = searchInput.value.toLowerCase();
+      document.querySelectorAll('.product-card').forEach(card => {
+        const title = card.querySelector('.product-title').textContent.toLowerCase();
+        card.style.display = title.includes(term) ? 'block' : 'none';
+      });
     });
-  }
 
-  function addHandler(e){ const id = e.currentTarget.dataset.add; cartAdd(id,1); renderCartTable(); UI.updateCart(); }
-  function viewHandler(e){ const id = e.currentTarget.dataset.view; const p = PRODUCTS.find(x=>x.id===id); if(p) openQuickView(p); }
+    // Animações de fade-in
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-  // ---------- QUICKVIEW ----------
-  const qvModal = document.getElementById('quickview-modal');
-  const qvContent = document.getElementById('quickview-content');
-  const qvClose = document.getElementById('qv-close');
-
-  function openQuickView(p){
-    qvContent.querySelectorAll('.qv-inner').forEach(x=>x.remove());
-    const el = document.createElement('div'); el.className = 'qv-inner';
-    el.innerHTML = `<div style="display:flex;gap:12px;flex-wrap:wrap">
-      <div style="flex:1;min-width:260px"><img src="${p.img}" alt="${escapeHtml(p.name)}" style="width:100%;height:320px;object-fit:cover;border-radius:8px"></div>
-      <div style="flex:1;min-width:240px">
-        <h3>${escapeHtml(p.name)}</h3>
-        <div style="font-weight:800;margin:8px 0">${formatKz(p.price)}</div>
-        <div class="rating"><span class="stars">${stars(p.rating)}</span><small class="muted"> ${p.reviews} reviews</small></div>
-        <p class="muted" style="margin-top:10px">${escapeHtml(p.desc)}</p>
-        <div style="margin-top:12px;display:flex;gap:8px">
-          <button class="btn" id="qv-add">Adicionar</button>
-          <button class="btn ghost" id="qv-close-btn">Fechar</button>
-        </div>
-      </div>
-    </div>`;
-    qvContent.appendChild(el);
-    qvModal.style.display = 'flex';
-    document.getElementById('qv-add').addEventListener('click', ()=>{ cartAdd(p.id,1); renderCartTable(); UI.updateCart(); qvModal.style.display='none'; });
-    document.getElementById('qv-close-btn').addEventListener('click', ()=> qvModal.style.display='none');
-  }
-  qvClose && qvClose.addEventListener('click', ()=> qvModal.style.display='none');
-  qvModal.addEventListener('click', (e)=> { if(e.target === qvModal) qvModal.style.display='none'; });
-
-  // ---------- CART UI ----------
-  function renderCartTable(){
-    const tbody = document.querySelector('#cart-table tbody');
-    if(!tbody) return;
-    const items = cartAll();
-    if(items.length === 0){ tbody.innerHTML = '<tr><td colspan="5" class="muted">Carrinho vazio</td></tr>'; UI.updateCart(); return; }
-    tbody.innerHTML = items.map(it=>{
-      const p = PRODUCTS.find(x=>x.id===it.id) || {name:it.name, price:it.price};
-      const subtotal = (p.price || it.price || 0) * it.qty;
-      return `<tr>
-        <td style="max-width:320px">${escapeHtml(p.name)}</td>
-        <td>${formatKz(p.price || it.price || 0)}</td>
-        <td><input class="qty-input" data-id="${it.id}" type="number" min="1" value="${it.qty}"></td>
-        <td>${formatKz(subtotal)}</td>
-        <td><button class="btn ghost" data-remove="${it.id}">Remover</button></td>
-      </tr>`;
-    }).join('');
-    tbody.querySelectorAll('.qty-input').forEach(i=>{ i.removeEventListener('input', qtyCh); i.addEventListener('input', qtyCh); });
-    tbody.querySelectorAll('[data-remove]').forEach(b=>{ b.removeEventListener('click', removeItem); b.addEventListener('click', removeItem); });
-    UI.updateCart();
-  }
-  function qtyCh(e){ const id = e.currentTarget.dataset.id; const v = parseInt(e.currentTarget.value||'1',10); cartSetQty(id, v); renderCartTable(); }
-  function removeItem(e){ const id = e.currentTarget.dataset.remove; cartRemove(id); renderCartTable(); UI.updateCart(); }
-
-  // ---------- CHECKOUT ----------
-  const checkoutForm = document.getElementById('checkout-form');
-  checkoutForm && checkoutForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const form = new FormData(e.target); const customer = Object.fromEntries(form.entries());
-    const items = cartAll();
-    if(items.length === 0){ UI.toast('Carrinho vazio'); location.hash='carrinho'; showRoute(); return; }
-    const sess = getSession();
-    if(!sess){ UI.toast('Faça login ou continue como convidado'); openAuthModal(); return; }
-    if(sess.type === 'guest' && (!customer.email || customer.email.trim() === '')){ UI.toast('Forneça um email para confirmação'); return; }
-    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); },0);
-    const order = { id:'TRV-'+Date.now(), items, total, customer, status:'Pago (simulado)', createdAt:new Date().toISOString(), user: sess };
-    createOrder(order);
-    cartClear(); renderCartTable(); UI.updateCart();
-    UI.toast('Pedido confirmado (simulação): ' + order.id, 2200);
-    setTimeout(()=>{ location.hash='conta'; showRoute(); renderAccount(); }, 700);
-  });
-
-  function renderCheckoutSummary(){
-    const tb = document.querySelector('#summary-table tbody');
-    if(!tb) return;
-    const items = cartAll();
-    if(items.length === 0){ tb.innerHTML = '<tr><td colspan="3">Carrinho vazio</td></tr>'; document.getElementById('summary-total').textContent = 'Kz 0'; return; }
-    tb.innerHTML = items.map(it=>{ const p = PRODUCTS.find(x=>x.id===it.id); return `<tr><td>${escapeHtml(p.name)}</td><td>${it.qty}</td><td>${formatKz((p.price||0)*it.qty)}</td></tr>`; }).join('');
-    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); },0);
-    document.getElementById('summary-total').textContent = formatKz(total);
-  }
-
-  // ---------- AUTH MODAL ----------
-  const authModal = document.getElementById('auth-modal');
-  const btnAuth = document.getElementById('btn-auth');
-  const btnGoogle = document.getElementById('btn-google');
-  const btnGuest = document.getElementById('btn-guest');
-  const authClose = document.getElementById('auth-close');
-  const localLoginForm = document.getElementById('local-login-form');
-
-  function openAuthModal(){ authModal.style.display = 'flex'; authModal.setAttribute('aria-hidden','false'); }
-  function closeAuthModal(){ authModal.style.display = 'none'; authModal.setAttribute('aria-hidden','true'); }
-
-  btnAuth.addEventListener('click', ()=>{ const s = getSession(); if(s) { location.hash='conta'; showRoute(); } else openAuthModal(); });
-  authClose.addEventListener('click', closeAuthModal);
-  authModal.addEventListener('click', (e)=>{ if(e.target === authModal) closeAuthModal(); });
-
-  // guest flow
-  btnGuest.addEventListener('click', ()=>{ setSession({ type:'guest', name:'Convidado', email:null }); UI.toast('Continuando como convidado'); closeAuthModal(); });
-
-  // local registration/login
-  localLoginForm && localLoginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const f = new FormData(e.target); const name = f.get('name') || 'Usuário'; const email = f.get('email') || null;
-    if(!email){ UI.toast('Forneça um email válido'); return; }
-    setSession({ type:'user', name, email, uid: 'local-'+Date.now() });
-    UI.toast('Sessão iniciada: ' + name);
-    closeAuthModal();
-  });
-
-  // google login (fallback simulation if firebase disabled)
-  btnGoogle.addEventListener('click', async ()=>{
-    if(FIREBASE_ENABLED && window._TRIVORA_FIREBASE && window._TRIVORA_FIREBASE.signInWithPopup){
-      try{
-        const provider = new window._TRIVORA_FIREBASE.GoogleAuthProvider();
-        const res = await window._TRIVORA_FIREBASE.signInWithPopup(window._TRIVORA_FIREBASE.auth, provider);
-        const u = res.user;
-        setSession({ type:'user', uid: u.uid, name: u.displayName, email: u.email });
-        UI.toast('Bem-vindo, ' + u.displayName);
-        closeAuthModal();
-      }catch(err){ UI.toast('Erro Google: ' + (err.message||err)); }
-    } else {
-      // fallback -> prompt
-      const name = prompt('Nome (simulação Google):'); if(!name) return;
-      const email = prompt('Email (simulação):'); if(!email) return;
-      setSession({ type:'user', name, email, uid: 'sim-'+Date.now() });
-      UI.toast('Login simulado: ' + name);
-      closeAuthModal();
-    }
-  });
-
-  // ---------- ACCOUNT ----------
-  function renderAccount(){
-    const area = document.getElementById('account-area');
-    const sess = getSession();
-    if(!area) return;
-    if(!sess){ area.innerHTML = '<div class="muted">Faça login para ver pedidos.</div>'; return; }
-    const orders = ordersAll().filter(o => (o.user && o.user.email) === sess.email || (o.customer && o.customer.email) === sess.email);
-    area.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><h3>${escapeHtml(sess.name||sess.email)}</h3><div class="muted">${escapeHtml(sess.email||'')}</div></div><div><button id="logoutNow" class="btn ghost">Sair</button></div></div>
-      <div style="margin-top:12px"><h4>Pedidos</h4>${orders.length ? orders.map(o=>`<div style="border:1px solid #eee;padding:10px;border-radius:8px;margin-bottom:8px">${o.id} — ${new Date(o.createdAt).toLocaleString()} — ${formatKz(o.total)} — ${o.status}</div>`).join('') : '<div class="muted">Nenhum pedido</div>'}</div>`;
-    document.getElementById('logoutNow').addEventListener('click', ()=>{ clearSession(); UI.toast('Saiu da conta'); location.hash='home'; showRoute(); });
-  }
-
-  // ---------- SEARCH & FILTER ----------
-  document.getElementById('btn-search').addEventListener('click', ()=>{
-    const q = (document.getElementById('search').value||'').trim().toLowerCase();
-    if(!q){ location.hash='produtos'; showRoute(); return; }
-    const list = PRODUCTS.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
-    document.getElementById('produtos').classList.remove('hidden'); document.getElementById('home').classList.add('hidden');
-    document.getElementById('all-products').innerHTML = list.map(renderCardWithRating).join('');
-    bindCardActions(document.getElementById('all-products'));
-    location.hash='produtos';
-  });
-
-  // filter select populate
-  (function populateFilter(){
-    const sel = document.getElementById('filter-select');
-    uniqueCategories().forEach(c=>{ const opt = document.createElement('option'); opt.value=c; opt.textContent=c; sel.appendChild(opt); });
-    sel.addEventListener('change', ()=> renderAllProducts(sel.value));
-  })();
-
-  // ---------- ROUTING ----------
-  function slug(s){ return s.toLowerCase().replace(/\s+/g,''); }
-
-  function showRoute(){
-    const h = (location.hash || '#home').replace('#','');
-    document.querySelectorAll('main section').forEach(s=> s.classList.add('hidden'));
-    if(h===''||h==='home'){ document.getElementById('home').classList.remove('hidden'); }
-    else if(h==='produtos'){ document.getElementById('produtos').classList.remove('hidden'); renderAllProducts(); }
-    else if(h==='carrinho'){ document.getElementById('carrinho').classList.remove('hidden'); renderCartTable(); UI.updateCart(); }
-    else if(h==='checkout'){ document.getElementById('checkout').classList.remove('hidden'); renderCheckoutSummary(); }
-    else if(h==='conta'){ document.getElementById('conta').classList.remove('hidden'); renderAccount(); }
-    else {
-      // category mapping keys
-      const map = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',servicos:'Servicos',marketing:'Marketing'};
-      if(map[h]){ document.getElementById(h).classList.remove('hidden'); renderCategoryPage(map[h], 'cat-'+h); }
-      else document.getElementById('home').classList.remove('hidden');
-    }
-    // nav highlight
-    document.querySelectorAll('.nav a').forEach(a=>{ const href = (a.getAttribute('href')||'').replace('#','') || 'home'; a.classList.toggle('active', href === (location.hash.replace('#','')||'home')); });
-    // show checkout summary when needed
-    if(location.hash.replace('#','') === 'checkout') renderCheckoutSummary();
-  }
-  window.addEventListener('hashchange', showRoute);
-
-  function renderCategoryPage(category, elId){
-    const el = document.getElementById(elId);
-    if(!el) return;
-    const list = PRODUCTS.filter(p=>p.category === category);
-    if(list.length === 0){ el.innerHTML = '<div class="muted">Sem produtos nesta categoria.</div>'; return; }
-    el.innerHTML = list.map(renderCardWithRating).join('');
-    bindCardActions(el);
-  }
-
-  // ---------- INITIAL RENDER ----------
-  function renderInitial(){
-    renderCategoryBar();
-    renderFeatured();
-    renderAllProducts('all');
-    // pre-render categories
-    const pairs = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',servicos:'Servicos',marketing:'Marketing'};
-    Object.keys(pairs).forEach(k=> renderCategoryPage(pairs[k], 'cat-'+k));
-    // slider
-    initSlider();
-    UI.updateCart();
-    UI.updateAccountUI();
-    document.getElementById('year').textContent = new Date().getFullYear();
-    // show route
-    showRoute();
-    // observe fade-in
-    document.querySelectorAll('.fade-in').forEach(el=> setTimeout(()=> el.classList.add('in'), 60));
-  }
-
-  // ---------- SLIDER ----------
-  function initSlider(){
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const dots = document.getElementById('dots');
-    dots.innerHTML = slides.map((_,i)=> `<div class="dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
-    const dotEls = Array.from(dots.children);
-    let idx = 0;
-    const show = (i) => { slides.forEach((s,k)=> s.classList.toggle('active', k===i)); dotEls.forEach((d,k)=> d.classList.toggle('active', k===i)); idx = i; };
-    dotEls.forEach(d=> d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
-    setInterval(()=> show((idx+1) % slides.length), 5200);
-  }
-
-  // ---------- UI interactions ----------
-  document.getElementById('minicart').addEventListener('click', ()=>{ location.hash='carrinho'; showRoute(); renderCartTable(); });
-  document.getElementById('btn-clear')?.addEventListener('click', ()=>{ cartClear(); renderCartTable(); UI.updateCart(); UI.toast('Carrinho limpo'); });
-  document.getElementById('btn-checkout')?.addEventListener('click', ()=>{ const sess = getSession(); if(!sess){ openAuthModal(); UI.toast('Faça login para finalizar a compra'); return; } location.hash='checkout'; showRoute(); });
-
-  // bind search on Enter
-  document.getElementById('search').addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ document.getElementById('btn-search').click(); } });
-
-  // ---------- small helpers ----------
-  function openAuthModal(){ authModal.style.display='flex'; authModal.setAttribute('aria-hidden','false'); }
-  function closeAuthModal(){ authModal.style.display='none'; authModal.setAttribute('aria-hidden','true'); }
-
-  // render cart table when opening cart
-  function renderCartTableOnOpen(){ renderCartTable(); UI.updateCart(); }
-
-  // ---------- event: persist cart changes on page unload ----------
-  window.addEventListener('beforeunload', ()=> { /* already persisted to localStorage */ });
-
-  // ---------- init on DOM ready ----------
-  document.addEventListener('DOMContentLoaded', ()=>{ renderInitial(); });
-
-  // Expose for debug
-  window.TRIVORA = { PRODUCTS, cartAll, cartAdd, cartRemove, createOrder, getSession, setSession, clearSession };
-
+    document.querySelectorAll('.product-card,.category-card').forEach(el => {
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(20px)';
+      observer.observe(el);
+    });
   </script>
 </body>
 </html>
-
 
 
