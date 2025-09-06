@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trivora • E-commerce</title>
+  <meta name="description" content="Trivora — E-commerce minimalista preto & branco. Carrinho, checkout simulado, login/registro e áreas de conta." />
+  <style>
+    /* =======================
+       STYLES (styles.css completo)
+       ======================= */
+    :root{
+      --bg:#fff; --fg:#0a0a0a; --muted:#6b6b6b; --soft:#f2f2f2; --accent:#000; --card:#ffffff;
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;height:100%}
+    body{
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color:var(--fg);
+      background:var(--bg);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    /* Header */
+    .header{
+      position:sticky;top:0;z-index:1000;background:#000;color:#fff;border-bottom:1px solid #111;
+      backdrop-filter: blur(4px);
+    }
+    .header-wrap{display:flex;align-items:center;gap:16px;justify-content:space-between;padding:12px 0}
+    .brand{font-weight:800;font-size:1.4rem;letter-spacing:.5px}
+    .nav ul{display:flex;gap:12px;list-style:none;padding:0;margin:0;flex-wrap:wrap}
+    .nav a{padding:8px 12px;border-radius:10px;transition:.2s}
+    .nav a:hover,.nav a.active{background:rgba(255,255,255,.14)}
+    /* Search */
+    .search{display:flex;gap:0}
+    .search input{padding:10px 12px;border:1px solid #222;background:#111;color:#fff;outline:none;border-right:0;border-radius:10px 0 0 10px;min-width:220px}
+    .search button{border:1px solid #222;background:#1a1a1a;color:#fff;padding:10px 14px;border-radius:0 10px 10px 0;cursor:pointer}
+    .search button:hover{background:#2a2a2a}
+    /* minicart */
+    .minicart{position:relative;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid #222;border-radius:12px;background:#0f0f0f;color:#fff}
+    .minicart .count{background:#fff;color:#000;border-radius:999px;padding:2px 8px;font-weight:700;font-size:.8rem}
+    /* Banner/slider */
+    .banner{margin:18px 0;border-radius:var(--radius);overflow:hidden;position:relative;background:#111;color:#fff}
+    .slide{display:none;position:relative;min-height:320px}
+    .slide.active{display:block}
+    .slide .content{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px}
+    .slide h1{font-size:2rem;margin:0 0 8px 0}
+    .slide p{color:#cfcfcf;margin:0 0 16px 0}
+    .cta{display:inline-block;background:#fff;color:#000;padding:10px 16px;border-radius:10px;font-weight:700}
+    .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;display:flex;gap:8px}
+    .dot{width:10px;height:10px;border-radius:999px;background:#444;cursor:pointer}
+    .dot.active{background:#fff}
+    /* Layouts */
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .card{background:var(--card);border:1px solid #eee;border-radius:var(--radius);overflow:hidden;transition:.2s;display:flex;flex-direction:column}
+    .card:hover{box-shadow:0 10px 40px rgba(0,0,0,.10);transform:translateY(-2px)}
+    .card .thumb{height:180px;background:#f5f5f5;display:grid;place-items:center;overflow:hidden}
+    .card h3{margin:12px 12px 0 12px;font-size:1rem}
+    .card p.price{margin:6px 12px;color:#555;font-weight:600}
+    .card .desc{margin:0 12px 12px 12px;color:#777;font-size:.9rem;flex:1}
+    .card button{margin:0 12px 12px 12px;padding:10px;border:0;border-radius:10px;background:#000;color:#fff;cursor:pointer}
+    .card button:hover{filter:brightness(.9)}
+    .kicker{display:flex;gap:18px;flex-wrap:wrap;margin:26px 0}
+    .kicker .pill{padding:8px 12px;border:1px solid #ddd;border-radius:999px;background:#fff;cursor:pointer}
+    .kicker .pill.active{background:#000;color:#fff;border-color:#000}
+    /* Footer */
+    .footer{margin-top:40px;background:#000;color:#fff;padding-top:20px}
+    .footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;padding:30px 0}
+    .footer a{color:#fff;opacity:.9}
+    .footer a:hover{opacity:1}
+    .footer .bottom{border-top:1px solid #111;padding:14px 0;color:#bdbdbd;text-align:center}
+    .badge{display:inline-block;border:1px solid #000;border-radius:8px;padding:6px 10px;font-weight:600}
+    .sticky-checkout{position:fixed;right:16px;bottom:16px;z-index:1001;background:#fff;border:1px solid #ddd;border-radius:16px;padding:10px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 12px 40px rgba(0,0,0,.14)}
+    .sticky-checkout a{background:#000;color:#fff;padding:8px 12px;border-radius:10px}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{border-bottom:1px solid #eee;padding:12px;text-align:left}
+    .table tfoot td{font-weight:800}
+    .form{display:grid;gap:14px}
+    .form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .form input,.form select,.form textarea{padding:10px;border:1px solid #ddd;border-radius:10px;background:#fff}
+    .form button{padding:12px;border:0;border-radius:10px;background:#000;color:#fff;cursor:pointer}
+    .form button:hover{filter:brightness(.9)}
+    .alert{padding:12px;border-radius:10px;background:#f6f6f6;border:1px solid #e6e6e6}
+    .center{text-align:center}
+    .hidden{display:none}
+    .section{padding:28px 0;border-bottom:1px solid #f0f0f0}
+    .section h1{margin-top:0}
+    @media (max-width:768px){.form .row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-wrap">
+      <a class="brand" href="#home" data-link>Trivora</a>
+      <nav class="nav">
+        <ul>
+          <li><a href="#home" data-link class="nav-link">Home</a></li>
+          <li><a href="#produtos" data-link class="nav-link">Produtos</a></li>
+          <li><a href="#bolos" data-link class="nav-link">Bolos</a></li>
+          <li><a href="#salgados" data-link class="nav-link">Salgados</a></li>
+          <li><a href="#bebidas" data-link class="nav-link">Bebidas</a></li>
+          <li><a href="#conta" data-link class="nav-link">Minha Conta</a></li>
+        </ul>
+      </nav>
+      <div style="display:flex;gap:12px;align-items:center">
+        <form class="search" id="search-form" onsubmit="return false;">
+          <input type="search" id="search-input" name="q" placeholder="Buscar..." aria-label="Buscar">
+          <button id="search-btn">Buscar</button>
+        </form>
+        <div id="user-box"></div>
+        <a class="minicart" href="#carrinho" data-link>🛒 <span id="cart-count" class="count">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT (one-page sections) -->
+  <main class="container" id="main">
+    <!-- HOME / BANNER -->
+    <section id="home" class="section">
+      <section class="banner" id="banner">
+        <div class="slide active" data-slide="0">
+          <div class="content">
+            <div>
+              <h1>Elegância em Preto & Branco</h1>
+              <p>Compras simples, rápidas e seguras – estilo AliExpress, com a alma Trivora.</p>
+              <a class="cta" href="#produtos" data-link>Ver produtos</a>
+            </div>
+          </div>
+        </div>
+        <div class="slide" data-slide="1">
+          <div class="content">
+            <div>
+              <h1>Promoções da Semana</h1>
+              <p>Seleção em destaque com preços especiais.</p>
+              <a class="cta" href="#produtos" data-link>Aproveitar</a>
+            </div>
+          </div>
+        </div>
+        <div class="slide" data-slide="2">
+          <div class="content">
+            <div>
+              <h1>Entrega Rápida</h1>
+              <p>Peça hoje e receba em poucas horas na cidade.</p>
+              <a class="cta" href="#bolos" data-link>Bolos</a>
+            </div>
+          </div>
+        </div>
+        <div class="dots" id="slider-dots"></div>
+      </section>
+
+      <div class="kicker">
+        <a class="pill" href="#bolos" data-filter-anchor>Bolos</a>
+        <a class="pill" href="#salgados" data-filter-anchor>Salgados</a>
+        <a class="pill" href="#bebidas" data-filter-anchor>Bebidas</a>
+        <a class="pill" href="#produtos" data-filter-anchor>Todos</a>
+      </div>
+
+      <div id="home-products" class="cards"></div>
+    </section>
+
+    <!-- PRODUTOS - lista completa + filtros -->
+    <section id="produtos" class="section hidden">
+      <h1>Todos os Produtos</h1>
+      <div class="kicker" id="filters">
+        <a class="pill active" data-filter="all">Todos</a>
+        <a class="pill" data-filter="Bolos">Bolos</a>
+        <a class="pill" data-filter="Salgados">Salgados</a>
+        <a class="pill" data-filter="Bebidas">Bebidas</a>
+        <a class="pill" data-filter="ofertas" id="ofertas-pill">Ofertas</a>
+      </div>
+      <div id="products-grid" class="cards"></div>
+    </section>
+
+    <!-- CATEGORIA: BOLOS -->
+    <section id="bolos" class="section hidden">
+      <h1>Bolos</h1>
+      <div id="category-bolos" class="cards"></div>
+    </section>
+
+    <!-- CATEGORIA: SALGADOS -->
+    <section id="salgados" class="section hidden">
+      <h1>Salgados</h1>
+      <div id="category-salgados" class="cards"></div>
+    </section>
+
+    <!-- CATEGORIA: BEBIDAS -->
+    <section id="bebidas" class="section hidden">
+      <h1>Bebidas</h1>
+      <div id="category-bebidas" class="cards"></div>
+    </section>
+
+    <!-- CARRINHO -->
+    <section id="carrinho" class="section hidden">
+      <h1>Seu carrinho</h1>
+      <table class="table" id="cart-table">
+        <thead><tr><th>Produto</th><th>Preço</th><th>Qtd</th><th>Subtotal</th><th></th></tr></thead>
+        <tbody></tbody>
+        <tfoot><tr><td colspan="3">Total</td><td id="cart-sum">Kz 0.00</td><td></td></tr></tfoot>
+      </table>
+      <div style="margin-top:18px">
+        <a class="cta" href="#checkout" data-link>Ir para Checkout</a>
+      </div>
+    </section>
+
+    <!-- CHECKOUT -->
+    <section id="checkout" class="section hidden">
+      <h1>Finalizar compra</h1>
+      <div class="grid">
+        <section style="grid-column:span 7">
+          <form id="checkout-form" class="form">
+            <div class="row">
+              <input required name="name" placeholder="Nome completo"/>
+              <input required name="email" type="email" placeholder="Email"/>
+            </div>
+            <input required name="address" placeholder="Endereço completo"/>
+            <div class="row">
+              <input required name="phone" placeholder="Telefone"/>
+              <select name="payment" required>
+                <option value="">Método de pagamento</option>
+                <option>Multicaixa</option>
+                <option>Unitel Money</option>
+                <option>PayPal</option>
+                <option>Stripe</option>
+              </select>
+            </div>
+            <textarea name="notes" placeholder="Observações (opcional)"></textarea>
+            <button type="submit">Confirmar Pedido</button>
+          </form>
+          <p class="alert">Pagamento simulado: ao confirmar, o pedido será salvo e exibido em "Minha Conta".</p>
+        </section>
+
+        <aside style="grid-column:span 5">
+          <h3>Resumo</h3>
+          <table class="table" id="summary">
+            <thead><tr><th>Produto</th><th>Qtd</th><th>Total</th></tr></thead>
+            <tbody></tbody>
+            <tfoot><tr><td colspan="2">Total</td><td id="sum-total">Kz 0.00</td></tr></tfoot>
+          </table>
+        </aside>
+      </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section id="login" class="section hidden">
+      <h1>Entrar</h1>
+      <form id="login-form" class="form" style="max-width:480px">
+        <input name="email" type="email" placeholder="Email" required/>
+        <input name="password" type="password" placeholder="Senha" required/>
+        <button>Entrar</button>
+      </form>
+      <p>Não tem conta? <a href="#registro" data-link>Registre-se</a></p>
+    </section>
+
+    <!-- REGISTRO -->
+    <section id="registro" class="section hidden">
+      <h1>Criar conta</h1>
+      <form id="reg-form" class="form" style="max-width:480px">
+        <input name="name" placeholder="Nome" required/>
+        <input name="email" type="email" placeholder="Email" required/>
+        <input name="phone" placeholder="Telefone" required/>
+        <input name="password" type="password" placeholder="Senha" required/>
+        <button>Criar minha conta</button>
+      </form>
+    </section>
+
+    <!-- CONTA / MEUS DADOS -->
+    <section id="conta" class="section hidden">
+      <h1>Minha Conta</h1>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+        <div id="user-data" class="alert"></div>
+        <button id="logout-btn" class="badge" style="background:#fff;padding:6px 12px;border:1px solid #ddd">Sair</button>
+      </div>
+      <div class="kicker" style="margin-bottom:18px">
+        <a class="pill active" href="#dados" data-tab>Meus dados</a>
+        <a class="pill" href="#pedidos" data-tab>Pedidos</a>
+      </div>
+
+      <section id="dados">
+        <h3>Dados básicos</h3>
+        <div id="user-basic" class="alert"></div>
+      </section>
+
+      <section id="pedidos" style="margin-top:20px">
+        <h3>Meus pedidos</h3>
+        <table class="table" id="orders-table">
+          <thead><tr><th>Pedido</th><th>Data</th><th>Itens</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="section hidden">
+      <h1>Contato</h1>
+      <form id="contact-form" class="form" style="max-width:520px">
+        <input name="name" placeholder="Seu nome" required/>
+        <input name="email" type="email" placeholder="Seu email" required/>
+        <textarea name="message" placeholder="Mensagem" rows="5" required></textarea>
+        <button>Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER + STICKY CHECKOUT -->
+  <footer class="footer">
+    <div class="container cols" style="padding:18px 20px;">
+      <div>
+        <strong>Trivora</strong>
+        <p>E-commerce elegante, simples e rápido.</p>
+      </div>
+      <div>
+        <strong>Categorias</strong>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li><a href="#bolos" data-link>Bolos</a></li>
+          <li><a href="#salgados" data-link>Salgados</a></li>
+          <li><a href="#bebidas" data-link>Bebidas</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Ajuda</strong>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li><a href="#login" data-link>Login</a> / <a href="#registro" data-link>Registro</a></li>
+          <li><a href="#checkout" data-link>Checkout</a></li>
+          <li><a href="#contato" data-link>Contato</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom" style="padding:12px 0;text-align:center;color:#bdbdbd">&copy; 2025 Trivora. Todos os direitos reservados.</div>
+  </footer>
+
+  <div class="sticky-checkout">
+    <span>Total: <strong>Kz <span id="cart-total">0.00</span></strong></span>
+    <a href="#checkout" data-link>Finalizar</a>
+  </div>
+
+  <!-- =======================
+       SCRIPTS EMBUTIDOS (products.js + app.js completos)
+       ======================= -->
+  <script>
+    /* ===== produtos (equivalente js/products.js) ===== */
+    window.TRIVORA_PRODUCTS = [
+      // Bolos
+      {id:'bolo1', category:'Bolos', name:'Bolo de Chocolate', price: 4500, img:'produtos/Bolos/bolo-chocolate.jpg', desc:'Massa fofinha com cobertura intensa de cacau.'},
+      {id:'bolo2', category:'Bolos', name:'Bolo Red Velvet', price: 5200, img:'produtos/Bolos/bolo-red-velvet.jpg', desc:'Clássico aveludado com cream cheese.'},
+      {id:'bolo3', category:'Bolos', name:'Bolo de Aniversário', price: 8000, img:'produtos/Bolos/bolo-aniversario.jpg', desc:'Personalizável, serve 15 pessoas.'},
+      // Salgados
+      {id:'sal1', category:'Salgados', name:'Coxinha Tradicional (10un)', price: 2500, img:'produtos/Salgados/coxinha.jpg', desc:'Frango cremoso com massa dourada.'},
+      {id:'sal2', category:'Salgados', name:'Empada de Frango (6un)', price: 2200, img:'produtos/Salgados/empada.jpg', desc:'Massa amanteigada recheada.'},
+      {id:'sal3', category:'Salgados', name:'Rissol de Camarão (10un)', price: 3000, img:'produtos/Salgados/rissol.jpg', desc:'Recheio generoso e crocante.'},
+      // Bebidas
+      {id:'beb1', category:'Bebidas', name:'Sumo Natural 1L', price: 1200, img:'produtos/Bebidas/sumo.jpg', desc:'Sabores: Laranja, Manga ou Maracujá.'},
+      {id:'beb2', category:'Bebidas', name:'Café Gelado 500ml', price: 1500, img:'produtos/Bebidas/cafe-gelado.jpg', desc:'Torras selecionadas, refrescante.'},
+      {id:'beb3', category:'Bebidas', name:'Chá Frio 500ml', price: 1000, img:'produtos/Bebidas/cha.jpg', desc:'Notas florais e cítricas.'}
+    ];
+  </script>
+
+  <script>
+    /* ===== app.js (completo, adaptado para single-page) ===== */
+    const $ = (sel,ctx=document)=>ctx.querySelector(sel);
+    const $$ = (sel,ctx=document)=>Array.from((ctx||document).querySelectorAll(sel));
+
+    // STORAGE helpers
+    const store = {
+      get(key, fallback=null){
+        try{ const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; } catch(e){ return fallback; }
+      },
+      set(key, val){ localStorage.setItem(key, JSON.stringify(val)) },
+      remove(key){ localStorage.removeItem(key) }
+    };
+
+    // AUTH (local)
+    const auth = {
+      user(){ return store.get('trivora:user', null) },
+      login(email, password){
+        const users = store.get('trivora:users', []);
+        const u = users.find(x=>x.email===email && x.password===password);
+        if(!u) return {ok:false, msg:'Credenciais inválidas'};
+        store.set('trivora:user', {email:u.email, name:u.name, phone:u.phone});
+        return {ok:true}
+      },
+      register({name,email,password,phone}){
+        const users = store.get('trivora:users', []);
+        if(users.some(u=>u.email===email)) return {ok:false, msg:'Email já registrado'};
+        users.push({name,email,password,phone});
+        store.set('trivora:users', users);
+        store.set('trivora:user', {email,name,phone});
+        return {ok:true}
+      },
+      logout(){ store.remove('trivora:user') }
+    };
+
+    // CART
+    const cart = {
+      key:'trivora:cart',
+      all(){ return store.get(this.key, []) },
+      save(items){ store.set(this.key, items); ui.updateCartCount() },
+      add(productId, qty=1){
+        const items = this.all();
+        const item = items.find(i=>i.id===productId);
+        if(item) item.qty += qty; else items.push({id:productId, qty});
+        this.save(items);
+        ui.flash('Produto adicionado ao carrinho.');
+      },
+      remove(productId){
+        const items = this.all().filter(i=>i.id!==productId);
+        this.save(items);
+      },
+      setQty(productId, qty){
+        const items = this.all();
+        const item = items.find(i=>i.id===productId);
+        if(item){ item.qty = Math.max(1, qty); this.save(items) }
+      },
+      clear(){ this.save([]) },
+      total(){
+        return this.all().reduce((sum,i)=>{
+          const p = products.get(i.id); return sum + (p?.price || 0) * i.qty
+        },0)
+      },
+      count(){ return this.all().reduce((n,i)=>n+i.qty,0) }
+    };
+
+    // PRODUCTS helper
+    const products = (function(){
+      const list = window.TRIVORA_PRODUCTS || [];
+      const map = new Map(list.map(p=>[p.id,p]));
+      const byCategory = (cat)=>list.filter(p=>p.category===cat);
+      const get = (id)=>map.get(id);
+      return {list, byCategory, get};
+    })();
+
+    // ORDERS
+    const orders = {
+      key:'trivora:orders',
+      all(){ return store.get(this.key, []) },
+      add(order){ const list=this.all(); list.push(order); store.set(this.key,list) }
+    };
+
+    // UI helpers
+    const ui = {
+      updateCartCount(){
+        const el = $('#cart-count'); if(el) el.textContent = cart.count();
+        const el2 = $('#cart-total'); if(el2) el2.textContent = cart.total().toFixed(2);
+        const el3 = $('#cart-sum'); if(el3) el3.textContent = 'Kz ' + cart.total().toFixed(2);
+      },
+      flash(msg){
+        const a = document.createElement('div');
+        a.className = 'alert center';
+        a.textContent = msg;
+        a.style.position='fixed'; a.style.left='50%'; a.style.top='12px'; a.style.transform='translateX(-50%)';
+        a.style.zIndex='2000'; a.style.background='#fff'; a.style.border='1px solid #ddd';
+        document.body.appendChild(a);
+        setTimeout(()=>a.remove(),1800);
+      },
+      formatMoney(v){ return 'Kz ' + v.toFixed(2) }
+    };
+
+    // Slider
+    function initSlider(){
+      const slides = $$('.slide'); const dotsContainer = $('#slider-dots');
+      if(!slides.length) return;
+      dotsContainer.innerHTML = slides.map((s,i)=>`<span class="dot ${i===0?'active':''}" data-i="${i}"></span>`).join('');
+      const dots = $$('.dot', dotsContainer);
+      let idx = 0;
+      const show = i => {
+        slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+        dots.forEach((d,k)=>d.classList.toggle('active',k===i));
+        idx = i;
+      };
+      dots.forEach(d=>d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
+      setInterval(()=>show((idx+1)%slides.length), 5000);
+    }
+
+    // Render product card template
+    function productCardHTML(p){
+      return `<div class="card" data-id="${p.id}">
+        <div class="thumb"><img src="${p.img}" alt="${p.name}" onerror="this.style.opacity=.08;this.style.filter='grayscale(1)';"></div>
+        <h3>${p.name}</h3>
+        <p class="price">Kz ${p.price.toFixed(2)}</p>
+        <p class="desc">${p.desc}</p>
+        <button class="add-cart" data-id="${p.id}">Adicionar ao carrinho</button>
+      </div>`;
+    }
+
+    // Renderers
+    function renderHomePicks(){
+      const root = $('#home-products');
+      const picks = products.list.slice(0,6);
+      root.innerHTML = picks.map(p=>productCardHTML(p)).join('');
+      bindAddCartButtons(root);
+    }
+    function renderAllProducts(list=products.list){
+      const root = $('#products-grid');
+      root.innerHTML = list.map(p=>productCardHTML(p)).join('');
+      bindAddCartButtons(root);
+    }
+    function renderCategory(cat, selector){
+      const root = $(selector);
+      const list = products.byCategory(cat);
+      root.innerHTML = list.map(p=>productCardHTML(p)).join('');
+      bindAddCartButtons(root);
+    }
+
+    // Bind add to cart buttons within a container
+    function bindAddCartButtons(root=document){
+      $$('.add-cart', root).forEach(btn=>{
+        btn.removeEventListener('click', addCartHandler);
+        btn.addEventListener('click', addCartHandler);
+      });
+    }
+    function addCartHandler(e){
+      const id = e.currentTarget.dataset.id;
+      cart.add(id,1);
+      updateCartDisplays();
+      renderCartTable();
+    }
+
+    // Cart page render
+    function renderCartTable(){
+      const tbody = document.querySelector('#cart-table tbody');
+      const items = cart.all();
+      if(items.length===0){
+        tbody.innerHTML = '<tr><td colspan="5" class="center">Seu carrinho está vazio.</td></tr>';
+        ui.updateCartCount();
+        $('#cart-sum').textContent = 'Kz 0.00';
+        return;
+      }
+      tbody.innerHTML = items.map(i=> {
+        const p = products.get(i.id);
+        const sub = (p.price * i.qty);
+        return `<tr>
+          <td style="display:flex;align-items:center;gap:10px"><img src="${p.img}" alt="${p.name}" style="width:60px;height:60px;object-fit:cover;border-radius:8px" onerror="this.style.opacity=.08;"> ${p.name}</td>
+          <td>Kz ${p.price.toFixed(2)}</td>
+          <td><input type="number" min="1" value="${i.qty}" style="width:70px" data-id="${i.id}" class="qty"/></td>
+          <td>Kz ${sub.toFixed(2)}</td>
+          <td><button data-id="${i.id}" class="rm">Remover</button></td>
+        </tr>`;
+      }).join('');
+      $('#cart-sum').textContent = 'Kz ' + cart.total().toFixed(2);
+      ui.updateCartCount();
+      $$('.qty').forEach(inp=>{
+        inp.addEventListener('input', ()=>{
+          cart.setQty(inp.dataset.id, parseInt(inp.value||'1'));
+          renderCartTable();
+        });
+      });
+      $$('.rm').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          cart.remove(btn.dataset.id);
+          renderCartTable();
+        });
+      });
+    }
+
+    // Render checkout summary
+    function renderCheckoutSummary(){
+      const tb = $('#summary tbody');
+      const items = cart.all();
+      if(items.length===0){
+        tb.innerHTML = '<tr><td colspan="3">Nenhum item no carrinho.</td></tr>';
+      } else {
+        tb.innerHTML = items.map(i=>{
+          const p = products.get(i.id);
+          return `<tr><td>${p.name}</td><td>${i.qty}</td><td>Kz ${(p.price * i.qty).toFixed(2)}</td></tr>`;
+        }).join('');
+      }
+      $('#sum-total').textContent = 'Kz ' + cart.total().toFixed(2);
+      ui.updateCartCount();
+    }
+
+    // Account page render
+    function renderAccount(){
+      const u = auth.user();
+      if(!u) return;
+      $('#user-basic').textContent = `${u.name || ''} • ${u.email} • ${u.phone || ''}`;
+      $('#user-data').textContent = `${u.name || ''} • ${u.email} • ${u.phone || ''}`;
+      const tb = $('#orders-table tbody');
+      const list = orders.all().filter(o=>o.customer.email===u.email);
+      tb.innerHTML = list.length ? list.map(o=>`<tr>
+        <td>${o.id}</td>
+        <td>${new Date(o.createdAt).toLocaleString()}</td>
+        <td>${o.items.reduce((n,i)=>n+i.qty,0)}</td>
+        <td>Kz ${o.total.toFixed(2)}</td>
+        <td>${o.status}</td>
+      </tr>`).join('') : '<tr><td colspan="5">Sem pedidos ainda.</td></tr>';
+    }
+
+    // Update displays (cart counts/totals)
+    function updateCartDisplays(){
+      ui.updateCartCount();
+      renderStickyTotal();
+    }
+    function renderStickyTotal(){ $('#cart-total').textContent = cart.total().toFixed(2); }
+
+    // Routing for single-page (hash-based)
+    function showSectionByHash(){
+      const hash = location.hash.replace('#','') || 'home';
+      // hide all sections
+      $$('.section').forEach(s=>s.classList.add('hidden'));
+      // special mapping: home -> #home
+      const target = document.getElementById(hash);
+      if(target){
+        target.classList.remove('hidden');
+        // scroll to top of section
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+      } else {
+        // fallback to home
+        $('#home').classList.remove('hidden');
+      }
+      // update nav active
+      $$('.nav-link').forEach(a=>{
+        const href = (a.getAttribute('href')||'').replace('#','') || 'home';
+        a.classList.toggle('active', href === hash);
+      });
+      // Render context-sensitive things
+      if(hash === 'home'){ renderHomePicks(); initSlider(); }
+      if(hash === 'produtos'){ renderAllProducts(); }
+      if(hash === 'bolos'){ renderCategory('Bolos','#category-bolos'); }
+      if(hash === 'salgados'){ renderCategory('Salgados','#category-salgados'); }
+      if(hash === 'bebidas'){ renderCategory('Bebidas','#category-bebidas'); }
+      if(hash === 'carrinho'){ renderCartTable(); }
+      if(hash === 'checkout'){ renderCheckoutSummary(); }
+      if(hash === 'conta'){ const u = auth.user(); if(!u){ location.hash = 'login'; } else { renderAccount(); } }
+      if(hash === 'login'){ /* nothing */ }
+      if(hash === 'registro'){ /* nothing */ }
+      if(hash === 'contato'){ /* nothing */ }
+    }
+
+    // Search handling
+    function doSearch(q){
+      q = (q||'').trim().toLowerCase();
+      let list = products.list;
+      if(q) list = list.filter(p=> p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+      location.hash = 'produtos';
+      setTimeout(()=>{ renderAllProducts(list); }, 50);
+    }
+
+    // Filters (product page)
+    function bindFilters(){
+      $('#filters').addEventListener('click', (e)=>{
+        if(!e.target.matches('.pill')) return;
+        $$('.pill','#filters').forEach(p=>p.classList.remove('active'));
+        e.target.classList.add('active');
+        const f = e.target.dataset.filter;
+        if(f === 'all') renderAllProducts();
+        else if(f === 'ofertas') {
+          // simple example: ofertas = price < 3000
+          renderAllProducts(products.list.filter(p=>p.price < 3000));
+        } else {
+          renderAllProducts(products.list.filter(p=>p.category === f));
+        }
+      });
+      // Kicker pills (homepage to anchors)
+      $$('.kicker .pill').forEach(p=>{
+        p.addEventListener('click', (ev)=>{
+          const txt = p.textContent.trim();
+          if(['Bolos','Salgados','Bebidas','Todos'].includes(txt)){
+            if(txt==='Todos') location.hash='produtos';
+            else location.hash = txt.toLowerCase();
+          }
+        });
+      });
+    }
+
+    // Bind search form
+    document.getElementById('search-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      doSearch($('#search-input').value);
+    });
+    $('#search-btn').addEventListener('click', ()=> doSearch($('#search-input').value));
+
+    // Login / Register forms
+    document.getElementById('reg-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const res = auth.register(data);
+      if(!res.ok) return ui.flash(res.msg);
+      ui.flash('Conta criada!');
+      updateHeaderUser();
+      location.hash = 'conta';
+    });
+
+    document.getElementById('login-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const res = auth.login(data.email, data.password);
+      if(!res.ok) return ui.flash(res.msg);
+      ui.flash('Entrou com sucesso!');
+      updateHeaderUser();
+      location.hash = 'conta';
+    });
+
+    // Logout
+    $('#logout-btn').addEventListener('click', ()=>{
+      auth.logout();
+      ui.flash('Sessão encerrada.');
+      updateHeaderUser();
+      location.hash = 'home';
+    });
+
+    // Checkout submit (simulated payment)
+    $('#checkout-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      if(cart.count() === 0) return ui.flash('Adicione itens ao carrinho.');
+      const order = {
+        id: 'ORD-' + Date.now(),
+        items: cart.all(),
+        total: cart.total(),
+        customer: data,
+        status: 'Pago (Simulado via ' + data.payment + ')',
+        createdAt: new Date().toISOString()
+      };
+      alert('Simulação de pagamento: redirecionando para ' + data.payment + '...');
+      orders.add(order);
+      cart.clear();
+      updateCartDisplays();
+      ui.flash('Pedido confirmado!');
+      // if user logged in, go to account; else save email in localStorage and go to login/register
+      const u = auth.user();
+      if(u && u.email === data.email){
+        location.hash = 'conta';
+        setTimeout(()=>renderAccount(), 300);
+      } else {
+        // save as guest order and ask to register or login to view
+        location.hash = 'conta';
+        setTimeout(()=>renderAccount(), 300);
+      }
+    });
+
+    // Contact form (simple)
+    $('#contact-form').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      ui.flash('Mensagem enviada — responderemos em breve.');
+      e.target.reset();
+    });
+
+    // Bind product add-cart buttons (delegation fallback)
+    document.addEventListener('click', (e)=>{
+      if(e.target.matches('[data-link]')){
+        // anchor internal navigation
+        const href = e.target.getAttribute('href') || '';
+        if(href.startsWith('#')){
+          const h = href.replace('#','');
+          location.hash = h;
+          e.preventDefault();
+        }
+      }
+      // category anchor pills in header
+      if(e.target.matches('[data-filter-anchor]')){
+        const txt = e.target.textContent.trim();
+        if(txt === 'Todos') location.hash = 'produtos';
+        else location.hash = txt.toLowerCase();
+      }
+    });
+
+    // Header user box
+    function updateHeaderUser(){
+      const user = auth.user();
+      const userBox = $('#user-box');
+      if(user){
+        userBox.innerHTML = `<span class="badge">Olá, ${user.name || user.email}</span>`;
+      } else {
+        userBox.innerHTML = `<a href="#login" data-link class="badge">Entrar</a>`;
+      }
+      ui.updateCartCount();
+    }
+
+    // Bind initial events
+    function initApp(){
+      updateHeaderUser();
+      initSlider();
+      renderHomePicks();
+      renderAllProducts();
+      renderCategory('Bolos','#category-bolos');
+      renderCategory('Salgados','#category-salgados');
+      renderCategory('Bebidas','#category-bebidas');
+      bindFilters();
+      renderCartTable();
+      renderStickyTotal();
+      // ensure hash routing handler
+      window.addEventListener('hashchange', showSectionByHash);
+      showSectionByHash();
+      // make dots accessible
+      document.body.addEventListener('click', (ev)=>{
+        if(ev.target.classList.contains('dot')){
+          const idx = parseInt(ev.target.dataset.i||'0');
+          const slides = $$('.slide');
+          slides.forEach((s,k)=>s.classList.toggle('active',k===idx));
+          $$('.dot').forEach((d,k)=>d.classList.toggle('active',k===idx));
+        }
+      });
+      // navigation link highlighting on load
+      $$('.nav-link').forEach(a=>a.addEventListener('click', ()=> setTimeout(()=> showSectionByHash(), 50)));
+    }
+
+    // Expose some functions to global for inline onclick usage
+    window.cart = cart;
+    window.products = products;
+    window.auth = auth;
+    window.orders = orders;
+    window.ui = ui;
+
+    // Start
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
