@@ -1,167 +1,190 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Trivora — E-commerce completo</title>
-  <meta name="description" content="Trivora — loja minimalista preto & branco com login, aprovação por email, carrinho, checkout e categorias." />
-  <style>
-    /* ==========================
-       TRIVORA - Estilo completo
-       Preto & Branco minimalista
-       ========================== */
-    :root{
-      --bg:#fff; --fg:#0b0b0b; --muted:#6e6e6e; --card:#fff;
-      --accent:#000; --soft:#f7f7f7; --radius:14px; --maxw:1200px;
-      --glass: rgba(0,0,0,0.04);
-      --transition: 220ms cubic-bezier(.2,.9,.3,1);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Trivora — Marketplace</title>
+<meta name="description" content="Trivora — Mobilidade, Tecnologia e Estilo. Carros, Motorizadas, Telefones, Eletrónicos, Moda e Serviços.">
+<!-- ===========================
+     CSS: Preto & Branco minimalista (com animações)
+     =========================== -->
+<style>
+:root{
+  --bg:#ffffff; --fg:#0b0b0b; --muted:#6c6c6c; --accent:#000;
+  --soft:#f6f6f6; --card:#fff; --radius:14px; --container:1200px;
+  --transition:200ms cubic-bezier(.2,.9,.3,1);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system,"Segoe UI",Roboto,Helvetica,Arial;
+  color:var(--fg); background:var(--bg); -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale; line-height:1.45;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+.container{max-width:var(--container);margin:0 auto;padding:0 20px}
 
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+/* Header */
+.header{
+  position:sticky;top:0;z-index:1200;background:#000;color:#fff;border-bottom:1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px}
+.brand{font-weight:900;letter-spacing:2px;font-size:1.4rem}
+.top-controls{display:flex;align-items:center;gap:10px}
+.nav{display:flex;gap:8px;align-items:center}
+.nav a{padding:8px 10px;border-radius:8px;opacity:.98;transition:all var(--transition)}
+.nav a:hover,.nav a.active{background:rgba(255,255,255,0.06)}
 
-    /* header */
-    header{position:sticky;top:0;z-index:1200;background:#000;color:#fff;border-bottom:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(4px)}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
-    .brand{font-weight:900;letter-spacing:2px;font-size:1.5rem}
-    .nav{display:flex;gap:10px;align-items:center}
-    .nav a{padding:8px 10px;border-radius:8px}
-    .nav a.active,.nav a:hover{background:rgba(255,255,255,0.06)}
-    .search{display:flex;align-items:center;background:#101010;padding:6px;border-radius:10px}
-    .search input{border:0;background:transparent;color:#fff;outline:none;padding:8px 10px;min-width:140px}
-    .search button{border:0;background:transparent;color:#fff;padding:8px 10px;cursor:pointer}
-    .minicart{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:12px;background:#fff;color:#000;font-weight:700}
+/* Search */
+.search{display:flex;align-items:center;background:#101010;padding:6px;border-radius:10px}
+.search input{border:0;background:transparent;color:#fff;padding:8px 10px;outline:none;min-width:140px}
+.search button{border:0;background:transparent;color:#fff;padding:8px 10px;cursor:pointer}
 
-    /* banner / slider */
-    .banner{margin:18px 0;border-radius:var(--radius);overflow:hidden;background:#111;color:#fff}
-    .slides{min-height:320px;position:relative}
-    .slide{position:absolute;inset:0;display:none;padding:32px;align-items:center;justify-content:center}
-    .slide.active{display:flex;animation:fadeUp .5s ease}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-    .slide h1{font-size:2.1rem;margin:0 0 8px}
-    .slide p{color:#d1d1d1;margin:0}
+/* Banner / slider */
+.banner{margin:18px 0;border-radius:var(--radius);overflow:hidden;position:relative;background:#111;color:#fff}
+.slides{min-height:340px;position:relative}
+.slide{position:absolute;inset:0;display:none;padding:28px;align-items:center;justify-content:center;text-align:center}
+.slide.active{display:flex;animation:fadeUp .6s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.slide h1{font-size:2.2rem;margin:0 0 8px}
+.slide p{color:#d1d1d1;margin:0}
 
-    .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px}
-    .dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.2);cursor:pointer}
-    .dot.active{background:#fff}
+/* Slider dots */
+.slider-dots{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px}
+.dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.18);cursor:pointer}
+.dot.active{background:#fff}
 
-    /* categories showcase */
-    .categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:24px 0}
-    .cat{border-radius:12px;border:1px solid #eee;overflow:hidden;background:var(--card);display:flex;flex-direction:column;transition:transform var(--transition),box-shadow var(--transition)}
-    .cat:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.06)}
-    .cat .media{height:160px;overflow:hidden}
-    .cat .media img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
-    .cat:hover .media img{transform:scale(1.05)}
-    .cat .body{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .cat .body h3{margin:0}
-    .cat .body .meta{color:var(--muted);font-size:.95rem}
-    .cat .body .group{margin-top:auto;display:flex;gap:8px}
+/* Categories */
+.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:22px 0}
+.cat-card{background:var(--card);border:1px solid #eee;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .28s,box-shadow .28s;box-shadow:0 10px 30px rgba(0,0,0,0.04)}
+.cat-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.06)}
+.cat-media{height:160px;overflow:hidden}
+.cat-media img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.cat-card:hover .cat-media img{transform:scale(1.04)}
+.cat-body{padding:12px;display:flex;flex-direction:column;gap:8px}
+.cat-body h3{margin:0}
+.cat-body p{margin:0;color:var(--muted)}
+.cat-body .group{margin-top:auto;display:flex;gap:8px}
 
-    /* product grid & cards */
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-    .card{border-radius:12px;border:1px solid #eee;background:#fff;overflow:hidden;display:flex;flex-direction:column;transition:transform var(--transition);position:relative}
-    .card:hover{transform:translateY(-6px)}
-    .thumb{height:180px;overflow:hidden}
-    .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
-    .card:hover .thumb img{transform:scale(1.05)}
-    .info{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .price{font-weight:800}
-    .actions{display:flex;gap:8px;padding:12px}
-    .btn{flex:1;padding:10px;border-radius:10px;border:0;background:#000;color:#fff;cursor:pointer;font-weight:700}
-    .btn.alt{background:#f0f0f0;color:#000;border:1px solid #ddd}
+/* Cards grid */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{border-radius:12px;border:1px solid #eee;background:var(--card);overflow:hidden;display:flex;flex-direction:column;transition:transform var(--transition),box-shadow var(--transition)}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.06)}
+.thumb{height:180px;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .thumb img{transform:scale(1.05)}
+.meta{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.meta h4{margin:0}
+.desc{color:var(--muted);font-size:.95rem;margin:0}
+.price{font-weight:800}
+.actions{display:flex;gap:8px;padding:12px}
+.btn{flex:1;padding:10px;border-radius:10px;border:0;background:#000;color:#fff;cursor:pointer;font-weight:700}
+.btn.secondary{background:#f2f2f2;color:#000;border:1px solid #e6e6e6}
 
-    /* cart table / forms */
-    .table{width:100%;border-collapse:collapse}
-    .table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left}
-    .form{display:grid;gap:12px}
-    .form input,.form select,.form textarea{padding:10px;border-radius:8px;border:1px solid #ddd}
-    .small{font-size:.9rem;color:var(--muted)}
+/* Tables & forms */
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left}
+.form{display:grid;gap:12px}
+.form input,.form select,.form textarea{padding:10px;border-radius:8px;border:1px solid #ddd}
 
-    /* footer bottom bar (common) */
-    .footer{margin-top:30px;background:#000;color:#fff;padding:18px 0;text-align:center}
-    .footerbar{position:fixed;left:0;right:0;bottom:0;background:#0a0a0a;color:#fff;padding:8px 12px;border-top:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;gap:18px;z-index:1400}
-    .footerbar a{color:#fff;padding:8px;border-radius:8px}
+/* Footer and bottom bar */
+footer{margin-top:30px;background:#000;color:#fff;text-align:center;padding:16px}
+.footerbar{position:fixed;left:0;right:0;bottom:0;background:#0b0b0b;color:#fff;padding:8px 12px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:center;gap:14px;z-index:1400}
+.footerbar a{color:#fff;padding:8px;border-radius:8px}
 
-    /* modals */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:2000}
-    .modal{background:#fff;border-radius:12px;max-width:720px;width:100%;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,0.12)}
-    .modal h3{margin:0 0 12px}
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:2000}
+.modal{background:#fff;border-radius:12px;padding:18px;max-width:720px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.12)}
+.modal h3{margin:0 0 8px}
 
-    /* notifications small */
-    .toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.12);z-index:2600}
+/* Toast */
+.toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#fff;color:#000;padding:10px 14px;border-radius:8px;box-shadow:0 12px 40px rgba(0,0,0,0.12);z-index:2600}
 
-    /* responsive */
-    @media (max-width:900px){
-      .search input{min-width:80px}
-      .header-inner{padding:10px}
-      .slide h1{font-size:1.4rem}
-      .footerbar{padding:10px;gap:10px}
-    }
-  </style>
+/* Responsive tweaks */
+@media (max-width:900px){
+  .slide h1{font-size:1.4rem}
+  .brand{font-size:1.05rem}
+  .cards{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+}
+</style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
+  <!-- HEADER -->
+  <header class="header">
     <div class="container header-inner">
-      <div style="display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:14px">
         <a class="brand" href="#home" data-link>TRIVORA</a>
-        <nav class="nav" aria-label="menu superior">
+        <nav class="nav" aria-label="main navigation">
           <a href="#home" class="nav-link" data-link>Home</a>
           <a href="#produtos" class="nav-link" data-link>Produtos</a>
+          <a href="#ofertas" class="nav-link" data-link>Ofertas</a>
         </nav>
       </div>
-
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="search" role="search">
-          <input id="search" placeholder="Buscar produtos..." aria-label="Buscar produtos">
-          <button id="btn-search">🔍</button>
+      <div class="top-controls">
+        <div class="search" role="search" aria-label="buscar produtos">
+          <input id="search-input" placeholder="Buscar produtos..." aria-label="buscar">
+          <button id="search-btn" aria-label="buscar">🔍</button>
         </div>
-        <a class="minicart" href="#carrinho" data-link aria-label="Carrinho">🛒 <span id="cart-count">0</span></a>
-        <button id="btn-open-login" class="btn alt" style="padding:8px 10px">Entrar / Registar</button>
+        <a class="minicart" href="#carrinho" data-link aria-label="carrinho">🛒 <span id="cart-count">0</span></a>
+        <button id="btn-account" class="btn secondary" style="padding:8px 10px">Entrar</button>
       </div>
     </div>
   </header>
 
-  <!-- Main content -->
+  <!-- MAIN -->
   <main class="container" id="app">
-    <!-- Banner / Slider -->
-    <section id="home" class="section">
+    <!-- HOME SLIDER -->
+    <section id="home" class="section" aria-labelledby="home-title">
       <div class="banner" role="region" aria-label="promoções">
-        <div class="slides">
+        <div class="slides" id="slides">
           <div class="slide active" data-i="0">
-            <div style="text-align:center">
-              <h1>Trivora — Mobilidade & Tecnologia</h1>
-              <p class="small">Destaques em Carros e Motorizadas. Minimalista, elegante, direto.</p>
+            <div>
+              <h1 id="home-title">Trivora — Mobilidade & Tecnologia</h1>
+              <p class="muted">Destaques em Carros, Motorizadas e Eletrônicos. Navegue livremente — faça login apenas para comprar.</p>
             </div>
           </div>
           <div class="slide" data-i="1">
-            <div style="text-align:center">
-              <h1>Promoções semanais</h1>
-              <p class="small">Ofertas selecionadas por tempo limitado.</p>
+            <div>
+              <h1>Ofertas da Semana</h1>
+              <p class="muted">Confira as promoções e economize.</p>
+            </div>
+          </div>
+          <div class="slide" data-i="2">
+            <div>
+              <h1>Espaço de Marketing</h1>
+              <p class="muted">Visibilidade premium para o seu produto.</p>
             </div>
           </div>
         </div>
-        <div class="dots" id="dots"></div>
+        <div class="slider-dots" id="slider-dots"></div>
       </div>
 
-      <!-- categories showcase -->
-      <section aria-label="categorias" style="margin-top:20px">
-        <h2 style="margin:0 0 8px">Categorias</h2>
-        <p class="small" style="margin:0 0 12px">Clique numa categoria para ver todos os produtos dela. Cada bloco mostra um produto representativo.</p>
+      <!-- Categories showcase -->
+      <section aria-label="categorias" style="margin-top:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h2 style="margin:0">Categorias</h2>
+            <p class="muted" style="margin:6px 0 0">Clique numa categoria para ver a vitrine completa.</p>
+          </div>
+          <div class="kicker">
+            <span class="pill" style="padding:6px 10px;border-radius:999px;border:1px solid #eee">Preto & Branco</span>
+            <span class="pill" style="padding:6px 10px;border-radius:999px;border:1px solid #eee">Minimal</span>
+          </div>
+        </div>
+
         <div class="categories" id="categories"></div>
       </section>
     </section>
 
-    <!-- Produtos (all) -->
-    <section id="produtos" class="section hidden">
+    <!-- PRODUCTS PAGE -->
+    <section id="produtos" class="section hidden" aria-labelledby="products-title">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <h1>Produtos</h1>
+        <h1 id="products-title">Todos os Produtos</h1>
         <div>
           <label class="small">Filtrar: </label>
-          <select id="filter">
+          <select id="filter-select">
             <option value="all">Todas</option>
             <option value="Carros">Carros</option>
             <option value="Motorizadas">Motorizadas</option>
@@ -176,47 +199,44 @@
           </select>
         </div>
       </div>
-      <div id="all-products" class="cards"></div>
+      <div id="all-products" class="cards" aria-live="polite"></div>
     </section>
 
-    <!-- Category pages (hidden by default) -->
-    <section id="carros" class="section hidden"><h1>Carros</h1><div class="cards" id="cat-carros"></div></section>
-    <section id="motos" class="section hidden"><h1>Motorizadas</h1><div class="cards" id="cat-motos"></div></section>
-    <section id="telefones" class="section hidden"><h1>Telefones</h1><div class="cards" id="cat-telefones"></div></section>
-    <section id="eletronicos" class="section hidden"><h1>Eletrônicos</h1><div class="cards" id="cat-eletronicos"></div></section>
-    <section id="masculino" class="section hidden"><h1>Moda Masculina</h1><div class="cards" id="cat-masculino"></div></section>
-    <section id="feminino" class="section hidden"><h1>Moda Feminina & Beleza</h1><div class="cards" id="cat-feminino"></div></section>
-    <section id="infantil" class="section hidden"><h1>Moda Infantil</h1><div class="cards" id="cat-infantil"></div></section>
-    <section id="servicos" class="section hidden"><h1>Serviços Online</h1><div class="cards" id="cat-servicos"></div></section>
-    <section id="marketing" class="section hidden"><h1>Espaço de Marketing</h1><div class="cards" id="cat-marketing"></div></section>
-
-    <!-- Cart -->
+    <!-- Category pages -->
+    <section id="carros" class="section hidden"><h1>Carros</h1><div id="cat-carros" class="cards"></div></section>
+    <section id="motos" class="section hidden"><h1>Motorizadas</h1><div id="cat-motos" class="cards"></div></section>
+    <section id="telefones" class="section hidden"><h1>Telefones</h1><div id="cat-telefones" class="cards"></div></section>
+    <section id="eletronicos" class="section hidden"><h1>Eletrônicos</h1><div id="cat-eletronicos" class="cards"></div></section>
+    <section id="masculino" class="section hidden"><h1>Moda Masculina</h1><div id="cat-masculino" class="cards"></div></section>
+    <section id="feminino" class="section hidden"><h1>Moda Feminina & Beleza</h1><div id="cat-feminino" class="cards"></div></section>
+    <section id="infantil" class="section hidden"><h1>Moda Infantil</h1><div id="cat-infantil" class="cards"></div></section>
+    <section id="servicos" class="section hidden"><h1>Serviços Online</h1><div id="cat-servicos" class="cards"></div></section>
+    <section id="marketing" class="section hidden"><h1>Espaço de Marketing</h1><div id="cat-marketing" class="cards"></div></section>
+    <!-- CART -->
     <section id="carrinho" class="section hidden">
       <h1>Seu Carrinho</h1>
       <table class="table" id="cart-table">
         <thead><tr><th>Produto</th><th>Preço</th><th>Qtd</th><th>Subtotal</th><th></th></tr></thead>
         <tbody></tbody>
+        <tfoot><tr><td colspan="3">Total</td><td id="cart-total">Kz 0</td><td></td></tr></tfoot>
       </table>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-        <div>Total: <strong id="cart-total">Kz 0</strong></div>
-        <div style="display:flex;gap:8px">
-          <button class="btn" id="btn-go-checkout">Finalizar compra</button>
-          <button class="btn alt" id="btn-clear-cart">Limpar</button>
-        </div>
+      <div style="margin-top:12px;display:flex;gap:10px">
+        <button class="btn" id="btn-checkout">Finalizar Compra</button>
+        <button class="btn secondary" id="btn-clear">Limpar Carrinho</button>
       </div>
     </section>
 
-    <!-- Checkout -->
+    <!-- CHECKOUT -->
     <section id="checkout" class="section hidden">
-      <h1>Checkout</h1>
+      <h1>Finalizar Compra</h1>
       <div style="display:grid;grid-template-columns:1fr 320px;gap:18px">
         <form id="checkout-form" class="form">
           <input name="name" placeholder="Nome completo" required />
-          <input name="email" type="email" placeholder="Email" required />
-          <input name="address" placeholder="Endereço completo" required />
-          <input name="phone" placeholder="Telefone" required />
+          <input name="email" type="email" placeholder="Email (necessário para confirmação)" required />
+          <input name="address" placeholder="Endereço" required />
+          <input name="phone" placeholder="Telefone" />
           <select name="payment" required>
-            <option value="">Selecionar método</option>
+            <option value="">Método de Pagamento</option>
             <option>Multicaixa</option>
             <option>Unitel Money</option>
             <option>PayPal</option>
@@ -226,14 +246,14 @@
           <button class="btn" type="submit">Confirmar pedido (simulado)</button>
         </form>
 
-        <aside style="border:1px solid #eee;border-radius:12px;padding:12px">
-          <h3>Resumo</h3>
+        <aside style="border:1px solid #eee;border-radius:10px;padding:12px">
+          <h3>Resumo do pedido</h3>
           <table class="table" id="summary-table"><thead><tr><th>Produto</th><th>Qtd</th><th>Total</th></tr></thead><tbody></tbody><tfoot><tr><td colspan="2">Total</td><td id="summary-total">Kz 0</td></tr></tfoot></table>
         </aside>
       </div>
     </section>
 
-    <!-- Account -->
+    <!-- CONTA -->
     <section id="conta" class="section hidden">
       <h1>Minha Conta</h1>
       <div id="account-area"></div>
@@ -241,12 +261,10 @@
 
   </main>
 
-  <!-- footer -->
-  <footer class="footer">
+  <footer>
     © <span id="year"></span> Trivora — Mobilidade, Tecnologia & Estilo
   </footer>
 
-  <!-- bottom footerbar (common) -->
   <div class="footerbar" role="navigation" aria-label="barra inferior">
     <a href="#home" data-link>Home</a>
     <a href="#produtos" data-link>Produtos</a>
@@ -254,667 +272,526 @@
     <a href="#conta" data-link>Conta</a>
   </div>
 
-  <!-- Login/Register Modal -->
-  <div id="modal-auth" class="modal-backdrop hidden" role="dialog" aria-modal="true">
-    <div class="modal" role="document">
-      <h3 id="auth-title">Entrar / Registrar</h3>
-      <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap">
-        <div style="flex:1;min-width:260px">
-          <h4>Entrar</h4>
-          <form id="form-login" class="form">
-            <input name="email" type="email" placeholder="Email" required />
-            <input name="password" type="password" placeholder="Senha" required />
-            <div style="display:flex;gap:8px">
-              <button class="btn" type="submit">Entrar</button>
-              <button class="btn alt" type="button" id="btn-close-auth">Fechar</button>
-            </div>
-          </form>
-        </div>
-        <div style="flex:1;min-width:260px;border-left:1px solid #eee;padding-left:12px">
-          <h4>Registrar</h4>
-          <form id="form-register" class="form">
-            <input name="name" placeholder="Nome completo" required />
-            <input name="email" type="email" placeholder="Email" required />
-            <input name="phone" placeholder="Telefone" />
-            <input name="password" type="password" placeholder="Senha" required />
-            <div style="display:flex;gap:8px">
-              <button class="btn" type="submit">Registar</button>
-            </div>
-            <p class="small muted" style="margin-top:6px">Após registo a conta fica em <strong>pendente</strong>. Um email será enviado à Trivora para aprovação manual.</p>
-          </form>
-        </div>
+  <!-- AUTH MODAL (only opens when needed) -->
+  <div id="auth-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+      <h3 id="auth-title">Entrar na Trivora</h3>
+      <p class="small muted">Login rápido com Google. Ou continue como convidado e faça checkout usando email.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button id="btn-google" class="btn">Entrar com Google</button>
+        <button id="btn-guest" class="btn secondary">Continuar como convidado (pedir email no checkout)</button>
       </div>
+      <div style="margin-top:12px"><button id="btn-close-auth" class="btn secondary">Fechar</button></div>
     </div>
   </div>
 
-  <!-- Simple toast placeholder -->
-  <div id="toast-placeholder" style="position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:2800"></div>
+  <!-- TOAST placeholder -->
+  <div id="toast-wrap" style="position:fixed;left:50%;transform:translateX(-50%);top:14px;z-index:3000"></div>
 
-  <!-- ============================
+  <!-- ===============================
        JAVASCRIPT (completo)
-       - substitui as placeholders do Firebase e EmailJS por tuas chaves
-       - se não preencheres, o sistema usa fallback localStorage (para testes)
-       ============================ -->
-  <script>
-  /**************************************************************************
-   *  CONFIGURAÇÕES IMPORTANTES
-   *
-   *  1) Para ter aprovação real por email e persistência remota, cria um
-   *     projeto no Firebase e substitui abaixo os valores de firebaseConfig.
-   *  2) Para enviar email automático ao registar, podes usar EmailJS (sem
-   *     servidor) — substitui SERVICE_ID, TEMPLATE_ID, USER_ID.
-   *
-   *  Se não preencheres, o sistema funciona localmente (localStorage) para
-   *  desenvolvimento e testes.
-   **************************************************************************/
-
-  // --- FIREBASE: coloque suas credenciais aqui (opcional) ---
-  const FIREBASE_ENABLED = false; // trocar para true se configurar
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    // ... resto da config
-  };
-
-  // --- EMAILJS: envie email para equipa nas registos (opcional) ---
-  const EMAILJS_ENABLED = false; // mudar para true se configurar
-  const EMAILJS_SERVICE = "YOUR_EMAILJS_SERVICE";
-  const EMAILJS_TEMPLATE = "YOUR_EMAILJS_TEMPLATE";
-  const EMAILJS_USER = "YOUR_EMAILJS_USER";
-
-  /**************************************************************************
-   *  LIBS (carregamento dinâmico de Firebase / EmailJS se configurados)
-   **************************************************************************/
-  async function loadFirebase() {
-    if(!FIREBASE_ENABLED) return null;
-    // carregamento dinâmico do SDK (v10 modular)
-    await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
-    await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js');
-    // note: inlined imports above may or may not be cached by browser; 
-    // we'll access global firebase after import in this environment
-    return window.firebase;
+       - Google login via Firebase (config placeholders)
+       - Local fallback for users/orders/cart (localStorage)
+       - Full UI rendering and routing
+       =============================== -->
+  <script type="module">
+  /* =========================
+     CONFIG
+     - Substitua firebaseConfig por teu projeto para ativar login Google
+     - Se não quiser usar Firebase, o fallback localStorage funciona
+     ========================= */
+  const FIREBASE_ENABLED = false; // colocar true para ativar Google Login
+  /* FIREBASE CONFIG PLACEHOLDER:
+     const firebaseConfig = {
+       apiKey: "YOUR_API_KEY",
+       authDomain: "YOUR_PROJECT.firebaseapp.com",
+       projectId: "YOUR_PROJECT_ID",
+       appId: "YOUR_APP_ID"
+     };
+  */
+  // imports only executed if enabled to avoid errors when false
+  let firebaseAuth = null;
+  if(FIREBASE_ENABLED){
+    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
+    const { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js');
+    // place your firebaseConfig here if enabling
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+    };
+    const app = initializeApp(firebaseConfig);
+    firebaseAuth = getAuth(app);
+    window._TRIVORA_FIREBASE = { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, auth: firebaseAuth };
   }
 
-  async function loadEmailJS(){
-    if(!EMAILJS_ENABLED) return null;
-    // EmailJS CDN
-    if(!window.emailjs){
-      await new Promise((res,rej)=>{
-        const s=document.createElement('script');
-        s.src='https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js';
-        s.onload=res; s.onerror=rej; document.head.appendChild(s);
-      });
-      if(window.emailjs && EMAILJS_USER) window.emailjs.init(EMAILJS_USER);
-    }
-    return window.emailjs;
-  }
+  /* ==============
+     DATA: PRODUCTS (expanded)
+     ============== */
+  const PRODUCTS = [
+    {id:'car-tesla',category:'Carros',name:'Tesla Model 3',price:9500000,img:'https://source.unsplash.com/800x600/?tesla,car',desc:'Carro elétrico moderno.'},
+    {id:'car-bmw',category:'Carros',name:'BMW Série 3',price:8200000,img:'https://source.unsplash.com/800x600/?bmw,car',desc:'Performance e luxo.'},
+    {id:'moto-r1',category:'Motorizadas',name:'Yamaha R1',price:3200000,img:'https://source.unsplash.com/800x600/?yamaha,motorcycle',desc:'Esportiva de alta performance.'},
+    {id:'moto-ninja',category:'Motorizadas',name:'Kawasaki Ninja',price:3000000,img:'https://source.unsplash.com/800x600/?kawasaki,motorcycle',desc:'Desempenho agressivo.'},
+    {id:'tel-iphone15',category:'Telefones',name:'iPhone 15 Pro',price:850000,img:'https://source.unsplash.com/800x600/?iphone,phone',desc:'Câmera Pro e desempenho.'},
+    {id:'tel-samsung-s24',category:'Telefones',name:'Samsung S24',price:620000,img:'https://source.unsplash.com/800x600/?samsung,phone',desc:'Tela AMOLED.'},
+    {id:'ele-tv55',category:'Eletronicos',name:'Smart TV 55"',price:300000,img:'https://source.unsplash.com/800x600/?tv,television',desc:'4K HDR e apps.'},
+    {id:'ele-laptop',category:'Eletronicos',name:'Laptop Ultrabook',price:540000,img:'https://source.unsplash.com/800x600/?laptop,notebook',desc:'Leve, potente.'},
+    {id:'mas-tenis',category:'Masculino',name:'Tênis Running',price:45000,img:'https://source.unsplash.com/800x600/?mens-shoes',desc:'Amortecimento e estilo.'},
+    {id:'mas-jaqueta',category:'Masculino',name:'Jaqueta Bomber',price:46000,img:'https://source.unsplash.com/800x600/?mens-jacket',desc:'Estilo urbano.'},
+    {id:'fem-vestido',category:'Feminino',name:'Vestido Floral',price:25000,img:'https://source.unsplash.com/800x600/?dress,women',desc:'Leve e elegante.'},
+    {id:'bez-kit',category:'Beleza',name:'Kit Maquiagem',price:15000,img:'https://source.unsplash.com/800x600/?makeup,cosmetics',desc:'Completo.'},
+    {id:'inf-conj',category:'Infantil',name:'Conjunto Infantil',price:15000,img:'https://source.unsplash.com/800x600/?kids,clothes',desc:'Maciez e conforto.'},
+    {id:'srv-logo',category:'Servicos',name:'Design de Logo',price:20000,img:'https://source.unsplash.com/800x600/?logo,design',desc:'Identidade visual.'},
+    {id:'mkt-banner',category:'Marketing',name:'Banner Rotativo',price:7000,img:'https://source.unsplash.com/800x600/?marketing,advertising',desc:'Vitrine na homepage.'}
+  ];
 
-  /**************************************************************************
-   *  SIMPLE STORAGE HELPERS (local)
-   **************************************************************************/
-  const store = {
-    get(k, fallback=null){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; } catch(e){ return fallback; } },
-    set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+  /* ==============
+     STORAGE & SESSION (local fallback)
+     ============== */
+  const LS = {
+    cartKey: 'trivora_cart_v1',
+    usersKey: 'trivora_users_v1',
+    ordersKey: 'trivora_orders_v1',
+    sessionKey: 'trivora_session_v1',
+    get(k, fallback = null){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; } },
+    set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
     remove(k){ try{ localStorage.removeItem(k); }catch(e){} }
   };
 
-  /**************************************************************************
-   *  DATA: produtos (amplo conjunto)
-   **************************************************************************/
-  const PRODUCTS = [
-    // ... (representativo; expandi de propósito)
-    {id:'car-tesla', category:'Carros', name:'Tesla Model 3', price:9500000, img:'https://source.unsplash.com/800x600/?tesla,car', desc:'Elétrico, autonomia e tecnologia.'},
-    {id:'car-mercedes', category:'Carros', name:'Mercedes C200', price:7800000, img:'https://source.unsplash.com/800x600/?mercedes,car', desc:'Luxo e conforto.'},
-    {id:'moto-yamaha', category:'Motorizadas', name:'Yamaha R1', price:3200000, img:'https://source.unsplash.com/800x600/?yamaha,motorcycle', desc:'Esportiva de alta performance.'},
-    {id:'moto-honda', category:'Motorizadas', name:'Honda CBR600', price:2800000, img:'https://source.unsplash.com/800x600/?honda,motorcycle', desc:'Potência e controle.'},
-    {id:'tel-iphone', category:'Telefones', name:'iPhone 15 Pro', price:850000, img:'https://source.unsplash.com/800x600/?iphone,phone', desc:'Câmera top e performance.'},
-    {id:'tel-samsung', category:'Telefones', name:'Samsung Galaxy S24', price:620000, img:'https://source.unsplash.com/800x600/?samsung,phone', desc:'Tela AMOLED brilhante.'},
-    {id:'ele-tv', category:'Eletronicos', name:'Smart TV 55"', price:300000, img:'https://source.unsplash.com/800x600/?tv,television', desc:'4K HDR e apps integrados.'},
-    {id:'ele-lap', category:'Eletronicos', name:'Notebook Ultrabook', price:540000, img:'https://source.unsplash.com/800x600/?laptop,notebook', desc:'Leve e potente.'},
-    {id:'mas-tenis', category:'Masculino', name:'Tênis Running', price:45000, img:'https://source.unsplash.com/800x600/?mens-shoes', desc:'Conforto para corridas.'},
-    {id:'mas-jaqueta', category:'Masculino', name:'Jaqueta Bomber', price:46000, img:'https://source.unsplash.com/800x600/?mens-jacket', desc:'Estilo urbano.'},
-    {id:'fem-vestido', category:'Feminino', name:'Vestido Floral', price:25000, img:'https://source.unsplash.com/800x600/?dress,women', desc:'Leve e elegante.'},
-    {id:'fem-bolsa', category:'Feminino', name:'Bolsa Tiracolo', price:52000, img:'https://source.unsplash.com/800x600/?womens-bag', desc:'Acabamento premium.'},
-    {id:'bez-kit', category:'Beleza', name:'Kit Maquiagem', price:15000, img:'https://source.unsplash.com/800x600/?makeup,cosmetics', desc:'Completo para o dia a dia.'},
-    {id:'inf-conj', category:'Infantil', name:'Conjunto Infantil', price:15000, img:'https://source.unsplash.com/800x600/?kids,clothes', desc:'Conforto para os pequenos.'},
-    {id:'srv-logo', category:'Servicos', name:'Design de Logo', price:20000, img:'https://source.unsplash.com/800x600/?logo,design', desc:'Identidade visual profissional.'},
-    {id:'mkt-anuncio', category:'Marketing', name:'Anúncio em destaque', price:10000, img:'https://source.unsplash.com/800x600/?marketing,advertising', desc:'Promova sua marca.'}
-  ];
+  // cart stored as [{id,qty}]
+  function cartAll(){ return LS.get(LS.cartKey, []); }
+  function cartSave(items){ LS.set(LS.cartKey, items); UI.updateCart(); }
+  function cartAdd(id, qty = 1){ const items = cartAll(); const it = items.find(x=>x.id===id); if(it) it.qty += qty; else items.push({id, qty}); cartSave(items); UI.toast('Adicionado ao carrinho'); }
+  function cartRemove(id){ cartSave(cartAll().filter(x=>x.id !== id)); }
+  function cartSetQty(id, qty){ const items = cartAll(); const it = items.find(x=>x.id===id); if(it){ it.qty = Math.max(1, qty); cartSave(items); } }
 
-  /**************************************************************************
-   *  BACKEND LAYER (optionally remote via Firebase)
-   *  - If FIREBASE_ENABLED = true, functions below use Firestore.
-   *  - Otherwise fallback to localStorage emulation (users/orders).
-   **************************************************************************/
-  let firestore = null;
-  async function initBackend(){
-    if(FIREBASE_ENABLED){
-      // carregar Firebase dinamicamente (modular SDK)
-      // Nota: para funcionar, terás de incluir credenciais e permitir CORS / rules adequadas
-      try{
-        await loadFirebase();
-        // using global firebase namespace loaded by import; create app and firestore
-        if(window.firebase && window.firebase.initializeApp){
-          window.firebase.initializeApp(firebaseConfig);
-          firestore = window.firebase.firestore();
-          console.log('Firebase iniciado');
-        } else {
-          console.warn('SDK Firebase não encontrado - fallback para local');
-        }
-      }catch(err){
-        console.warn('Falha ao iniciar Firebase (fallback local):',err);
-      }
-    }
-    // carregar EmailJS se estiver configurado
-    if(EMAILJS_ENABLED){
-      try{ await loadEmailJS(); }catch(e){ console.warn('EmailJS load falhou', e); }
-    }
-  }
+  function ordersAll(){ return LS.get(LS.ordersKey, []); }
+  function createOrder(order){ const list = ordersAll(); list.push(order); LS.set(LS.ordersKey, list); return order; }
 
-  /* ==== Users / registration logic (remote if possible) ==== */
-  // Data model:
-  // users: { id, name, email, phone, password (hashed? currently plain for demo), status: 'pending'|'active'|'rejected', createdAt }
-  async function createUser(user){
-    // user: {name,email,phone,password}
-    if(firestore){
-      // Firestore write
-      const doc = await firestore.collection('users').add({...user, status:'pending', createdAt: new Date().toISOString()});
-      return {ok:true, id: doc.id, remote:true};
-    } else {
-      // local fallback
-      const users = store.get('trivora_users', []);
-      if(users.some(u=>u.email === user.email)) return {ok:false, msg:'Email já registado'};
-      user.id = 'u_' + Date.now();
-      user.status = 'pending';
-      user.createdAt = new Date().toISOString();
-      users.push(user);
-      store.set('trivora_users', users);
-      return {ok:true, id: user.id, remote:false};
-    }
-  }
+  // session (when using Firebase, we will store firebase user displayName/email in session)
+  function getSession(){ return LS.get(LS.sessionKey, null); }
+  function setSession(sess){ LS.set(LS.sessionKey, sess); UI.updateAccountUI(); }
+  function clearSession(){ LS.remove(LS.sessionKey); UI.updateAccountUI(); }
 
-  async function getUserByEmail(email){
-    if(firestore){
-      const q = await firestore.collection('users').where('email','==',email).get();
-      if(!q.empty) return {ok:true, data: q.docs[0].data(), id:q.docs[0].id};
-      return {ok:false};
-    } else {
-      const users = store.get('trivora_users', []);
-      const u = users.find(x=>x.email === email);
-      return u ? {ok:true, data:u, id:u.id} : {ok:false};
-    }
-  }
+  /* ==============
+     UI render & helpers
+     ============== */
+  function $(sel, ctx=document){ return ctx.querySelector(sel); }
+  function $all(sel, ctx=document){ return Array.from((ctx||document).querySelectorAll(sel)); }
+  function formatKz(v){ return 'Kz ' + Number(v).toLocaleString('pt-PT'); }
 
-  async function updateUserStatus(id, status){
-    if(firestore){
-      await firestore.collection('users').doc(id).update({status});
-      return {ok:true};
-    } else {
-      const users = store.get('trivora_users', []);
-      const u = users.find(x=>x.id===id);
-      if(u){ u.status = status; store.set('trivora_users', users); return {ok:true}; }
-      return {ok:false};
-    }
-  }
-
-  /**************************************************************************
-   *  EMAIL SENDING (notify company when new registration)
-   *  - If EmailJS enabled, will send using emailjs.
-   *  - Otherwise fallback: copy data to `pending_emails` in localStorage (for admin reading).
-   **************************************************************************/
-  async function notifyCompanyNewRegistration(user){
-    if(EMAILJS_ENABLED && window.emailjs){
-      try{
-        await window.emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
-          user_name: user.name,
-          user_email: user.email,
-          user_phone: user.phone || '',
-          message: `Novo registo Trivora - email: ${user.email}`
-        });
-        return {ok:true, sent:true};
-      }catch(e){
-        console.warn('EmailJS error',e);
-        // fallback to storing
-      }
-    }
-    // fallback local: keep list of pending notifications
-    const list = store.get('trivora_pending_emails', []);
-    list.push({id: 'mail_' + Date.now(), user, createdAt: new Date().toISOString()});
-    store.set('trivora_pending_emails', list);
-    return {ok:true, sent:false};
-  }
-
-  /**************************************************************************
-   *  AUTH: register / login using backend or local
-   **************************************************************************/
-  async function registerUser(payload){
-    // payload: {name,email,phone,password}
-    const exist = await getUserByEmail(payload.email);
-    if(exist.ok) return {ok:false, msg:'Email já usado'};
-    const res = await createUser(payload);
-    if(!res.ok) return res;
-    // notify company
-    await notifyCompanyNewRegistration(payload);
-    return {ok:true, id:res.id};
-  }
-
-  async function loginUser(email,password){
-    const res = await getUserByEmail(email);
-    if(!res.ok) return {ok:false, msg:'Utilizador não encontrado'};
-    const u = res.data;
-    if(u.password !== password) return {ok:false, msg:'Senha inválida'};
-    if(u.status !== 'active') return {ok:false, msg:`Conta ${u.status}. Aguarde aprovação.`};
-    // create session token (simple)
-    const session = {id:res.id, name:u.name, email:u.email};
-    store.set('trivora_session', session);
-    return {ok:true, session};
-  }
-
-  function logout(){
-    store.remove('trivora_session');
-  }
-
-  function currentSession(){ return store.get('trivora_session', null); }
-
-  /**************************************************************************
-   *  CART (client-side localStorage)
-   **************************************************************************/
-  const CART_KEY = 'trivora_cart_v1';
-  function cartAll(){ return store.get(CART_KEY, []); }
-  function cartSave(items){ store.set(CART_KEY, items); UI.updateCart(); }
-  function cartAdd(id, qty=1){
-    const items = cartAll();
-    const it = items.find(x=>x.id===id);
-    if(it) it.qty += qty; else items.push({id, qty});
-    cartSave(items);
-    UI.toast('Adicionado ao carrinho');
-  }
-  function cartRemove(id){
-    cartSave(cartAll().filter(x=>x.id !== id));
-  }
-  function cartSetQty(id, qty){
-    const items = cartAll(); const it = items.find(x=>x.id===id);
-    if(it){ it.qty = Math.max(1, qty); cartSave(items); }
-  }
-  function cartClear(){ cartSave([]); }
-
-  /**************************************************************************
-   *  ORDERS (local only demo)
-   **************************************************************************/
-  function createOrder(data){
-    const orders = store.get('trivora_orders', []);
-    const o = {id:'ORD-'+Date.now(), ...data, createdAt: new Date().toISOString()};
-    orders.push(o); store.set('trivora_orders', orders);
-    return o;
-  }
-
-  /**************************************************************************
-   *  UI Rendering & bindings
-   **************************************************************************/
   const UI = {
     toast(msg, ms=1600){
-      const p = document.getElementById('toast-placeholder'); if(!p) return;
-      const el = document.createElement('div'); el.className='toast'; el.textContent=msg;
-      p.appendChild(el); setTimeout(()=> el.remove(), ms);
+      const wrap = document.getElementById('toast-wrap');
+      const el = document.createElement('div'); el.className='toast'; el.textContent = msg;
+      wrap.appendChild(el); setTimeout(()=> el.remove(), ms);
     },
     updateCart(){
-      const cnt = cartAll().reduce((n,i)=>n+i.qty,0) || 0;
-      document.getElementById('cart-count').textContent = cnt;
-      // update cart total if visible
-      const total = cartAll().reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); },0);
-      const elTotal = document.getElementById('cart-total'); if(elTotal) elTotal.textContent = formatKz(total);
+      const cnt = cartAll().reduce((n,i)=>n+i.qty,0);
+      const total = cartAll().reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + (p?.price||0)*i.qty; },0);
+      $('#cart-count').textContent = cnt;
+      const cartTotalEl = document.getElementById('cart-total');
+      if(cartTotalEl) cartTotalEl.textContent = formatKz(total);
     },
-    renderCategories(){
-      const cats = ['Carros','Motorizadas','Telefones','Eletronicos','Masculino','Feminino','Infantil','Servicos','Marketing'];
-      const container = document.getElementById('categories');
-      container.innerHTML = cats.map(cat=>{
-        const rep = PRODUCTS.find(p=>p.category === cat) || {name:cat, img:'https://source.unsplash.com/900x500/?'+encodeURIComponent(cat)};
-        return `<article class="cat" data-cat="${cat}">
-          <div class="media"><img src="${rep.img}" alt="${cat}"></div>
-          <div class="body">
-            <h3>${cat}</h3>
-            <div class="meta">${rep.name} — <span class="small muted">${rep.desc}</span></div>
-            <div class="group">
-              <a class="btn alt" href="#${slug(cat)}" data-link>Ver todos</a>
-              <button class="btn" data-add="${rep.id}">Adicionar</button>
-            </div>
-          </div>
-        </article>`;
-      }).join('');
-      // bind category buttons
-      container.querySelectorAll('[data-add]').forEach(b=> b.addEventListener('click',(e)=>{ const id=e.currentTarget.dataset.add; cartAdd(id); renderCartTable(); }));
-    },
-    renderProductCard(p){
-      return `<article class="card" data-id="${p.id}">
-        <div class="thumb"><img src="${p.img}" alt="${p.name}"></div>
-        <div class="info">
-          <div><strong>${p.name}</strong></div>
-          <div class="price">${formatKz(p.price)}</div>
-          <div class="small muted">${p.category}</div>
-          <p class="small">${p.desc}</p>
-        </div>
-        <div class="actions">
-          <button class="btn" data-add="${p.id}">Adicionar</button>
-          <button class="btn alt" data-view="${p.id}">Ver</button>
-        </div>
-      </article>`;
-    },
-    renderCategoryPage(cat, selectorId){
-      const node = document.getElementById(selectorId);
-      if(!node) return;
-      const list = PRODUCTS.filter(x=>x.category === cat);
-      node.innerHTML = list.map(p => UI.renderProductCard(p)).join('');
-      bindProductButtons(node);
-    },
-    renderAllProducts(filter='all'){
-      const root = document.getElementById('all-products');
-      let list = PRODUCTS.slice();
-      if(filter && filter !== 'all') list = list.filter(p=>p.category === filter);
-      root.innerHTML = list.map(p=> UI.renderProductCard(p)).join('');
-      bindProductButtons(root);
-    },
-    renderCartTable(){
-      const tbody = document.querySelector('#cart-table tbody');
-      if(!tbody) return;
-      const items = cartAll();
-      if(items.length === 0){
-        tbody.innerHTML = `<tr><td colspan="5" class="small muted">Carrinho vazio</td></tr>`;
-        return;
+    toast(msg){ UI.toast(msg); },
+    updateAccountUI(){ // reflect session to header / account area
+      const sess = getSession();
+      const btn = document.getElementById('btn-account');
+      if(sess){
+        btn.textContent = `Olá, ${sess.name.split(' ')[0]}`;
+        btn.classList.add('secondary');
+      } else {
+        btn.textContent = 'Entrar';
+        btn.classList.remove('secondary');
       }
-      tbody.innerHTML = items.map(it=>{
-        const p = PRODUCTS.find(x=>x.id === it.id) || {name:'-','price':0};
-        return `<tr>
-          <td>${p.name}</td>
-          <td>${formatKz(p.price)}</td>
-          <td><input type="number" min="1" value="${it.qty}" data-id="${it.id}" class="qty" style="width:76px;padding:6px;border-radius:6px;border:1px solid #ddd"></td>
-          <td>${formatKz((p.price||0) * it.qty)}</td>
-          <td><button class="btn alt" data-remove="${it.id}">Remover</button></td>
-        </tr>`;
-      }).join('');
-      // bind qty and remove
-      tbody.querySelectorAll('.qty').forEach(i=> i.addEventListener('input', (e)=>{ const id=e.currentTarget.dataset.id; cartSetQty(id, parseInt(e.currentTarget.value||1,10)); UI.renderCartTable(); UI.updateCart(); }));
-      tbody.querySelectorAll('[data-remove]').forEach(b=> b.addEventListener('click', (e)=>{ cartRemove(e.currentTarget.dataset.remove); UI.renderCartTable(); UI.updateCart(); }));
-    },
-    updateAuthUI(){
-      const session = currentSession();
-      const btn = document.getElementById('btn-open-login');
-      if(session){ btn.textContent = session.name.split(' ')[0]; btn.classList.add('alt'); } else { btn.textContent = 'Entrar / Registar'; btn.classList.remove('alt'); }
-    },
-    toast(msg){ UI.toast(msg); }
+      // account area
+      const area = document.getElementById('account-area');
+      if(area){
+        if(sess){
+          area.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <h3>${escapeHtml(sess.name||sess.email)}</h3>
+              <div class="small muted">${escapeHtml(sess.email||'')}</div>
+            </div>
+            <div>
+              <button id="btn-logout" class="btn secondary">Sair</button>
+            </div>
+          </div>`;
+          $('#btn-logout').addEventListener('click', ()=>{ // logout
+            if(FIREBASE_ENABLED && window._TRIVORA_FIREBASE && window._TRIVORA_FIREBASE.signOut){
+              window._TRIVORA_FIREBASE.signOut(window._TRIVORA_FIREBASE.auth).catch(()=>{});
+            }
+            clearSession();
+            UI.toast('Sessão encerrada');
+            location.hash = 'home';
+          });
+        } else {
+          area.innerHTML = `<p class="small muted">Entrar para ver pedidos e dados.</p>`;
+        }
+      }
+    }
   };
 
-  /* helpers */
-  function formatKz(v){ return 'Kz ' + Number(v).toLocaleString('pt-PT'); }
-  function slug(cat){ return cat.toLowerCase().replace(/\s+/g,''); }
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[c]); }
 
-  /* bind add / view buttons within a container */
-  function bindProductButtons(root){
-    root.querySelectorAll('[data-add]').forEach(b=>{ b.removeEventListener('click', btnAddHandler); b.addEventListener('click', btnAddHandler); });
-    root.querySelectorAll('[data-view]').forEach(b=>{ b.removeEventListener('click', btnViewHandler); b.addEventListener('click', btnViewHandler); });
+  /* ==============
+     Render functions
+     ============== */
+  function renderSlider(){
+    const slides = $all('.slide');
+    const dots = $('#slider-dots');
+    dots.innerHTML = slides.map((s,i)=> `<div class="dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
+    const dotEls = Array.from(dots.children);
+    let idx = 0;
+    const show = (i)=>{
+      slides.forEach((s,k)=> s.classList.toggle('active', k===i));
+      dotEls.forEach((d,k)=> d.classList.toggle('active', k===i));
+      idx = i;
+    };
+    dotEls.forEach(d=> d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
+    setInterval(()=> show((idx+1) % slides.length), 5200);
   }
-  function btnAddHandler(e){ const id = e.currentTarget.dataset.add; cartAdd(id); UI.renderCartTable(); UI.updateCart(); }
-  function btnViewHandler(e){ const id = e.currentTarget.dataset.view; const p = PRODUCTS.find(x=>x.id===id); if(p) quickView(p); }
 
-  /* quick view modal */
+  function renderCategories(){
+    const categories = ['Carros','Motorizadas','Telefones','Eletronicos','Masculino','Feminino','Infantil','Beleza','Servicos','Marketing'];
+    const container = document.getElementById('categories');
+    container.innerHTML = categories.map(cat=>{
+      const rep = PRODUCTS.find(p=>p.category === cat) || {name:cat, desc:'Vitrine ' + cat, img: 'https://source.unsplash.com/900x700/?'+encodeURIComponent(cat)};
+      const slug = slugFor(cat);
+      return `<article class="cat-card" data-cat="${escapeHtml(cat)}">
+        <div class="cat-media"><img src="${rep.img}" alt="${escapeHtml(cat)}"></div>
+        <div class="cat-body">
+          <h3>${escapeHtml(cat)}</h3>
+          <p class="muted">${escapeHtml(rep.name)} — <span class="small muted">${escapeHtml(rep.desc)}</span></p>
+          <div class="group">
+            <a class="btn secondary" href="#${slug}" data-link>Ver todos</a>
+            <button class="btn" data-add="${rep.id}">Adicionar</button>
+          </div>
+        </div>
+      </article>`;
+    }).join('');
+    // bind add buttons
+    container.querySelectorAll('[data-add]').forEach(b=> b.addEventListener('click', (e)=>{ const id=e.currentTarget.dataset.add; cartAdd(id,1); renderCartTable(); UI.updateCart(); }));
+  }
+
+  function slugFor(cat){ return cat.toLowerCase().replace(/\s+/g,''); }
+
+  function renderProductCard(p){
+    return `<article class="card" data-id="${p.id}">
+      <div class="thumb"><img src="${p.img}" alt="${escapeHtml(p.name)}"></div>
+      <div class="meta">
+        <h4>${escapeHtml(p.name)}</h4>
+        <div class="desc">${escapeHtml(p.desc)}</div>
+        <div class="price">${formatKz(p.price)}</div>
+      </div>
+      <div class="actions">
+        <button class="btn" data-add="${p.id}">Adicionar</button>
+        <button class="btn secondary" data-view="${p.id}">Ver</button>
+      </div>
+    </article>`;
+  }
+
+  function renderAllProducts(filter='all'){
+    const out = document.getElementById('all-products');
+    let list = PRODUCTS.slice();
+    if(filter && filter !== 'all') list = list.filter(p=>p.category === filter);
+    out.innerHTML = list.map(renderProductCard).join('');
+    bindProductActions(out);
+  }
+
+  function renderCategoryPage(category, elId){
+    const el = document.getElementById(elId);
+    if(!el) return;
+    const list = PRODUCTS.filter(p=>p.category === category);
+    if(list.length === 0){ el.innerHTML = '<div class="muted">Sem produtos nesta categoria.</div>'; return; }
+    el.innerHTML = list.map(renderProductCard).join('');
+    bindProductActions(el);
+  }
+
+  function bindProductActions(root){
+    root.querySelectorAll('[data-add]').forEach(b=>{ b.removeEventListener('click', addHandler); b.addEventListener('click', addHandler); });
+    root.querySelectorAll('[data-view]').forEach(b=>{ b.removeEventListener('click', viewHandler); b.addEventListener('click', viewHandler); });
+  }
+  function addHandler(e){ const id = e.currentTarget.dataset.add; cartAdd(id,1); renderCartTable(); UI.updateCart(); }
+  function viewHandler(e){ const id = e.currentTarget.dataset.view; const p = PRODUCTS.find(x=>x.id===id); if(p) quickView(p); }
+
   function quickView(p){
     const md = document.createElement('div'); md.className='modal-backdrop'; md.style.zIndex=5000;
     md.innerHTML = `<div class="modal">
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <div style="flex:1;min-width:240px"><img src="${p.img}" alt="${p.name}" style="width:100%;height:320px;object-fit:cover;border-radius:8px"></div>
+        <div style="flex:1;min-width:260px"><img src="${p.img}" style="width:100%;height:320px;object-fit:cover;border-radius:8px" alt="${escapeHtml(p.name)}"></div>
         <div style="flex:1;min-width:240px">
-          <h3>${p.name}</h3>
+          <h3>${escapeHtml(p.name)}</h3>
           <div style="font-weight:800;margin:8px 0">${formatKz(p.price)}</div>
-          <p class="small muted">${p.category}</p>
-          <p style="margin-top:8px">${p.desc}</p>
-          <div style="margin-top:12px;display:flex;gap:8px">
+          <p class="muted">${escapeHtml(p.category)}</p>
+          <p style="margin-top:10px">${escapeHtml(p.desc)}</p>
+          <div style="margin-top:14px;display:flex;gap:8px">
             <button class="btn" id="qv-add">Adicionar</button>
-            <button class="btn alt" id="qv-close">Fechar</button>
+            <button class="btn secondary" id="qv-close">Fechar</button>
           </div>
         </div>
       </div>
     </div>`;
     document.body.appendChild(md);
     md.querySelector('#qv-close').addEventListener('click', ()=> md.remove());
-    md.querySelector('#qv-add').addEventListener('click', ()=>{ cartAdd(p.id); UI.renderCartTable(); UI.updateCart(); md.remove(); });
+    md.querySelector('#qv-add').addEventListener('click', ()=>{ cartAdd(p.id,1); renderCartTable(); UI.updateCart(); md.remove(); });
   }
 
-  /**************************************************************************
-   *  AUTH UI bindings (login/register modal)
-   **************************************************************************/
-  function openAuthModal(){ document.getElementById('modal-auth').classList.remove('hidden'); }
-  function closeAuthModal(){ document.getElementById('modal-auth').classList.add('hidden'); }
-
-  document.getElementById('btn-open-login').addEventListener('click', openAuthModal);
-  document.getElementById('btn-close-auth').addEventListener('click', closeAuthModal);
-
-  document.getElementById('form-register').addEventListener('submit', async function(e){
-    e.preventDefault();
-    const fd = new FormData(e.target); const data = Object.fromEntries(fd.entries());
-    // basic validation
-    if(!data.email || !data.password || !data.name) return UI.toast('Preencha o formulário corretamente');
-    const res = await registerUser(data);
-    if(!res.ok) return UI.toast(res.msg || 'Erro ao registar');
-    UI.toast('Registo recebido. Aguardando aprovação.');
-    e.target.reset();
-    closeAuthModal();
-  });
-
-  document.getElementById('form-login').addEventListener('submit', async function(e){
-    e.preventDefault();
-    const fd = new FormData(e.target); const { email, password } = Object.fromEntries(fd.entries());
-    const res = await loginUser(email, password);
-    if(!res.ok){ UI.toast(res.msg || 'Falha ao entrar'); return; }
-    UI.updateAuthUI(); UI.toast('Sessão iniciada'); closeAuthModal(); location.hash = 'conta'; renderAccount();
-  });
-
-  /**************************************************************************
-   *  Simple account page rendering & approval admin UI
-   *  - For demonstration, if admin opens /conta with local data they can
-   *    approve pending users stored in localStorage.
-   **************************************************************************/
-  function renderAccount(){
-    const area = document.getElementById('account-area');
-    const session = currentSession();
-    if(!session){
-      area.innerHTML = `<div class="small muted">Inicia sessão ou regista-se para ver ou aprovar contas.</div>`;
-      return;
-    }
-    // user area (simple)
-    area.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
-      <div><h3>Olá, ${session.name}</h3><div class="small muted">${session.email}</div></div>
-      <div><button id="btn-logout" class="btn alt">Sair</button></div>
-    </div>
-    <div style="margin-top:18px">
-      <h4>Pedidos (exibição local)</h4>
-      <div id="orders-list" class="small muted"></div>
-    </div>
-    <div style="margin-top:18px">
-      <h4>Usuários pendentes (admin)</h4>
-      <div id="pending-users"></div>
-    </div>`;
-    document.getElementById('btn-logout').addEventListener('click', ()=>{ logout(); UI.updateAuthUI(); renderAccount(); UI.toast('Terminaste sessão'); });
-    // show orders for this email
-    const orders = store.get('trivora_orders', []).filter(o => (o.customer && o.customer.email) === session.email);
-    const ol = document.getElementById('orders-list');
-    ol.innerHTML = orders.length ? orders.map(o=> `<div>${o.id} — ${new Date(o.createdAt).toLocaleString()} — ${formatKz(o.total)}</div>`).join('') : '<div class="small muted">Sem pedidos</div>';
-
-    // pending users (local only)
-    const pending = store.get('trivora_users', []).filter(u=>u.status === 'pending');
-    const pu = document.getElementById('pending-users');
-    if(!pending.length){ pu.innerHTML = '<div class="small muted">Nenhum usuário pendente</div>'; return; }
-    pu.innerHTML = pending.map(u=>`
-      <div style="border:1px solid #eee;padding:8px;border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <div><strong>${u.name}</strong> • <span class="small muted">${u.email}</span></div>
-          <div class="small muted">${u.phone || ''}</div>
-        </div>
-        <div style="display:flex;gap:6px">
-          <button class="btn" data-approve="${u.id}">Aprovar</button>
-          <button class="btn alt" data-reject="${u.id}">Rejeitar</button>
-        </div>
-      </div>
-    `).join('');
-    // bind approve/reject
-    pu.querySelectorAll('[data-approve]').forEach(b=> b.addEventListener('click', async (e)=>{
-      const id = e.currentTarget.dataset.approve;
-      await updateUserStatus(id, 'active');
-      UI.toast('Usuário aprovado');
-      renderAccount();
-    }));
-    pu.querySelectorAll('[data-reject]').forEach(b=> b.addEventListener('click', async (e)=>{
-      const id = e.currentTarget.dataset.reject;
-      await updateUserStatus(id, 'rejected');
-      UI.toast('Usuário rejeitado');
-      renderAccount();
-    }));
-  }
-
-  /**************************************************************************
-   *  Checkout form handling (simulated payment)
-   **************************************************************************/
-  document.getElementById('checkout-form').addEventListener('submit', function(e){
-    e.preventDefault();
+  function renderCartTable(){
+    const tbody = document.querySelector('#cart-table tbody');
+    if(!tbody) return;
     const items = cartAll();
-    if(items.length === 0){ UI.toast('Carrinho vazio'); return; }
-    const fd = new FormData(e.target); const customer = Object.fromEntries(fd.entries());
-    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); }, 0);
-    const order = createOrder({ items, total, customer, status: 'Pago (Simulado)' });
-    cartClear(); UI.renderCartTable(); UI.updateCart();
-    UI.toast('Pedido confirmado (simulação): ' + order.id);
-    location.hash = 'conta';
-    renderAccount();
-  });
-
-  /**************************************************************************
-   *  Routing & UI init
-   **************************************************************************/
-  function hideAllSections(){ document.querySelectorAll('main .section').forEach(s=> s.classList.add('hidden')); }
-  function showSectionByHash(){
-    const h = (location.hash || '#home').replace('#','');
-    hideAllSections();
-    const target = document.getElementById(h);
-    if(target) target.classList.remove('hidden');
-    else document.getElementById('home').classList.remove('hidden');
-    // contextual renders
-    if(['carros','motos','telefones','eletronicos','masculino','feminino','infantil','servicos','marketing'].includes(h)){
-      const catMap = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',servicos:'Servicos',marketing:'Marketing'};
-      const selector = 'cat-' + h;
-      UI.renderCategoryPage(catMap[h], selector);
-    }
-    if(h === 'produtos'){ UI.renderAllProducts(); }
-    if(h === 'carrinho'){ UI.renderCartTable(); UI.updateCart(); }
-    if(h === 'checkout'){ renderCheckoutSummary(); }
-    if(h === 'conta'){ renderAccount(); }
-    // update nav active
-    document.querySelectorAll('.nav-link').forEach(a=>{
-      const href = (a.getAttribute('href')||'').replace('#','') || 'home';
-      a.classList.toggle('active', href === h);
-    });
+    if(items.length === 0){ tbody.innerHTML = `<tr><td colspan="5" class="muted">Carrinho vazio</td></tr>`; UI.updateCart(); return; }
+    tbody.innerHTML = items.map(it=>{
+      const p = PRODUCTS.find(x=>x.id===it.id);
+      const subtotal = (p?.price||0) * it.qty;
+      return `<tr>
+        <td style="max-width:320px">${escapeHtml(p.name)}</td>
+        <td>${formatKz(p.price)}</td>
+        <td><input type="number" min="1" value="${it.qty}" data-id="${it.id}" class="qty" style="width:80px;padding:6px;border-radius:6px;border:1px solid #ddd"></td>
+        <td>${formatKz(subtotal)}</td>
+        <td><button class="btn secondary" data-remove="${it.id}">Remover</button></td>
+      </tr>`;
+    }).join('');
+    // bind qty & remove
+    tbody.querySelectorAll('.qty').forEach(i=>{ i.removeEventListener('input', qtyHandler); i.addEventListener('input', qtyHandler); });
+    tbody.querySelectorAll('[data-remove]').forEach(b=>{ b.removeEventListener('click', removeHandler); b.addEventListener('click', removeHandler); });
+    UI.updateCart();
   }
+  function qtyHandler(e){ const id = e.currentTarget.dataset.id; const val = parseInt(e.currentTarget.value||'1',10); cartSetQty(id, val); renderCartTable(); }
+  function removeHandler(e){ const id = e.currentTarget.dataset.remove; cartRemove(id); renderCartTable(); UI.updateCart(); }
 
   function renderCheckoutSummary(){
     const tb = document.querySelector('#summary-table tbody');
-    const items = cartAll();
     if(!tb) return;
-    if(items.length === 0){ tb.innerHTML = '<tr><td colspan="3">Carrinho vazio</td></tr>'; document.getElementById('summary-total').textContent = 'Kz 0'; return; }
-    tb.innerHTML = items.map(i=>{
-      const p = PRODUCTS.find(x=>x.id===i.id);
-      return `<tr><td>${p.name}</td><td>${i.qty}</td><td>${formatKz((p.price||0)*i.qty)}</td></tr>`;
+    const items = cartAll();
+    if(items.length === 0){ tb.innerHTML = '<tr><td colspan="3">Carrinho vazio</td></tr>'; document.getElementById('summary-total').textContent='Kz 0'; return; }
+    tb.innerHTML = items.map(it=>{
+      const p = PRODUCTS.find(x=>x.id===it.id);
+      return `<tr><td>${escapeHtml(p.name)}</td><td>${it.qty}</td><td>${formatKz((p.price||0)*it.qty)}</td></tr>`;
     }).join('');
-    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); }, 0);
+    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); },0);
     document.getElementById('summary-total').textContent = formatKz(total);
   }
 
-  // dot navigation for slider
-  function initSlider(){
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const dots = document.getElementById('dots');
-    dots.innerHTML = slides.map((_,i)=> `<div class="dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
-    const dotEls = Array.from(dots.children);
-    let idx = 0;
-    const show = (i)=>{ slides.forEach((s, k)=> s.classList.toggle('active', k===i)); dotEls.forEach((d,k)=> d.classList.toggle('active', k===i)); idx = i; };
-    dotEls.forEach(d=> d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
-    setInterval(()=> show((idx+1) % slides.length), 5200);
-  }
+  /* ==============
+     AUTH (Google via Firebase optional) & guest flow
+     ============== */
+  const authModal = document.getElementById('auth-modal');
+  const btnAccount = document.getElementById('btn-account');
+  const btnGoogle = document.getElementById('btn-google');
+  const btnGuest = document.getElementById('btn-guest');
+  const btnCloseAuth = document.getElementById('btn-close-auth');
 
-  // quick bind for data-link anchors
-  document.addEventListener('click', (e)=>{
-    const anchor = e.target.closest('[data-link]');
-    if(anchor){
-      const href = anchor.getAttribute('href') || '';
-      if(href.startsWith('#')){ location.hash = href; e.preventDefault(); }
+  // show modal when account clicked and not logged
+  btnAccount.addEventListener('click', (e)=>{
+    const sess = getSession();
+    if(sess){
+      location.hash = 'conta';
+    } else {
+      openAuthModal();
     }
   });
 
-  // search
-  document.getElementById('btn-search').addEventListener('click', ()=> {
-    const q = document.getElementById('search').value.trim().toLowerCase();
-    if(!q){ location.hash = 'produtos'; return; }
-    const list = PRODUCTS.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+  function openAuthModal(){ authModal.style.display = 'flex'; authModal.setAttribute('aria-hidden','false'); }
+  function closeAuthModal(){ authModal.style.display = 'none'; authModal.setAttribute('aria-hidden','true'); }
+
+  btnCloseAuth.addEventListener('click', closeAuthModal);
+
+  // Guest flow: when guest chosen, we set a guest session (name=Convidado) but require email at checkout
+  btnGuest.addEventListener('click', ()=>{
+    const guest = {type:'guest', name:'Convidado', email:null};
+    setSession(guest);
+    UI.updateAccountUI();
+    UI.toast('Continuando como convidado. O email será solicitado no checkout.');
+    closeAuthModal();
+  });
+
+  // Google login action
+  if(FIREBASE_ENABLED && window._TRIVORA_FIREBASE){
+    btnGoogle.addEventListener('click', async ()=>{
+      try{
+        const provider = new window._TRIVORA_FIREBASE.GoogleAuthProvider();
+        const result = await window._TRIVORA_FIREBASE.signInWithPopup(window._TRIVORA_FIREBASE.auth, provider);
+        const user = result.user;
+        // create session
+        setSession({ type:'user', uid: user.uid, name: user.displayName, email: user.email });
+        UI.toast(`Bem-vindo(a), ${user.displayName}`);
+        closeAuthModal();
+      }catch(err){
+        console.error(err);
+        UI.toast('Falha no login Google: ' + (err.message||err));
+      }
+    });
+
+    // observe state
+    window._TRIVORA_FIREBASE.onAuthStateChanged(window._TRIVORA_FIREBASE.auth, (u)=>{
+      if(u){ setSession({ type:'user', uid:u.uid, name:u.displayName, email:u.email }); UI.updateAccountUI(); } else { /* signed out */ }
+    });
+  } else {
+    // Firebase disabled -> Google button does local mock (for demo): opens prompt for name+email
+    btnGoogle.addEventListener('click', ()=>{
+      const name = prompt('Nome (simulação Google):'); if(!name) return;
+      const email = prompt('Email (simulação Google):'); if(!email) return;
+      // create local user if not exists
+      const users = LS.get(LS.usersKey, []);
+      let u = users.find(x=>x.email === email);
+      if(!u){ u = { id:'u'+Date.now(), name, email, status:'active' }; users.push(u); LS.set(LS.usersKey, users); }
+      setSession({ type:'user', uid:u.id, name:u.name, email:u.email });
+      UI.toast('Login simulado efectuado: ' + name);
+      closeAuthModal();
+    });
+  }
+
+  /* ==============
+     Checkout flow (require login or guest email)
+     ============== */
+  document.getElementById('btn-checkout').addEventListener('click', ()=>{
+    const sess = getSession();
+    if(!sess){
+      // ask login modal
+      openAuthModal();
+      UI.toast('Faça login ou continue como convidado para finalizar a compra.');
+      return;
+    }
+    // if guest without email, open checkout and require email there
+    location.hash = 'checkout';
+    renderCheckoutSummary();
+  });
+
+  document.getElementById('checkout-form').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const form = new FormData(e.target); const data = Object.fromEntries(form.entries());
+    const items = cartAll();
+    if(items.length === 0){ UI.toast('Carrinho vazio'); return; }
+    const sess = getSession();
+    // if guest, ensure email provided
+    if(sess && sess.type === 'guest' && (!data.email || data.email.trim()==='')){ UI.toast('Por favor forneça o seu email para confirmação'); return; }
+    // create order
+    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); },0);
+    const order = {
+      id: 'TRV-' + Date.now(),
+      items,
+      total,
+      customer: { name: data.name, email: data.email, phone: data.phone, address: data.address },
+      status: 'Pago (simulado)',
+      createdAt: new Date().toISOString()
+    };
+    createOrder(order);
+    cartSave([]); renderCartTable(); UI.updateCart();
+    UI.toast('Pedido confirmado (simulado): ' + order.id);
+    // redirect to account/orders
+    setTimeout(()=> { location.hash = 'conta'; renderAccountOrders(order); }, 700);
+  });
+
+  /* ==============
+     Account orders & admin approve UI (local)
+     ============== */
+  function renderAccountOrders(latestOrder){
+    const sess = getSession();
+    const area = document.getElementById('account-area');
+    if(!area) return;
+    if(!sess){ area.innerHTML = '<div class="small muted">Faça login para ver seus pedidos</div>'; return; }
+    const orders = ordersAll().filter(o => (o.customer && (o.customer.email === sess.email)));
+    area.innerHTML = `<div><h3>Olá, ${escapeHtml(sess.name||sess.email)}</h3><div class="small muted">${escapeHtml(sess.email||'')}</div></div>
+      <div style="margin-top:12px">
+        <h4>Seus pedidos</h4>
+        <div id="my-orders">${orders.length ? orders.map(o=>`<div style="border:1px solid #eee;padding:8px;border-radius:8px;margin-bottom:8px">${o.id} — ${new Date(o.createdAt).toLocaleString()} — ${formatKz(o.total)} — ${o.status}</div>`).join('') : '<div class="small muted">Sem pedidos</div>'}</div>
+      </div>`;
+    // logout button added via UI.updateAccountUI
+  }
+
+  function renderAccount(){
+    renderAccountOrders();
+  }
+
+  /* ==============
+     Orders storage
+     ============== */
+  function ordersAll(){ return LS.get(LS.ordersKey, []); }
+
+  /* ==============
+     Routing and page logic
+     ============== */
+  function hideAllSections(){ document.querySelectorAll('main .section').forEach(s=> s.classList.add('hidden')); }
+  function showRoute(){
+    const h = (location.hash || '#home').replace('#','');
+    hideAllSections();
+    if(h === '' || h === 'home'){ document.getElementById('home').classList.remove('hidden'); }
+    else if(h === 'produtos'){ document.getElementById('produtos').classList.remove('hidden'); UI.renderAllProducts && UI.renderAllProducts(); }
+    else if(h === 'carrinho'){ document.getElementById('carrinho').classList.remove('hidden'); renderCartTable(); UI.updateCart(); }
+    else if(h === 'checkout'){ document.getElementById('checkout').classList.remove('hidden'); renderCheckoutSummary(); }
+    else if(h === 'conta'){ document.getElementById('conta').classList.remove('hidden'); renderAccount(); }
+    else {
+      // category pages
+      const catMap = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',servicos:'Servicos',marketing:'Marketing'};
+      if(catMap[h]){
+        document.getElementById(h).classList.remove('hidden');
+        renderCategoryPage(catMap[h], 'cat-'+h);
+      } else {
+        document.getElementById('home').classList.remove('hidden');
+      }
+    }
+    // nav highlight
+    document.querySelectorAll('.nav a').forEach(a=>{ const href = (a.getAttribute('href')||'').replace('#','') || 'home'; a.classList.toggle('active', href === (location.hash.replace('#','')||'home')); });
+  }
+
+  window.addEventListener('hashchange', showRoute);
+
+  /* ==============
+     Bind events and init UI
+     ============== */
+  document.getElementById('filter-select').addEventListener('change', (e)=> renderAllProducts(e.target.value));
+  document.getElementById('search-btn').addEventListener('click', ()=>{
+    const q = (document.getElementById('search-input').value||'').trim().toLowerCase();
+    if(!q){ location.hash='produtos'; showRoute(); return; }
+    const list = PRODUCTS.filter(p=> p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
     document.getElementById('produtos').classList.remove('hidden');
     document.getElementById('home').classList.add('hidden');
-    document.getElementById('all-products').innerHTML = list.map(p=> UI.renderProductCard(p)).join('');
-    bindProductButtons(document.getElementById('all-products'));
-    location.hash = 'produtos';
+    document.getElementById('all-products').innerHTML = list.map(renderProductCard).join('');
+    bindProductActions(document.getElementById('all-products'));
   });
 
-  // filter select
-  document.getElementById('filter').addEventListener('change', (e)=> UI.renderAllProducts(e.target.value) );
+  document.getElementById('btn-clear').addEventListener('click', ()=>{ cartSave([]); renderCartTable(); UI.updateCart(); UI.toast('Carrinho limpo'); });
+  document.getElementById('btn-checkout').addEventListener('click', ()=>{
+    const sess = getSession();
+    if(!sess){ openAuthModal(); UI.toast('Faça login ou continue como convidado para finalizar a compra.'); return; }
+    location.hash = 'checkout'; showRoute();
+  });
 
-  // cart actions
-  document.getElementById('btn-clear-cart').addEventListener('click', ()=>{ cartClear(); UI.renderCartTable(); UI.updateCart(); UI.toast('Carrinho esvaziado'); });
-  document.getElementById('btn-go-checkout').addEventListener('click', ()=> location.hash = 'checkout');
+  // account modal button
+  document.getElementById('btn-account').addEventListener('click', (e)=>{ const sess = getSession(); if(sess){ location.hash='conta'; showRoute(); } else openAuthModal(); });
 
-  // register/login modal show/hide on load
-  document.addEventListener('DOMContentLoaded', async ()=>{
-    // init backend (attempt to load firebase/emailjs if toggled)
-    await initBackend();
-    // initial UI
-    UI.renderCategories();
-    UI.renderAllProducts('all');
+  // auth modal close on backdrop click
+  document.getElementById('auth-modal').addEventListener('click', (e)=>{ if(e.target === e.currentTarget) closeAuthModal(); });
+
+  // init
+  function init(){
+    // render initial sections
+    renderSlider();
+    renderCategories();
+    renderAllProducts('all');
+    renderCartTable();
     UI.updateCart();
-    UI.updateAuthUI();
-    initSlider();
-    renderCookieWelcome();
-    // pre-render category containers
-    ['carros','motos','telefones','eletronicos','masculino','feminino','infantil','servicos','marketing'].forEach(k=> UI.renderCategoryPage({Carros:'Carros'}[k] || k, 'cat-'+k));
-    // routing
-    window.addEventListener('hashchange', showSectionByHash);
-    showSectionByHash();
-  });
-
-  /**************************************************************************
-   *  Welcome modal once (localStorage)
-   **************************************************************************/
-  function renderCookieWelcome(){
-    const seen = store.get('trivora_welcomed', false);
-    if(!seen){
-      // show small welcome toast instead modal to avoid blocking dev
-      UI.toast('Bem-vindo à Trivora — Onde tecnologia e estilo se encontram', 2200);
-      store.set('trivora_welcomed', true);
-    }
+    UI.updateAccountUI();
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // route
+    showRoute();
+    // pre-render categories
+    ['carros','motos','telefones','eletronicos','masculino','feminino','infantil','servicos','marketing'].forEach(k=>{
+      const catName = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',servicos:'Servicos',marketing:'Marketing'}[k];
+      renderCategoryPage(catName, 'cat-'+k);
+    });
   }
 
-  /**************************************************************************
-   *  Helper: simulate admin approval flow demonstration
-   *  - Provide instructions for admin: open console and run functions,
-   *    or use the /conta UI which shows pending users in local fallback.
-   **************************************************************************/
-
-  // Expose small helpers to console for admin/developer convenience
-  window.TRIVORA_DEBUG = {
-    PRODUCTS, store, createUser, getUserByEmail, updateUserStatus, cartAll, cartAdd, cartClear
-  };
-
-  /**************************************************************************
-   *  Utility: show quick login/register helper for demo (auto-register test)
-   **************************************************************************/
-  // none further — end of script
+  // DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
-
 
 
 
