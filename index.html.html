@@ -3,111 +3,105 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Trivora — Marketplace</title>
-<meta name="description" content="Trivora — Mobilidade, Tecnologia e Estilo. Carros, Motorizadas, Telefones, Eletrónicos, Moda e Serviços.">
-<!-- ===========================
-     CSS: Preto & Branco minimalista (com animações)
-     =========================== -->
+<title>Trivora — Marketplace Preto & Branco (Completo)</title>
+<meta name="description" content="Trivora - E-commerce minimalista preto e branco. Carrinho, checkout simulado, login (Google optional), categorias e vitrines."/>
+<!-- =========================
+     ESTILO (Preto & Branco, animations)
+     ========================= -->
 <style>
 :root{
-  --bg:#ffffff; --fg:#0b0b0b; --muted:#6c6c6c; --accent:#000;
-  --soft:#f6f6f6; --card:#fff; --radius:14px; --container:1200px;
-  --transition:200ms cubic-bezier(.2,.9,.3,1);
+  --bg:#ffffff; --fg:#0b0b0b; --muted:#6f6f6f; --card:#fff;
+  --accent:#000; --soft:#f8f8f8; --radius:14px; --maxw:1200px;
+  --glass:rgba(0,0,0,0.04); --trans:.22s cubic-bezier(.2,.9,.3,1);
 }
 *{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system,"Segoe UI",Roboto,Helvetica,Arial;
-  color:var(--fg); background:var(--bg); -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale; line-height:1.45;
-}
+html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial; background:var(--bg); color:var(--fg); -webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
-img{display:block;max-width:100%}
-.container{max-width:var(--container);margin:0 auto;padding:0 20px}
+img{max-width:100%;display:block}
+
+/* Container */
+.container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 
 /* Header */
-.header{
-  position:sticky;top:0;z-index:1200;background:#000;color:#fff;border-bottom:1px solid rgba(255,255,255,0.04);
-  backdrop-filter: blur(6px);
-}
+.header{position:sticky;top:0;z-index:1200;background:#000;color:#fff;border-bottom:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(6px)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px}
-.brand{font-weight:900;letter-spacing:2px;font-size:1.4rem}
-.top-controls{display:flex;align-items:center;gap:10px}
-.nav{display:flex;gap:8px;align-items:center}
-.nav a{padding:8px 10px;border-radius:8px;opacity:.98;transition:all var(--transition)}
-.nav a:hover,.nav a.active{background:rgba(255,255,255,0.06)}
-
-/* Search */
-.search{display:flex;align-items:center;background:#101010;padding:6px;border-radius:10px}
-.search input{border:0;background:transparent;color:#fff;padding:8px 10px;outline:none;min-width:140px}
+.brand{font-weight:900;letter-spacing:2px;font-size:1.5rem}
+.nav{display:flex;gap:10px;align-items:center}
+.nav a{padding:8px 11px;border-radius:8px;color:#fff;opacity:.95;transition:all var(--trans)}
+.nav a.active,.nav a:hover{background:rgba(255,255,255,0.06);color:#fff}
+.search{display:flex;align-items:center;background:#111;padding:6px;border-radius:10px}
+.search input{border:0;background:transparent;color:#fff;outline:none;padding:8px 10px;min-width:140px}
 .search button{border:0;background:transparent;color:#fff;padding:8px 10px;cursor:pointer}
+.minicart{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:12px;background:#fff;color:#000;font-weight:700}
 
-/* Banner / slider */
-.banner{margin:18px 0;border-radius:var(--radius);overflow:hidden;position:relative;background:#111;color:#fff}
-.slides{min-height:340px;position:relative}
-.slide{position:absolute;inset:0;display:none;padding:28px;align-items:center;justify-content:center;text-align:center}
-.slide.active{display:flex;animation:fadeUp .6s ease}
+/* Banner / Slider */
+.banner{margin:18px 0;border-radius:var(--radius);overflow:hidden;background:#111;color:#fff}
+.slides{min-height:300px;position:relative}
+.slide{position:absolute;inset:0;display:none;padding:24px;align-items:center;justify-content:center;text-align:center}
+.slide.active{display:flex;animation:fadeUp .5s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.slide h1{font-size:2.2rem;margin:0 0 8px}
+.slide h1{font-size:2rem;margin:0 0 8px}
 .slide p{color:#d1d1d1;margin:0}
-
-/* Slider dots */
-.slider-dots{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px}
-.dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.18);cursor:pointer}
+.dots{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;display:flex;gap:8px}
+.dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.2);cursor:pointer}
 .dot.active{background:#fff}
 
-/* Categories */
-.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:22px 0}
-.cat-card{background:var(--card);border:1px solid #eee;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .28s,box-shadow .28s;box-shadow:0 10px 30px rgba(0,0,0,0.04)}
-.cat-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.06)}
-.cat-media{height:160px;overflow:hidden}
-.cat-media img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
-.cat-card:hover .cat-media img{transform:scale(1.04)}
-.cat-body{padding:12px;display:flex;flex-direction:column;gap:8px}
-.cat-body h3{margin:0}
-.cat-body p{margin:0;color:var(--muted)}
-.cat-body .group{margin-top:auto;display:flex;gap:8px}
+/* Categories showcase */
+.categories{margin:28px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.category-card{background:var(--card);border:1px solid #eee;border-radius:12px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,0.04);transition:transform var(--trans)}
+.category-card:hover{transform:translateY(-7px)}
+.category-card img{height:160px;object-fit:cover;width:100%}
+.category-body{padding:12px}
+.category-body h3{margin-bottom:6px}
+.category-body p{color:var(--muted);font-size:.95rem}
+.cat-actions{display:flex;gap:8px;margin-top:10px}
 
-/* Cards grid */
+/* Product grid & cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-.card{border-radius:12px;border:1px solid #eee;background:var(--card);overflow:hidden;display:flex;flex-direction:column;transition:transform var(--transition),box-shadow var(--transition)}
+.card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform var(--trans),box-shadow var(--trans)}
 .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.06)}
 .thumb{height:180px;overflow:hidden}
-.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
 .card:hover .thumb img{transform:scale(1.05)}
-.meta{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
-.meta h4{margin:0}
-.desc{color:var(--muted);font-size:.95rem;margin:0}
-.price{font-weight:800}
-.actions{display:flex;gap:8px;padding:12px}
-.btn{flex:1;padding:10px;border-radius:10px;border:0;background:#000;color:#fff;cursor:pointer;font-weight:700}
-.btn.secondary{background:#f2f2f2;color:#000;border:1px solid #e6e6e6}
+.meta{padding:12px;flex:1;display:flex;flex-direction:column}
+.meta h4{margin:0 0 6px;font-size:1rem}
+.meta p{margin:0 0 8px;color:var(--muted)}
+.price{font-weight:800;margin-bottom:8px}
+.actions{display:flex;gap:8px;padding:0 12px 12px}
+.btn{flex:1;padding:10px;border-radius:8px;border:0;background:#000;color:#fff;cursor:pointer}
+.btn.ghost{background:#f2f2f2;color:#000;border:1px solid #e6e6e6}
 
-/* Tables & forms */
+/* Cart & table */
 .table{width:100%;border-collapse:collapse}
-.table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left}
+.table th,.table td{padding:10px;border-bottom:1px solid #eee;text-align:left}
 .form{display:grid;gap:12px}
-.form input,.form select,.form textarea{padding:10px;border-radius:8px;border:1px solid #ddd}
 
-/* Footer and bottom bar */
+/* Footer */
 footer{margin-top:30px;background:#000;color:#fff;text-align:center;padding:16px}
-.footerbar{position:fixed;left:0;right:0;bottom:0;background:#0b0b0b;color:#fff;padding:8px 12px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:center;gap:14px;z-index:1400}
-.footerbar a{color:#fff;padding:8px;border-radius:8px}
+.footer-inner{max-width:var(--maxw);margin:0 auto;padding:10px 20px}
 
 /* Modal */
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:2000}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:2200}
 .modal{background:#fff;border-radius:12px;padding:18px;max-width:720px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.12)}
-.modal h3{margin:0 0 8px}
+.modal h3{margin:0 0 12px}
 
 /* Toast */
-.toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#fff;color:#000;padding:10px 14px;border-radius:8px;box-shadow:0 12px 40px rgba(0,0,0,0.12);z-index:2600}
+.toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.12);z-index:2600}
 
-/* Responsive tweaks */
+/* Footerbar */
+.footerbar{position:fixed;left:0;right:0;bottom:0;background:#0b0b0b;color:#fff;padding:8px 12px;border-top:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;gap:18px;z-index:1400}
+.footerbar a{color:#fff;padding:8px;border-radius:8px}
+
+/* Responsive */
 @media (max-width:900px){
-  .slide h1{font-size:1.4rem}
+  .search input{min-width:80px}
   .brand{font-size:1.05rem}
-  .cards{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+  .slide h1{font-size:1.2rem}
 }
+
+/* subtle effects */
+.fade-in{opacity:0;transform:translateY(8px);transition:opacity .48s ease, transform .48s ease}
+.fade-in.in{opacity:1;transform:none}
 </style>
 </head>
 <body>
@@ -116,75 +110,50 @@ footer{margin-top:30px;background:#000;color:#fff;text-align:center;padding:16px
     <div class="container header-inner">
       <div style="display:flex;align-items:center;gap:14px">
         <a class="brand" href="#home" data-link>TRIVORA</a>
-        <nav class="nav" aria-label="main navigation">
+        <nav class="nav" aria-label="menu superior">
           <a href="#home" class="nav-link" data-link>Home</a>
           <a href="#produtos" class="nav-link" data-link>Produtos</a>
           <a href="#ofertas" class="nav-link" data-link>Ofertas</a>
         </nav>
       </div>
-      <div class="top-controls">
-        <div class="search" role="search" aria-label="buscar produtos">
-          <input id="search-input" placeholder="Buscar produtos..." aria-label="buscar">
-          <button id="search-btn" aria-label="buscar">🔍</button>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="search" role="search">
+          <input id="search" placeholder="Buscar produtos..." aria-label="Buscar produtos">
+          <button id="btn-search">🔍</button>
         </div>
-        <a class="minicart" href="#carrinho" data-link aria-label="carrinho">🛒 <span id="cart-count">0</span></a>
-        <button id="btn-account" class="btn secondary" style="padding:8px 10px">Entrar</button>
+        <a class="minicart" href="#carrinho" data-link aria-label="Carrinho">🛒 <span id="cart-count">0</span></a>
+        <button id="btn-auth" class="btn ghost" aria-haspopup="dialog">Entrar / Registar</button>
       </div>
     </div>
   </header>
 
   <!-- MAIN -->
   <main class="container" id="app">
-    <!-- HOME SLIDER -->
-    <section id="home" class="section" aria-labelledby="home-title">
-      <div class="banner" role="region" aria-label="promoções">
+    <!-- banner -->
+    <section id="home" class="fade-in" style="margin-top:18px">
+      <div class="banner">
         <div class="slides" id="slides">
-          <div class="slide active" data-i="0">
-            <div>
-              <h1 id="home-title">Trivora — Mobilidade & Tecnologia</h1>
-              <p class="muted">Destaques em Carros, Motorizadas e Eletrônicos. Navegue livremente — faça login apenas para comprar.</p>
-            </div>
-          </div>
-          <div class="slide" data-i="1">
-            <div>
-              <h1>Ofertas da Semana</h1>
-              <p class="muted">Confira as promoções e economize.</p>
-            </div>
-          </div>
-          <div class="slide" data-i="2">
-            <div>
-              <h1>Espaço de Marketing</h1>
-              <p class="muted">Visibilidade premium para o seu produto.</p>
-            </div>
-          </div>
+          <div class="slide active" data-i="0"><div class="banner-inner"><h1>Trivora — Mobilidade & Tecnologia</h1><p class="muted">Destaques em Carros, Motorizadas e Eletrônicos</p></div></div>
+          <div class="slide" data-i="1"><div class="banner-inner"><h1>Ofertas Semanais</h1><p class="muted">Promoções selecionadas toda a semana</p></div></div>
+          <div class="slide" data-i="2"><div class="banner-inner"><h1>Espaço de Marketing</h1><p class="muted">Promova seus produtos aqui</p></div></div>
         </div>
-        <div class="slider-dots" id="slider-dots"></div>
+        <div class="dots" id="dots"></div>
       </div>
 
-      <!-- Categories showcase -->
-      <section aria-label="categorias" style="margin-top:18px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <h2 style="margin:0">Categorias</h2>
-            <p class="muted" style="margin:6px 0 0">Clique numa categoria para ver a vitrine completa.</p>
-          </div>
-          <div class="kicker">
-            <span class="pill" style="padding:6px 10px;border-radius:999px;border:1px solid #eee">Preto & Branco</span>
-            <span class="pill" style="padding:6px 10px;border-radius:999px;border:1px solid #eee">Minimal</span>
-          </div>
-        </div>
-
+      <!-- categories showcase -->
+      <section aria-label="categorias" style="margin-top:20px">
+        <h2 style="margin:10px 0">Categorias</h2>
         <div class="categories" id="categories"></div>
       </section>
     </section>
 
-    <!-- PRODUCTS PAGE -->
-    <section id="produtos" class="section hidden" aria-labelledby="products-title">
+    <!-- Products page -->
+    <section id="produtos" class="fade-in hidden">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <h1 id="products-title">Todos os Produtos</h1>
+        <h1>Produtos</h1>
         <div>
           <label class="small">Filtrar: </label>
-          <select id="filter-select">
+          <select id="filter">
             <option value="all">Todas</option>
             <option value="Carros">Carros</option>
             <option value="Motorizadas">Motorizadas</option>
@@ -199,72 +168,71 @@ footer{margin-top:30px;background:#000;color:#fff;text-align:center;padding:16px
           </select>
         </div>
       </div>
-      <div id="all-products" class="cards" aria-live="polite"></div>
+      <div id="all-products" class="cards"></div>
     </section>
 
     <!-- Category pages -->
-    <section id="carros" class="section hidden"><h1>Carros</h1><div id="cat-carros" class="cards"></div></section>
-    <section id="motos" class="section hidden"><h1>Motorizadas</h1><div id="cat-motos" class="cards"></div></section>
-    <section id="telefones" class="section hidden"><h1>Telefones</h1><div id="cat-telefones" class="cards"></div></section>
-    <section id="eletronicos" class="section hidden"><h1>Eletrônicos</h1><div id="cat-eletronicos" class="cards"></div></section>
-    <section id="masculino" class="section hidden"><h1>Moda Masculina</h1><div id="cat-masculino" class="cards"></div></section>
-    <section id="feminino" class="section hidden"><h1>Moda Feminina & Beleza</h1><div id="cat-feminino" class="cards"></div></section>
-    <section id="infantil" class="section hidden"><h1>Moda Infantil</h1><div id="cat-infantil" class="cards"></div></section>
-    <section id="servicos" class="section hidden"><h1>Serviços Online</h1><div id="cat-servicos" class="cards"></div></section>
-    <section id="marketing" class="section hidden"><h1>Espaço de Marketing</h1><div id="cat-marketing" class="cards"></div></section>
-    <!-- CART -->
-    <section id="carrinho" class="section hidden">
+    <section id="carros" class="fade-in hidden"><h1>Carros</h1><div id="cat-carros" class="cards"></div></section>
+    <section id="motos" class="fade-in hidden"><h1>Motorizadas</h1><div id="cat-motos" class="cards"></div></section>
+    <section id="telefones" class="fade-in hidden"><h1>Telefones</h1><div id="cat-telefones" class="cards"></div></section>
+    <section id="eletronicos" class="fade-in hidden"><h1>Eletrônicos</h1><div id="cat-eletronicos" class="cards"></div></section>
+    <section id="masculino" class="fade-in hidden"><h1>Moda Masculina</h1><div id="cat-masculino" class="cards"></div></section>
+    <section id="feminino" class="fade-in hidden"><h1>Moda Feminina & Beleza</h1><div id="cat-feminino" class="cards"></div></section>
+    <section id="infantil" class="fade-in hidden"><h1>Moda Infantil</h1><div id="cat-infantil" class="cards"></div></section>
+    <section id="servicos" class="fade-in hidden"><h1>Serviços Online</h1><div id="cat-servicos" class="cards"></div></section>
+    <section id="marketing" class="fade-in hidden"><h1>Espaço de Marketing</h1><div id="cat-marketing" class="cards"></div></section>
+
+    <!-- Cart -->
+    <section id="carrinho" class="fade-in hidden">
       <h1>Seu Carrinho</h1>
-      <table class="table" id="cart-table">
-        <thead><tr><th>Produto</th><th>Preço</th><th>Qtd</th><th>Subtotal</th><th></th></tr></thead>
-        <tbody></tbody>
-        <tfoot><tr><td colspan="3">Total</td><td id="cart-total">Kz 0</td><td></td></tr></tfoot>
-      </table>
-      <div style="margin-top:12px;display:flex;gap:10px">
-        <button class="btn" id="btn-checkout">Finalizar Compra</button>
-        <button class="btn secondary" id="btn-clear">Limpar Carrinho</button>
+      <table class="table" id="cart-table"><thead><tr><th>Produto</th><th>Preço</th><th>Qtd</th><th>Subtotal</th><th></th></tr></thead><tbody></tbody></table>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div>Total: <strong id="cart-total">Kz 0</strong></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn" id="btn-go-checkout">Finalizar compra</button>
+          <button class="btn ghost" id="btn-clear-cart">Limpar</button>
+        </div>
       </div>
     </section>
 
-    <!-- CHECKOUT -->
-    <section id="checkout" class="section hidden">
-      <h1>Finalizar Compra</h1>
-      <div style="display:grid;grid-template-columns:1fr 320px;gap:18px">
+    <!-- Checkout -->
+    <section id="checkout" class="fade-in hidden">
+      <h1>Checkout</h1>
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:18px">
         <form id="checkout-form" class="form">
           <input name="name" placeholder="Nome completo" required />
-          <input name="email" type="email" placeholder="Email (necessário para confirmação)" required />
+          <input name="email" type="email" placeholder="Email" required />
           <input name="address" placeholder="Endereço" required />
           <input name="phone" placeholder="Telefone" />
-          <select name="payment" required>
-            <option value="">Método de Pagamento</option>
-            <option>Multicaixa</option>
-            <option>Unitel Money</option>
-            <option>PayPal</option>
-            <option>Stripe</option>
-          </select>
-          <textarea name="notes" placeholder="Observações (opcional)"></textarea>
+          <select name="payment" required><option value="">Selecionar método</option><option>Multicaixa</option><option>Unitel Money</option><option>PayPal</option><option>Stripe</option></select>
+          <textarea name="notes" placeholder="Observações"></textarea>
           <button class="btn" type="submit">Confirmar pedido (simulado)</button>
         </form>
-
         <aside style="border:1px solid #eee;border-radius:10px;padding:12px">
-          <h3>Resumo do pedido</h3>
+          <h3>Resumo</h3>
           <table class="table" id="summary-table"><thead><tr><th>Produto</th><th>Qtd</th><th>Total</th></tr></thead><tbody></tbody><tfoot><tr><td colspan="2">Total</td><td id="summary-total">Kz 0</td></tr></tfoot></table>
         </aside>
       </div>
     </section>
 
-    <!-- CONTA -->
-    <section id="conta" class="section hidden">
+    <!-- Account -->
+    <section id="conta" class="fade-in hidden">
       <h1>Minha Conta</h1>
       <div id="account-area"></div>
     </section>
-
   </main>
 
+  <!-- Footer -->
   <footer>
-    © <span id="year"></span> Trivora — Mobilidade, Tecnologia & Estilo
+    <div class="footer-inner">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+        <div>&copy; <span id="year"></span> Trivora — Mobilidade, Tecnologia & Estilo</div>
+        <div style="display:flex;gap:12px"><a href="#contato" data-link>Contato</a><a href="#politica" data-link>Política</a></div>
+      </div>
+    </div>
   </footer>
 
+  <!-- Footerbar -->
   <div class="footerbar" role="navigation" aria-label="barra inferior">
     <a href="#home" data-link>Home</a>
     <a href="#produtos" data-link>Produtos</a>
@@ -272,116 +240,172 @@ footer{margin-top:30px;background:#000;color:#fff;text-align:center;padding:16px
     <a href="#conta" data-link>Conta</a>
   </div>
 
-  <!-- AUTH MODAL (only opens when needed) -->
+  <!-- AUTH MODAL -->
   <div id="auth-modal" class="modal-backdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
       <h3 id="auth-title">Entrar na Trivora</h3>
-      <p class="small muted">Login rápido com Google. Ou continue como convidado e faça checkout usando email.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <p class="muted">Login rápido com Google ou continue como convidado. Login obrigatório apenas para checkout/conta.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
         <button id="btn-google" class="btn">Entrar com Google</button>
-        <button id="btn-guest" class="btn secondary">Continuar como convidado (pedir email no checkout)</button>
+        <button id="btn-guest" class="btn ghost">Continuar como Convidado</button>
       </div>
-      <div style="margin-top:12px"><button id="btn-close-auth" class="btn secondary">Fechar</button></div>
+      <div style="margin-top:12px"><button id="btn-close-auth" class="btn ghost">Fechar</button></div>
     </div>
   </div>
 
-  <!-- TOAST placeholder -->
-  <div id="toast-wrap" style="position:fixed;left:50%;transform:translateX(-50%);top:14px;z-index:3000"></div>
+  <!-- QUICKVIEW MODAL -->
+  <div id="quickview-modal" class="modal-backdrop">
+    <div class="modal" id="quickview-content"></div>
+  </div>
 
-  <!-- ===============================
-       JAVASCRIPT (completo)
-       - Google login via Firebase (config placeholders)
-       - Local fallback for users/orders/cart (localStorage)
-       - Full UI rendering and routing
-       =============================== -->
-  <script type="module">
-  /* =========================
-     CONFIG
-     - Substitua firebaseConfig por teu projeto para ativar login Google
-     - Se não quiser usar Firebase, o fallback localStorage funciona
-     ========================= */
-  const FIREBASE_ENABLED = false; // colocar true para ativar Google Login
-  /* FIREBASE CONFIG PLACEHOLDER:
-     const firebaseConfig = {
-       apiKey: "YOUR_API_KEY",
-       authDomain: "YOUR_PROJECT.firebaseapp.com",
-       projectId: "YOUR_PROJECT_ID",
-       appId: "YOUR_APP_ID"
-     };
-  */
-  // imports only executed if enabled to avoid errors when false
+  <!-- TOAST -->
+  <div id="toast-wrap" style="position:fixed;left:50%;transform:translateX(-50%);top:18px;z-index:3000"></div>
+
+  <!-- ===========================
+       JAVASCRIPT: funcionalidades completas
+       =========================== -->
+  <script>
+  /************************************************************************
+   * TRIVORA — Frontend single-file JS
+   * - Cart (localStorage)
+   * - Auth (Google optional / simulated fallback)
+   * - Checkout simulated + order persistence local
+   * - Category pages, product rendering, search, filters
+   ************************************************************************/
+
+  // FIREBASE toggle (set true + fill config to enable real Google)
+  const FIREBASE_ENABLED = false;
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  // If Firebase enabled, load it
   let firebaseAuth = null;
   if(FIREBASE_ENABLED){
-    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
-    const { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js');
-    // place your firebaseConfig here if enabling
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      appId: "YOUR_APP_ID"
-    };
-    const app = initializeApp(firebaseConfig);
-    firebaseAuth = getAuth(app);
-    window._TRIVORA_FIREBASE = { signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, auth: firebaseAuth };
+    (async ()=>{
+      const modApp = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
+      const modAuth = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js');
+      const app = modApp.initializeApp(firebaseConfig);
+      firebaseAuth = modAuth.getAuth(app);
+      window._TRIVORA_FIREBASE = { ...modAuth, auth: firebaseAuth, app };
+    })().catch(e=>console.warn('Firebase init failed',e));
   }
 
-  /* ==============
-     DATA: PRODUCTS (expanded)
-     ============== */
+  /* --------------------
+     DATA: PRODUCTS (expanded to fill many cards)
+     -------------------- */
   const PRODUCTS = [
-    {id:'car-tesla',category:'Carros',name:'Tesla Model 3',price:9500000,img:'https://source.unsplash.com/800x600/?tesla,car',desc:'Carro elétrico moderno.'},
+    // Carros
+    {id:'car-tesla',category:'Carros',name:'Tesla Model 3',price:9500000,img:'https://source.unsplash.com/800x600/?tesla,car',desc:'Elétrico, autonomia e tecnologia.'},
     {id:'car-bmw',category:'Carros',name:'BMW Série 3',price:8200000,img:'https://source.unsplash.com/800x600/?bmw,car',desc:'Performance e luxo.'},
-    {id:'moto-r1',category:'Motorizadas',name:'Yamaha R1',price:3200000,img:'https://source.unsplash.com/800x600/?yamaha,motorcycle',desc:'Esportiva de alta performance.'},
-    {id:'moto-ninja',category:'Motorizadas',name:'Kawasaki Ninja',price:3000000,img:'https://source.unsplash.com/800x600/?kawasaki,motorcycle',desc:'Desempenho agressivo.'},
-    {id:'tel-iphone15',category:'Telefones',name:'iPhone 15 Pro',price:850000,img:'https://source.unsplash.com/800x600/?iphone,phone',desc:'Câmera Pro e desempenho.'},
-    {id:'tel-samsung-s24',category:'Telefones',name:'Samsung S24',price:620000,img:'https://source.unsplash.com/800x600/?samsung,phone',desc:'Tela AMOLED.'},
-    {id:'ele-tv55',category:'Eletronicos',name:'Smart TV 55"',price:300000,img:'https://source.unsplash.com/800x600/?tv,television',desc:'4K HDR e apps.'},
-    {id:'ele-laptop',category:'Eletronicos',name:'Laptop Ultrabook',price:540000,img:'https://source.unsplash.com/800x600/?laptop,notebook',desc:'Leve, potente.'},
-    {id:'mas-tenis',category:'Masculino',name:'Tênis Running',price:45000,img:'https://source.unsplash.com/800x600/?mens-shoes',desc:'Amortecimento e estilo.'},
+    {id:'car-audi',category:'Carros',name:'Audi A4',price:7800000,img:'https://source.unsplash.com/800x600/?audi,car',desc:'Conforto e elegância.'},
+    {id:'car-suvx',category:'Carros',name:'SUV Advent X',price:7200000,img:'https://source.unsplash.com/800x600/?suv,car',desc:'Espaço e robustez.'},
+    {id:'car-eco',category:'Carros',name:'Compact Eco',price:3200000,img:'https://source.unsplash.com/800x600/?compact,car',desc:'Econômico e urbano.'},
+    // Motorizadas
+    {id:'moto-r1',category:'Motorizadas',name:'Yamaha R1',price:3200000,img:'https://source.unsplash.com/800x600/?yamaha,motorcycle',desc:'Esportiva potente.'},
+    {id:'moto-cbr',category:'Motorizadas',name:'Honda CBR600',price:2800000,img:'https://source.unsplash.com/800x600/?honda,motorcycle',desc:'Agilidade e controle.'},
+    {id:'moto-cruiser',category:'Motorizadas',name:'Cruiser 750',price:4200000,img:'https://source.unsplash.com/800x600/?cruiser,motorcycle',desc:'Conforto para longas distâncias.'},
+    {id:'moto-off',category:'Motorizadas',name:'OffRoad Pro',price:2100000,img:'https://source.unsplash.com/800x600/?offroad,motorcycle',desc:'Aventura sem limites.'},
+    // Telefones
+    {id:'tel-iphone15',category:'Telefones',name:'iPhone 15 Pro',price:850000,img:'https://source.unsplash.com/800x600/?iphone,phone',desc:'Câmera e performance.'},
+    {id:'tel-galaxy',category:'Telefones',name:'Samsung Galaxy S24',price:620000,img:'https://source.unsplash.com/800x600/?samsung,phone',desc:'Tela AMOLED.'},
+    {id:'tel-pixel',category:'Telefones',name:'Google Pixel 8',price:480000,img:'https://source.unsplash.com/800x600/?google,phone',desc:'Android puro e câmera.'},
+    // Eletrônicos
+    {id:'ele-tv55',category:'Eletronicos',name:'Smart TV 55"',price:300000,img:'https://source.unsplash.com/800x600/?tv,electronics',desc:'4K HDR e apps.'},
+    {id:'ele-laptop',category:'Eletronicos',name:'Ultrabook Pro',price:540000,img:'https://source.unsplash.com/800x600/?laptop,notebook',desc:'Leve e potente.'},
+    {id:'ele-head',category:'Eletronicos',name:'Fones Studio',price:45000,img:'https://source.unsplash.com/800x600/?headphones',desc:'Som imersivo.'},
+    // Masculino
+    {id:'mas-tenis',category:'Masculino',name:'Tênis Running',price:45000,img:'https://source.unsplash.com/800x600/?mens-shoes',desc:'Conforto e estilo.'},
     {id:'mas-jaqueta',category:'Masculino',name:'Jaqueta Bomber',price:46000,img:'https://source.unsplash.com/800x600/?mens-jacket',desc:'Estilo urbano.'},
+    {id:'mas-rel',category:'Masculino',name:'Relógio Classic',price:120000,img:'https://source.unsplash.com/800x600/?mens-watch',desc:'Elegância atemporal.'},
+    // Feminino + Beleza
     {id:'fem-vestido',category:'Feminino',name:'Vestido Floral',price:25000,img:'https://source.unsplash.com/800x600/?dress,women',desc:'Leve e elegante.'},
-    {id:'bez-kit',category:'Beleza',name:'Kit Maquiagem',price:15000,img:'https://source.unsplash.com/800x600/?makeup,cosmetics',desc:'Completo.'},
-    {id:'inf-conj',category:'Infantil',name:'Conjunto Infantil',price:15000,img:'https://source.unsplash.com/800x600/?kids,clothes',desc:'Maciez e conforto.'},
+    {id:'fem-bolsa',category:'Feminino',name:'Bolsa Tiracolo',price:52000,img:'https://source.unsplash.com/800x600/?womens-bag',desc:'Acabamento premium.'},
+    {id:'bez-kit',category:'Beleza',name:'Kit Maquiagem',price:15000,img:'https://source.unsplash.com/800x600/?makeup,cosmetics',desc:'Completo para o dia a dia.'},
+    {id:'bez-perfume',category:'Beleza',name:'Perfume Premium',price:85000,img:'https://source.unsplash.com/800x600/?perfume',desc:'Fragrância sofisticada.'},
+    // Infantil
+    {id:'inf-conj',category:'Infantil',name:'Conjunto Infantil',price:15000,img:'https://source.unsplash.com/800x600/?kids,clothes',desc:'Conforto para os pequenos.'},
+    {id:'inf-brinq',category:'Infantil',name:'Brinquedo Educativo',price:8000,img:'https://source.unsplash.com/800x600/?toy',desc:'Aprendizado divertido.'},
+    // Serviços & Marketing
     {id:'srv-logo',category:'Servicos',name:'Design de Logo',price:20000,img:'https://source.unsplash.com/800x600/?logo,design',desc:'Identidade visual.'},
-    {id:'mkt-banner',category:'Marketing',name:'Banner Rotativo',price:7000,img:'https://source.unsplash.com/800x600/?marketing,advertising',desc:'Vitrine na homepage.'}
+    {id:'mkt-ad',category:'Marketing',name:'Anúncio em Destaque',price:10000,img:'https://source.unsplash.com/800x600/?marketing,advertising',desc:'Promova seu produto.'},
+    // Extra filler to increase content (repeat variations)
+    {id:'car-special1',category:'Carros',name:'Sedan Premium 2025',price:9800000,img:'https://source.unsplash.com/800x600/?luxury,car',desc:'Design moderno e luxo.'},
+    {id:'car-special2',category:'Carros',name:'Hatch Urban',price:3200000,img:'https://source.unsplash.com/800x600/?hatchback,car',desc:'Prático e econômico.'},
+    {id:'moto-special1',category:'Motorizadas',name:'Sport Retro',price:2100000,img:'https://source.unsplash.com/800x600/?retro,motorcycle',desc:'Visual clássico, performance moderna.'},
+    {id:'tel-budget',category:'Telefones',name:'Smart Basic',price:95000,img:'https://source.unsplash.com/800x600/?smartphone,budget',desc:'Custo-benefício.'},
+    {id:'ele-speaker',category:'Eletronicos',name:'Speaker Bluetooth',price:22000,img:'https://source.unsplash.com/800x600/?speaker',desc:'Portátil e potente.'},
+    {id:'mas-oculos',category:'Masculino',name:'Óculos Aviador',price:25000,img:'https://source.unsplash.com/800x600/?sunglasses',desc:'Estilo e proteção.'},
+    {id:'fem-scarf',category:'Feminino',name:'Lenço Seda',price:15000,img:'https://source.unsplash.com/800x600/?scarf',desc:'Toque de elegância.'},
+    {id:'inf-shoes',category:'Infantil',name:'Mini Sneakers',price:12000,img:'https://source.unsplash.com/800x600/?kids-shoes',desc:'Conforto para brincar.'},
+    {id:'srv-seo',category:'Marketing',name:'Pacote SEO',price:25000,img:'https://source.unsplash.com/800x600/?seo',desc:'Apareça no topo das buscas.'},
+    {id:'mkt-social',category:'Marketing',name:'Campanha Social',price:18000,img:'https://source.unsplash.com/800x600/?social-media',desc:'Alcance e engajamento.'}
   ];
 
-  /* ==============
-     STORAGE & SESSION (local fallback)
-     ============== */
-  const LS = {
-    cartKey: 'trivora_cart_v1',
-    usersKey: 'trivora_users_v1',
-    ordersKey: 'trivora_orders_v1',
-    sessionKey: 'trivora_session_v1',
-    get(k, fallback = null){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; } },
-    set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+  /* --------------------
+     STORAGE helpers (local fallback)
+     -------------------- */
+  const STORE = {
+    cartKey: 'trivora_cart_v2',
+    ordersKey: 'trivora_orders_v2',
+    usersKey: 'trivora_users_v2',
+    sessionKey: 'trivora_session_v2',
+    get(k, fallback=null){ try{ const v = localStorage.getItem(k); return v?JSON.parse(v):fallback }catch(e){return fallback} },
+    set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
     remove(k){ try{ localStorage.removeItem(k); }catch(e){} }
   };
 
-  // cart stored as [{id,qty}]
-  function cartAll(){ return LS.get(LS.cartKey, []); }
-  function cartSave(items){ LS.set(LS.cartKey, items); UI.updateCart(); }
-  function cartAdd(id, qty = 1){ const items = cartAll(); const it = items.find(x=>x.id===id); if(it) it.qty += qty; else items.push({id, qty}); cartSave(items); UI.toast('Adicionado ao carrinho'); }
-  function cartRemove(id){ cartSave(cartAll().filter(x=>x.id !== id)); }
+  /* --------------------
+     CART
+     -------------------- */
+  function cartAll(){ return STORE.get(STORE.cartKey, []); }
+  function cartSave(items){ STORE.set(STORE.cartKey, items); UI.updateCart(); }
+  function cartAdd(id, qty=1){
+    const items = cartAll();
+    const it = items.find(x=>x.id===id);
+    if(it) it.qty += qty; else {
+      const p = PRODUCTS.find(x=>x.id===id) || {name:'Produto', price:0};
+      items.push({id,qty, name:p.name, price:p.price});
+    }
+    cartSave(items);
+    UI.toast('Adicionado ao carrinho');
+  }
+  function cartRemove(id){ cartSave(cartAll().filter(x=>x.id!==id)); }
   function cartSetQty(id, qty){ const items = cartAll(); const it = items.find(x=>x.id===id); if(it){ it.qty = Math.max(1, qty); cartSave(items); } }
+  function cartClear(){ cartSave([]); }
 
-  function ordersAll(){ return LS.get(LS.ordersKey, []); }
-  function createOrder(order){ const list = ordersAll(); list.push(order); LS.set(LS.ordersKey, list); return order; }
+  /* --------------------
+     ORDERS
+     -------------------- */
+  function createOrder(obj){
+    const list = STORE.get(STORE.ordersKey, []);
+    list.push(obj);
+    STORE.set(STORE.ordersKey, list);
+    return obj;
+  }
 
-  // session (when using Firebase, we will store firebase user displayName/email in session)
-  function getSession(){ return LS.get(LS.sessionKey, null); }
-  function setSession(sess){ LS.set(LS.sessionKey, sess); UI.updateAccountUI(); }
-  function clearSession(){ LS.remove(LS.sessionKey); UI.updateAccountUI(); }
+  /* --------------------
+     AUTH session
+     -------------------- */
+  function getSession(){ return STORE.get(STORE.sessionKey, null); }
+  function setSession(s){ STORE.set(STORE.sessionKey, s); UI.updateAccountUI(); }
+  function clearSession(){ STORE.remove(STORE.sessionKey); UI.updateAccountUI(); }
 
-  /* ==============
-     UI render & helpers
-     ============== */
-  function $(sel, ctx=document){ return ctx.querySelector(sel); }
-  function $all(sel, ctx=document){ return Array.from((ctx||document).querySelectorAll(sel)); }
-  function formatKz(v){ return 'Kz ' + Number(v).toLocaleString('pt-PT'); }
+  // If firebase enabled, wire Google auth
+  if(FIREBASE_ENABLED){
+    (async ()=>{
+      try{
+        // firebase is loaded earlier; sign-in function wired in UI
+      }catch(e){ console.warn('firebase auth error', e); }
+    })();
+  }
 
+  /* --------------------
+     UI helpers
+     -------------------- */
   const UI = {
     toast(msg, ms=1600){
       const wrap = document.getElementById('toast-wrap');
@@ -389,125 +413,85 @@ footer{margin-top:30px;background:#000;color:#fff;text-align:center;padding:16px
       wrap.appendChild(el); setTimeout(()=> el.remove(), ms);
     },
     updateCart(){
-      const cnt = cartAll().reduce((n,i)=>n+i.qty,0);
-      const total = cartAll().reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + (p?.price||0)*i.qty; },0);
-      $('#cart-count').textContent = cnt;
-      const cartTotalEl = document.getElementById('cart-total');
-      if(cartTotalEl) cartTotalEl.textContent = formatKz(total);
+      const count = cartAll().reduce((n,i)=>n+i.qty,0);
+      document.getElementById('cart-count').textContent = count;
+      const total = cartAll().reduce((s,i)=> s + ((i.price||0) * i.qty), 0);
+      const ct = document.getElementById('cart-total'); if(ct) ct.textContent = formatKz(total);
     },
-    toast(msg){ UI.toast(msg); },
-    updateAccountUI(){ // reflect session to header / account area
+    updateAccountUI(){
       const sess = getSession();
-      const btn = document.getElementById('btn-account');
+      const btn = document.getElementById('btn-auth');
       if(sess){
-        btn.textContent = `Olá, ${sess.name.split(' ')[0]}`;
-        btn.classList.add('secondary');
+        btn.textContent = sess.name ? `Olá, ${sess.name.split(' ')[0]}` : 'Minha Conta';
+        btn.classList.add('ghost');
       } else {
-        btn.textContent = 'Entrar';
-        btn.classList.remove('secondary');
+        btn.textContent = 'Entrar / Registar';
+        btn.classList.remove('ghost');
       }
-      // account area
       const area = document.getElementById('account-area');
       if(area){
         if(sess){
-          area.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <h3>${escapeHtml(sess.name||sess.email)}</h3>
-              <div class="small muted">${escapeHtml(sess.email||'')}</div>
-            </div>
-            <div>
-              <button id="btn-logout" class="btn secondary">Sair</button>
-            </div>
-          </div>`;
-          $('#btn-logout').addEventListener('click', ()=>{ // logout
-            if(FIREBASE_ENABLED && window._TRIVORA_FIREBASE && window._TRIVORA_FIREBASE.signOut){
-              window._TRIVORA_FIREBASE.signOut(window._TRIVORA_FIREBASE.auth).catch(()=>{});
-            }
-            clearSession();
-            UI.toast('Sessão encerrada');
-            location.hash = 'home';
-          });
-        } else {
-          area.innerHTML = `<p class="small muted">Entrar para ver pedidos e dados.</p>`;
-        }
+          area.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><h3>${escapeHtml(sess.name||sess.email||'Usuário')}</h3><div class="muted">${escapeHtml(sess.email||'')}</div></div><div><button id="logout-btn" class="btn ghost">Sair</button></div></div>`;
+          document.getElementById('logout-btn').addEventListener('click', ()=>{ if(FIREBASE_ENABLED && window._TRIVORA_FIREBASE && window._TRIVORA_FIREBASE.signOut){ window._TRIVORA_FIREBASE.signOut(window._TRIVORA_FIREBASE.auth).catch(()=>{}); } clearSession(); UI.toast('Sessão encerrada'); location.hash='home'; });
+        } else { area.innerHTML = `<div class="muted">Faça login para ver pedidos.</div>`; }
       }
-    }
+    },
+    toast(msg){ UI.toast(msg); }
   };
 
-  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[c]); }
+  function formatKz(v){ return 'Kz ' + Number(v).toLocaleString('pt-PT'); }
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'})[c]); }
 
-  /* ==============
-     Render functions
-     ============== */
-  function renderSlider(){
-    const slides = $all('.slide');
-    const dots = $('#slider-dots');
-    dots.innerHTML = slides.map((s,i)=> `<div class="dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
-    const dotEls = Array.from(dots.children);
-    let idx = 0;
-    const show = (i)=>{
-      slides.forEach((s,k)=> s.classList.toggle('active', k===i));
-      dotEls.forEach((d,k)=> d.classList.toggle('active', k===i));
-      idx = i;
-    };
-    dotEls.forEach(d=> d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
-    setInterval(()=> show((idx+1) % slides.length), 5200);
-  }
-
+  /* --------------------
+     RENDER: CATEGORIES & PRODUCTS
+     -------------------- */
   function renderCategories(){
-    const categories = ['Carros','Motorizadas','Telefones','Eletronicos','Masculino','Feminino','Infantil','Beleza','Servicos','Marketing'];
-    const container = document.getElementById('categories');
-    container.innerHTML = categories.map(cat=>{
-      const rep = PRODUCTS.find(p=>p.category === cat) || {name:cat, desc:'Vitrine ' + cat, img: 'https://source.unsplash.com/900x700/?'+encodeURIComponent(cat)};
-      const slug = slugFor(cat);
-      return `<article class="cat-card" data-cat="${escapeHtml(cat)}">
-        <div class="cat-media"><img src="${rep.img}" alt="${escapeHtml(cat)}"></div>
-        <div class="cat-body">
+    const cats = ['Carros','Motorizadas','Telefones','Eletronicos','Masculino','Feminino','Infantil','Beleza','Servicos','Marketing'];
+    const out = document.getElementById('categories');
+    out.innerHTML = cats.map(cat=>{
+      const rep = PRODUCTS.find(p=>p.category===cat) || {name:cat, img:'https://source.unsplash.com/900x700/?'+encodeURIComponent(cat), desc:cat};
+      return `<article class="category-card" data-cat="${escapeHtml(cat)}">
+        <img src="${rep.img}" alt="${escapeHtml(cat)}">
+        <div class="category-body">
           <h3>${escapeHtml(cat)}</h3>
-          <p class="muted">${escapeHtml(rep.name)} — <span class="small muted">${escapeHtml(rep.desc)}</span></p>
-          <div class="group">
-            <a class="btn secondary" href="#${slug}" data-link>Ver todos</a>
-            <button class="btn" data-add="${rep.id}">Adicionar</button>
-          </div>
+          <p class="muted">${escapeHtml(rep.desc||'')}</p>
+          <div class="cat-actions"><a class="btn ghost" href="#${slug(cat)}" data-link>Ver todos</a><button class="btn" data-add="${rep.id||''}">Adicionar</button></div>
         </div>
       </article>`;
     }).join('');
     // bind add buttons
-    container.querySelectorAll('[data-add]').forEach(b=> b.addEventListener('click', (e)=>{ const id=e.currentTarget.dataset.add; cartAdd(id,1); renderCartTable(); UI.updateCart(); }));
+    out.querySelectorAll('[data-add]').forEach(b=> b.addEventListener('click',(e)=>{ const id = e.currentTarget.dataset.add; if(id) cartAdd(id); renderCartTable(); UI.updateCart(); }));
   }
-
-  function slugFor(cat){ return cat.toLowerCase().replace(/\s+/g,''); }
 
   function renderProductCard(p){
     return `<article class="card" data-id="${p.id}">
       <div class="thumb"><img src="${p.img}" alt="${escapeHtml(p.name)}"></div>
       <div class="meta">
         <h4>${escapeHtml(p.name)}</h4>
-        <div class="desc">${escapeHtml(p.desc)}</div>
+        <p class="desc">${escapeHtml(p.desc)}</p>
         <div class="price">${formatKz(p.price)}</div>
       </div>
       <div class="actions">
         <button class="btn" data-add="${p.id}">Adicionar</button>
-        <button class="btn secondary" data-view="${p.id}">Ver</button>
+        <button class="btn ghost" data-view="${p.id}">Ver</button>
       </div>
     </article>`;
   }
 
   function renderAllProducts(filter='all'){
-    const out = document.getElementById('all-products');
+    const root = document.getElementById('all-products');
     let list = PRODUCTS.slice();
-    if(filter && filter !== 'all') list = list.filter(p=>p.category === filter);
-    out.innerHTML = list.map(renderProductCard).join('');
-    bindProductActions(out);
+    if(filter && filter !== 'all') list = list.filter(p=>p.category===filter);
+    root.innerHTML = list.map(renderProductCard).join('');
+    bindProductActions(root);
   }
 
-  function renderCategoryPage(category, elId){
-    const el = document.getElementById(elId);
-    if(!el) return;
-    const list = PRODUCTS.filter(p=>p.category === category);
-    if(list.length === 0){ el.innerHTML = '<div class="muted">Sem produtos nesta categoria.</div>'; return; }
-    el.innerHTML = list.map(renderProductCard).join('');
-    bindProductActions(el);
+  function renderCategoryPage(cat, selectorId){
+    const node = document.getElementById(selectorId);
+    if(!node) return;
+    const list = PRODUCTS.filter(p=>p.category===cat);
+    node.innerHTML = list.map(renderProductCard).join('');
+    bindProductActions(node);
   }
 
   function bindProductActions(root){
@@ -518,50 +502,71 @@ footer{margin-top:30px;background:#000;color:#fff;text-align:center;padding:16px
   function viewHandler(e){ const id = e.currentTarget.dataset.view; const p = PRODUCTS.find(x=>x.id===id); if(p) quickView(p); }
 
   function quickView(p){
-    const md = document.createElement('div'); md.className='modal-backdrop'; md.style.zIndex=5000;
-    md.innerHTML = `<div class="modal">
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <div style="flex:1;min-width:260px"><img src="${p.img}" style="width:100%;height:320px;object-fit:cover;border-radius:8px" alt="${escapeHtml(p.name)}"></div>
-        <div style="flex:1;min-width:240px">
-          <h3>${escapeHtml(p.name)}</h3>
-          <div style="font-weight:800;margin:8px 0">${formatKz(p.price)}</div>
-          <p class="muted">${escapeHtml(p.category)}</p>
-          <p style="margin-top:10px">${escapeHtml(p.desc)}</p>
-          <div style="margin-top:14px;display:flex;gap:8px">
-            <button class="btn" id="qv-add">Adicionar</button>
-            <button class="btn secondary" id="qv-close">Fechar</button>
-          </div>
+    const backdrop = document.getElementById('quickview-modal');
+    const content = document.getElementById('quickview-content');
+    content.innerHTML = `<div style="display:flex;gap:12px;flex-wrap:wrap">
+      <div style="flex:1;min-width:260px"><img src="${p.img}" alt="${escapeHtml(p.name)}" style="width:100%;height:320px;object-fit:cover;border-radius:8px"></div>
+      <div style="flex:1;min-width:240px">
+        <h3>${escapeHtml(p.name)}</h3>
+        <div style="font-weight:800;margin:8px 0">${formatKz(p.price)}</div>
+        <p class="muted">${escapeHtml(p.category)}</p>
+        <p style="margin-top:8px">${escapeHtml(p.desc)}</p>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn" id="qv-add">Adicionar</button>
+          <button class="btn ghost" id="qv-close">Fechar</button>
         </div>
       </div>
     </div>`;
-    document.body.appendChild(md);
-    md.querySelector('#qv-close').addEventListener('click', ()=> md.remove());
-    md.querySelector('#qv-add').addEventListener('click', ()=>{ cartAdd(p.id,1); renderCartTable(); UI.updateCart(); md.remove(); });
+    backdrop.style.display='flex';
+    document.getElementById('qv-close').onclick = ()=> backdrop.style.display='none';
+    document.getElementById('qv-add').onclick = ()=>{ cartAdd(p.id,1); renderCartTable(); UI.updateCart(); backdrop.style.display='none'; };
   }
 
+  /* --------------------
+     CART UI: render table
+     -------------------- */
   function renderCartTable(){
     const tbody = document.querySelector('#cart-table tbody');
     if(!tbody) return;
     const items = cartAll();
-    if(items.length === 0){ tbody.innerHTML = `<tr><td colspan="5" class="muted">Carrinho vazio</td></tr>`; UI.updateCart(); return; }
+    if(items.length === 0){ tbody.innerHTML = '<tr><td colspan="5" class="muted">Carrinho vazio</td></tr>'; UI.updateCart(); return; }
     tbody.innerHTML = items.map(it=>{
-      const p = PRODUCTS.find(x=>x.id===it.id);
-      const subtotal = (p?.price||0) * it.qty;
+      const p = PRODUCTS.find(x=>x.id===it.id) || {name:it.name, price:it.price};
       return `<tr>
-        <td style="max-width:320px">${escapeHtml(p.name)}</td>
+        <td>${escapeHtml(p.name)}</td>
         <td>${formatKz(p.price)}</td>
-        <td><input type="number" min="1" value="${it.qty}" data-id="${it.id}" class="qty" style="width:80px;padding:6px;border-radius:6px;border:1px solid #ddd"></td>
-        <td>${formatKz(subtotal)}</td>
-        <td><button class="btn secondary" data-remove="${it.id}">Remover</button></td>
+        <td><input type="number" min="1" value="${it.qty}" data-id="${it.id}" class="qty-input" style="width:80px;padding:6px;border-radius:6px;border:1px solid #ddd"></td>
+        <td>${formatKz((p.price||0)*it.qty)}</td>
+        <td><button class="btn ghost" data-remove="${it.id}">Remover</button></td>
       </tr>`;
     }).join('');
-    // bind qty & remove
-    tbody.querySelectorAll('.qty').forEach(i=>{ i.removeEventListener('input', qtyHandler); i.addEventListener('input', qtyHandler); });
-    tbody.querySelectorAll('[data-remove]').forEach(b=>{ b.removeEventListener('click', removeHandler); b.addEventListener('click', removeHandler); });
+    tbody.querySelectorAll('.qty-input').forEach(i=>{ i.removeEventListener('input', qtyChange); i.addEventListener('input', qtyChange); });
+    tbody.querySelectorAll('[data-remove]').forEach(b=>{ b.removeEventListener('click', removeItem); b.addEventListener('click', removeItem); });
     UI.updateCart();
   }
-  function qtyHandler(e){ const id = e.currentTarget.dataset.id; const val = parseInt(e.currentTarget.value||'1',10); cartSetQty(id, val); renderCartTable(); }
-  function removeHandler(e){ const id = e.currentTarget.dataset.remove; cartRemove(id); renderCartTable(); UI.updateCart(); }
+  function qtyChange(e){ const id = e.currentTarget.dataset.id; const v = parseInt(e.currentTarget.value||'1',10); cartSetQty(id, v); renderCartTable(); }
+  function removeItem(e){ const id = e.currentTarget.dataset.remove; cartRemove(id); renderCartTable(); UI.updateCart(); }
+
+  /* --------------------
+     CHECKOUT
+     -------------------- */
+  const checkoutForm = document.getElementById('checkout-form');
+  checkoutForm && checkoutForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const form = new FormData(e.target); const customer = Object.fromEntries(form.entries());
+    const items = cartAll();
+    if(items.length === 0){ UI.toast('Carrinho vazio'); return; }
+    const sess = getSession();
+    if(!sess){ UI.toast('Faça login ou continue como convidado para finalizar'); openAuthModal(); return; }
+    // if guest must provide email
+    if(sess.type === 'guest' && !customer.email){ UI.toast('Forneça email'); return; }
+    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); },0);
+    const order = { id:'ORD-'+Date.now(), items, total, customer, status:'Pago (simulado)', createdAt:new Date().toISOString(), user: sess };
+    createOrder(order);
+    cartClear(); renderCartTable(); UI.updateCart();
+    UI.toast('Pedido confirmado (simulação): ' + order.id, 2500);
+    setTimeout(()=> { location.hash = 'conta'; showRoute(); renderAccount(); }, 600);
+  });
 
   function renderCheckoutSummary(){
     const tb = document.querySelector('#summary-table tbody');
@@ -569,229 +574,176 @@ footer{margin-top:30px;background:#000;color:#fff;text-align:center;padding:16px
     const items = cartAll();
     if(items.length === 0){ tb.innerHTML = '<tr><td colspan="3">Carrinho vazio</td></tr>'; document.getElementById('summary-total').textContent='Kz 0'; return; }
     tb.innerHTML = items.map(it=>{
-      const p = PRODUCTS.find(x=>x.id===it.id);
-      return `<tr><td>${escapeHtml(p.name)}</td><td>${it.qty}</td><td>${formatKz((p.price||0)*it.qty)}</td></tr>`;
+      const p = PRODUCTS.find(x=>x.id===it.id); return `<tr><td>${escapeHtml(p.name)}</td><td>${it.qty}</td><td>${formatKz((p.price||0)*it.qty)}</td></tr>`;
     }).join('');
     const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); },0);
     document.getElementById('summary-total').textContent = formatKz(total);
   }
 
-  /* ==============
-     AUTH (Google via Firebase optional) & guest flow
-     ============== */
+  /* --------------------
+     AUTH Modal logic (Google optional / guest)
+     -------------------- */
   const authModal = document.getElementById('auth-modal');
-  const btnAccount = document.getElementById('btn-account');
+  const btnAuth = document.getElementById('btn-auth');
   const btnGoogle = document.getElementById('btn-google');
   const btnGuest = document.getElementById('btn-guest');
   const btnCloseAuth = document.getElementById('btn-close-auth');
 
-  // show modal when account clicked and not logged
-  btnAccount.addEventListener('click', (e)=>{
-    const sess = getSession();
-    if(sess){
-      location.hash = 'conta';
-    } else {
-      openAuthModal();
-    }
-  });
+  function openAuthModal(){ authModal.style.display='flex'; authModal.setAttribute('aria-hidden','false'); }
+  function closeAuthModal(){ authModal.style.display='none'; authModal.setAttribute('aria-hidden','true'); }
 
-  function openAuthModal(){ authModal.style.display = 'flex'; authModal.setAttribute('aria-hidden','false'); }
-  function closeAuthModal(){ authModal.style.display = 'none'; authModal.setAttribute('aria-hidden','true'); }
-
+  btnAuth.addEventListener('click', ()=>{ const s = getSession(); if(s) { location.hash='conta'; showRoute(); } else openAuthModal(); });
   btnCloseAuth.addEventListener('click', closeAuthModal);
+  authModal.addEventListener('click', (e)=>{ if(e.target === authModal) closeAuthModal(); });
 
-  // Guest flow: when guest chosen, we set a guest session (name=Convidado) but require email at checkout
-  btnGuest.addEventListener('click', ()=>{
-    const guest = {type:'guest', name:'Convidado', email:null};
-    setSession(guest);
-    UI.updateAccountUI();
-    UI.toast('Continuando como convidado. O email será solicitado no checkout.');
-    closeAuthModal();
-  });
+  // Guest
+  btnGuest.addEventListener('click', ()=>{ setSession({ type:'guest', name:'Convidado', email:null }); UI.updateAccountUI(); UI.toast('Continuando como convidado'); closeAuthModal(); });
 
-  // Google login action
-  if(FIREBASE_ENABLED && window._TRIVORA_FIREBASE){
-    btnGoogle.addEventListener('click', async ()=>{
+  // Google login (real if firebase enabled; otherwise prompt simulation)
+  btnGoogle.addEventListener('click', async ()=>{
+    if(FIREBASE_ENABLED && window._TRIVORA_FIREBASE && window._TRIVORA_FIREBASE.signInWithPopup){
       try{
         const provider = new window._TRIVORA_FIREBASE.GoogleAuthProvider();
-        const result = await window._TRIVORA_FIREBASE.signInWithPopup(window._TRIVORA_FIREBASE.auth, provider);
-        const user = result.user;
-        // create session
-        setSession({ type:'user', uid: user.uid, name: user.displayName, email: user.email });
-        UI.toast(`Bem-vindo(a), ${user.displayName}`);
+        const res = await window._TRIVORA_FIREBASE.signInWithPopup(window._TRIVORA_FIREBASE.auth, provider);
+        const u = res.user;
+        setSession({ type:'user', uid: u.uid, name: u.displayName, email: u.email });
+        UI.toast(`Bem-vindo, ${u.displayName}`);
         closeAuthModal();
-      }catch(err){
-        console.error(err);
-        UI.toast('Falha no login Google: ' + (err.message||err));
-      }
-    });
-
-    // observe state
-    window._TRIVORA_FIREBASE.onAuthStateChanged(window._TRIVORA_FIREBASE.auth, (u)=>{
-      if(u){ setSession({ type:'user', uid:u.uid, name:u.displayName, email:u.email }); UI.updateAccountUI(); } else { /* signed out */ }
-    });
-  } else {
-    // Firebase disabled -> Google button does local mock (for demo): opens prompt for name+email
-    btnGoogle.addEventListener('click', ()=>{
-      const name = prompt('Nome (simulação Google):'); if(!name) return;
-      const email = prompt('Email (simulação Google):'); if(!email) return;
-      // create local user if not exists
-      const users = LS.get(LS.usersKey, []);
-      let u = users.find(x=>x.email === email);
-      if(!u){ u = { id:'u'+Date.now(), name, email, status:'active' }; users.push(u); LS.set(LS.usersKey, users); }
-      setSession({ type:'user', uid:u.id, name:u.name, email:u.email });
-      UI.toast('Login simulado efectuado: ' + name);
+      }catch(err){ UI.toast('Erro no login Google: ' + (err.message||err)); }
+    } else {
+      // fallback simulation
+      const name = prompt('Nome (simulação Google login):'); if(!name) return;
+      const email = prompt('Email (simulação):'); if(!email) return;
+      setSession({ type:'user', name, email, uid:'local-'+Date.now() });
+      UI.toast('Login simulado: ' + name);
       closeAuthModal();
-    });
-  }
-
-  /* ==============
-     Checkout flow (require login or guest email)
-     ============== */
-  document.getElementById('btn-checkout').addEventListener('click', ()=>{
-    const sess = getSession();
-    if(!sess){
-      // ask login modal
-      openAuthModal();
-      UI.toast('Faça login ou continue como convidado para finalizar a compra.');
-      return;
     }
-    // if guest without email, open checkout and require email there
-    location.hash = 'checkout';
-    renderCheckoutSummary();
   });
 
-  document.getElementById('checkout-form').addEventListener('submit', (e)=>{
-    e.preventDefault();
-    const form = new FormData(e.target); const data = Object.fromEntries(form.entries());
-    const items = cartAll();
-    if(items.length === 0){ UI.toast('Carrinho vazio'); return; }
-    const sess = getSession();
-    // if guest, ensure email provided
-    if(sess && sess.type === 'guest' && (!data.email || data.email.trim()==='')){ UI.toast('Por favor forneça o seu email para confirmação'); return; }
-    // create order
-    const total = items.reduce((s,i)=>{ const p = PRODUCTS.find(x=>x.id===i.id); return s + ((p?.price||0) * i.qty); },0);
-    const order = {
-      id: 'TRV-' + Date.now(),
-      items,
-      total,
-      customer: { name: data.name, email: data.email, phone: data.phone, address: data.address },
-      status: 'Pago (simulado)',
-      createdAt: new Date().toISOString()
-    };
-    createOrder(order);
-    cartSave([]); renderCartTable(); UI.updateCart();
-    UI.toast('Pedido confirmado (simulado): ' + order.id);
-    // redirect to account/orders
-    setTimeout(()=> { location.hash = 'conta'; renderAccountOrders(order); }, 700);
-  });
-
-  /* ==============
-     Account orders & admin approve UI (local)
-     ============== */
-  function renderAccountOrders(latestOrder){
-    const sess = getSession();
-    const area = document.getElementById('account-area');
-    if(!area) return;
-    if(!sess){ area.innerHTML = '<div class="small muted">Faça login para ver seus pedidos</div>'; return; }
-    const orders = ordersAll().filter(o => (o.customer && (o.customer.email === sess.email)));
-    area.innerHTML = `<div><h3>Olá, ${escapeHtml(sess.name||sess.email)}</h3><div class="small muted">${escapeHtml(sess.email||'')}</div></div>
-      <div style="margin-top:12px">
-        <h4>Seus pedidos</h4>
-        <div id="my-orders">${orders.length ? orders.map(o=>`<div style="border:1px solid #eee;padding:8px;border-radius:8px;margin-bottom:8px">${o.id} — ${new Date(o.createdAt).toLocaleString()} — ${formatKz(o.total)} — ${o.status}</div>`).join('') : '<div class="small muted">Sem pedidos</div>'}</div>
-      </div>`;
-    // logout button added via UI.updateAccountUI
-  }
-
+  /* --------------------
+     ACCOUNT & ORDERS (local)
+     -------------------- */
   function renderAccount(){
-    renderAccountOrders();
+    const area = document.getElementById('account-area');
+    const sess = getSession();
+    if(!area) return;
+    if(!sess){ area.innerHTML = '<div class="muted">Faça login para ver seus pedidos.</div>'; return; }
+    const orders = STORE.get(STORE.ordersKey, []).filter(o=> (o.user && o.user.email) === sess.email || (o.customer && o.customer.email) === sess.email);
+    area.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><h3>${escapeHtml(sess.name||sess.email)}</h3><div class="muted">${escapeHtml(sess.email||'')}</div></div><div><button id="logoutNow" class="btn ghost">Sair</button></div></div>
+      <div style="margin-top:14px"><h4>Pedidos</h4>${orders.length ? orders.map(o=>`<div style="border:1px solid #eee;padding:10px;border-radius:8px;margin-bottom:8px">${o.id} — ${new Date(o.createdAt).toLocaleString()} — ${formatKz(o.total)} — ${o.status}</div>`).join('') : '<div class="muted">Nenhum pedido</div>'}</div>`;
+    document.getElementById('logoutNow').addEventListener('click', ()=>{ clearSession(); UI.toast('Saiu da conta'); location.hash='home'; showRoute(); });
   }
 
-  /* ==============
-     Orders storage
-     ============== */
-  function ordersAll(){ return LS.get(LS.ordersKey, []); }
+  /* --------------------
+     SEARCH & FILTER
+     -------------------- */
+  document.getElementById('btn-search').addEventListener('click', ()=>{
+    const q = document.getElementById('search').value.trim().toLowerCase();
+    if(!q){ location.hash='produtos'; showRoute(); return; }
+    const list = PRODUCTS.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+    document.getElementById('produtos').classList.remove('hidden'); document.getElementById('home').classList.add('hidden');
+    document.getElementById('all-products').innerHTML = list.map(renderProductCard).join('');
+    bindProductActions(document.getElementById('all-products'));
+    location.hash='produtos';
+  });
 
-  /* ==============
-     Routing and page logic
-     ============== */
-  function hideAllSections(){ document.querySelectorAll('main .section').forEach(s=> s.classList.add('hidden')); }
+  document.getElementById('filter').addEventListener('change',(e)=> renderAllProducts(e.target.value));
+
+  /* --------------------
+     ROUTING (hash-based)
+     -------------------- */
   function showRoute(){
     const h = (location.hash || '#home').replace('#','');
-    hideAllSections();
-    if(h === '' || h === 'home'){ document.getElementById('home').classList.remove('hidden'); }
-    else if(h === 'produtos'){ document.getElementById('produtos').classList.remove('hidden'); UI.renderAllProducts && UI.renderAllProducts(); }
-    else if(h === 'carrinho'){ document.getElementById('carrinho').classList.remove('hidden'); renderCartTable(); UI.updateCart(); }
-    else if(h === 'checkout'){ document.getElementById('checkout').classList.remove('hidden'); renderCheckoutSummary(); }
-    else if(h === 'conta'){ document.getElementById('conta').classList.remove('hidden'); renderAccount(); }
+    document.querySelectorAll('main section').forEach(s=> s.classList.add('hidden'));
+    if(h===''||h==='home'){ document.getElementById('home').classList.remove('hidden'); }
+    else if(h==='produtos'){ document.getElementById('produtos').classList.remove('hidden'); renderAllProducts(); }
+    else if(h==='carrinho'){ document.getElementById('carrinho').classList.remove('hidden'); renderCartTable(); UI.updateCart(); }
+    else if(h==='checkout'){ document.getElementById('checkout').classList.remove('hidden'); renderCheckoutSummary(); }
+    else if(h==='conta'){ document.getElementById('conta').classList.remove('hidden'); renderAccount(); }
     else {
-      // category pages
-      const catMap = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',servicos:'Servicos',marketing:'Marketing'};
-      if(catMap[h]){
-        document.getElementById(h).classList.remove('hidden');
-        renderCategoryPage(catMap[h], 'cat-'+h);
-      } else {
-        document.getElementById('home').classList.remove('hidden');
-      }
+      // category pages mapping
+      const map = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',beleza:'Beleza',servicos:'Servicos',marketing:'Marketing'};
+      if(map[h]){ document.getElementById(h).classList.remove('hidden'); renderCategoryPage(map[h], 'cat-'+h); }
+      else document.getElementById('home').classList.remove('hidden');
     }
     // nav highlight
     document.querySelectorAll('.nav a').forEach(a=>{ const href = (a.getAttribute('href')||'').replace('#','') || 'home'; a.classList.toggle('active', href === (location.hash.replace('#','')||'home')); });
   }
-
   window.addEventListener('hashchange', showRoute);
 
-  /* ==============
-     Bind events and init UI
-     ============== */
-  document.getElementById('filter-select').addEventListener('change', (e)=> renderAllProducts(e.target.value));
-  document.getElementById('search-btn').addEventListener('click', ()=>{
-    const q = (document.getElementById('search-input').value||'').trim().toLowerCase();
-    if(!q){ location.hash='produtos'; showRoute(); return; }
-    const list = PRODUCTS.filter(p=> p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
-    document.getElementById('produtos').classList.remove('hidden');
-    document.getElementById('home').classList.add('hidden');
-    document.getElementById('all-products').innerHTML = list.map(renderProductCard).join('');
-    bindProductActions(document.getElementById('all-products'));
-  });
+  /* --------------------
+     RENDER INITIAL
+     -------------------- */
+  function renderSlider(){
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dots = document.getElementById('dots');
+    dots.innerHTML = slides.map((_,i)=> `<div class="dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
+    const dotEls = Array.from(dots.children);
+    let idx=0;
+    const show=(i)=>{ slides.forEach((s,k)=> s.classList.toggle('active',k===i)); dotEls.forEach((d,k)=> d.classList.toggle('active',k===i)); idx=i; };
+    dotEls.forEach(d=> d.addEventListener('click', ()=> show(parseInt(d.dataset.i))));
+    setInterval(()=> show((idx+1)%slides.length),5200);
+  }
 
-  document.getElementById('btn-clear').addEventListener('click', ()=>{ cartSave([]); renderCartTable(); UI.updateCart(); UI.toast('Carrinho limpo'); });
-  document.getElementById('btn-checkout').addEventListener('click', ()=>{
-    const sess = getSession();
-    if(!sess){ openAuthModal(); UI.toast('Faça login ou continue como convidado para finalizar a compra.'); return; }
-    location.hash = 'checkout'; showRoute();
-  });
+  function slug(s){ return s.toLowerCase().replace(/\s+/g,''); }
 
-  // account modal button
-  document.getElementById('btn-account').addEventListener('click', (e)=>{ const sess = getSession(); if(sess){ location.hash='conta'; showRoute(); } else openAuthModal(); });
-
-  // auth modal close on backdrop click
-  document.getElementById('auth-modal').addEventListener('click', (e)=>{ if(e.target === e.currentTarget) closeAuthModal(); });
-
-  // init
-  function init(){
-    // render initial sections
+  function renderInitial(){
     renderSlider();
     renderCategories();
     renderAllProducts('all');
-    renderCartTable();
     UI.updateCart();
     UI.updateAccountUI();
     // set year
     document.getElementById('year').textContent = new Date().getFullYear();
-    // route
-    showRoute();
     // pre-render categories
     ['carros','motos','telefones','eletronicos','masculino','feminino','infantil','servicos','marketing'].forEach(k=>{
-      const catName = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',servicos:'Servicos',marketing:'Marketing'}[k];
-      renderCategoryPage(catName, 'cat-'+k);
+      const map = {carros:'Carros',motos:'Motorizadas',telefones:'Telefones',eletronicos:'Eletronicos',masculino:'Masculino',feminino:'Feminino',infantil:'Infantil',servicos:'Servicos',marketing:'Marketing'};
+      renderCategoryPage(map[k], 'cat-'+k);
     });
+    // routing
+    showRoute();
+    // fade-in observe
+    document.querySelectorAll('.fade-in').forEach(el=>{ setTimeout(()=> el.classList.add('in'), 80); });
   }
 
-  // DOMContentLoaded
-  document.addEventListener('DOMContentLoaded', init);
+  /* --------------------
+     BIND UI for cart nav / checkout buttons
+     -------------------- */
+  document.getElementById('btn-go-checkout').addEventListener('click', ()=>{
+    const sess = getSession();
+    if(!sess){ openAuthModal(); UI.toast('Faça login ou continue como convidado para finalizar.'); return; }
+    location.hash='checkout'; showRoute();
+  });
+  document.getElementById('btn-clear-cart').addEventListener('click', ()=>{ cartClear(); renderCartTable(); UI.updateCart(); UI.toast('Carrinho limpo'); });
+
+  // Quickview modal hide on click outside
+  document.getElementById('quickview-modal').addEventListener('click', (e)=>{ if(e.target===e.currentTarget) e.currentTarget.style.display='none'; });
+
+  // Auth helpers
+  function openAuthModal(){ authModal.style.display='flex'; authModal.setAttribute('aria-hidden','false'); }
+  function closeAuthModal(){ authModal.style.display='none'; authModal.setAttribute('aria-hidden','true'); }
+
+  document.getElementById('btn-close-auth')?.addEventListener('click', closeAuthModal);
+
+  // keyboard escape to close modals
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ document.querySelectorAll('.modal-backdrop').forEach(m=>m.style.display='none'); } });
+
+  // helper: render cart table on demand
+  function renderCartTableOnOpen(){
+    renderCartTable();
+    UI.updateCart();
+  }
+
+  // initial run
+  document.addEventListener('DOMContentLoaded', ()=>{ renderInitial(); });
+
+  // expose debug
+  window.TRIVORA = { PRODUCTS, cartAll, cartAdd, cartRemove, createOrder, STORE, setSession, getSession, clearSession };
+
   </script>
 </body>
 </html>
+
 
 
 
